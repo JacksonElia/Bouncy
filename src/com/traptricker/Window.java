@@ -16,6 +16,6 @@ public class Window extends Canvas {
         jFrame.setLocationRelativeTo(null); // Makes the window start in the middle
         jFrame.add(game);
         jFrame.setVisible(true);
-        game.start();
+        game.startThread();
     }
 }

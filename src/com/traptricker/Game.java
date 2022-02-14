@@ -3,15 +3,20 @@ package com.traptricker;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
+/**
+ * The class used to connect the whole java project
+ * into a game.
+ */
 public class Game extends Canvas implements Runnable {
-
-    // TODO: Find out if we actually need a serialVersionUID
 
     private Thread thread;
     private Boolean running = false;
 
+    private final Handler handler = new Handler();
+
     public Game() {
         new Window(this);
+        handler.addObject(new Player(100, 100, ID.Player));
     }
 
     public static void main(String[] args) {
@@ -33,6 +38,10 @@ public class Game extends Canvas implements Runnable {
         }
     }
 
+    /**
+     * This is a commonly-used game loop in Java. It is
+     * continuously updating and rendering the game.
+     */
     @Override
     public void run() {
         // Standard Java game loop
@@ -46,10 +55,12 @@ public class Game extends Canvas implements Runnable {
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
             lastTime = now;
+            // The game is being updated amountOfTicks (60) times per second
             while (delta >= 1) {
                 tick();
                 delta--;
             }
+            // The game is being rendered as much as possible
             if (running) {
                 render();
             }
@@ -64,7 +75,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void tick() {
-
+        handler.tick();
     }
 
     private void render() {
@@ -76,8 +87,11 @@ public class Game extends Canvas implements Runnable {
 
         Graphics g = bs.getDrawGraphics();
 
+        // Covering the window with a black box
         g.setColor(Color.black);
         g.fillRect(0, 0, 800, 800);
+
+        handler.render(g);
 
         g.dispose();
         bs.show();

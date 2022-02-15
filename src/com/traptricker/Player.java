@@ -8,8 +8,8 @@ import java.awt.*;
  */
 public class Player extends GameObject {
 
-    private final int xVelocity = 2;
-    private final int yVelocity = 1;
+    private int xVelocity = 2;
+    private int yVelocity = 1;
 
     /**
      * Set initial properties the object
@@ -18,6 +18,14 @@ public class Player extends GameObject {
         super(x, y, id);
         // e.g.
         setX(x + 300);
+    }
+
+    public void setXVelocity(int xVelocity) {
+        this.xVelocity = xVelocity;
+    }
+
+    public void setYVelocity(int yVelocity) {
+        this.yVelocity = yVelocity;
     }
 
     @Override

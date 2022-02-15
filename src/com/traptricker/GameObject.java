@@ -9,12 +9,14 @@ import java.awt.*;
  */
 public abstract class GameObject {
 
-    protected int x, y;
+    protected int x, y, xVelocity, yVelocity;
     protected ID id;
 
-    public GameObject(int x, int y, ID id) {
+    public GameObject(int x, int y, int xVelocity, int yVelocity, ID id) {
         this.x = x;
         this.y = y;
+        this.xVelocity = xVelocity;
+        this.yVelocity = yVelocity;
         this.id = id;
     }
 
@@ -32,6 +34,14 @@ public abstract class GameObject {
         this.y = y;
     }
 
+    public void setXVelocity(int xVelocity) {
+        this.xVelocity = xVelocity;
+    }
+
+    public void setYVelocity(int yVelocity) {
+        this.yVelocity = yVelocity;
+    }
+
     public void setId(ID id) {
         this.id = id;
     }
@@ -42,6 +52,14 @@ public abstract class GameObject {
 
     public int getY() {
         return y;
+    }
+
+    public int getXVelocity() {
+        return xVelocity;
+    }
+
+    public int getYVelocity() {
+        return yVelocity;
     }
 
     public ID getId() {

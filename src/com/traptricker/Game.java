@@ -15,7 +15,11 @@ public class Game extends Canvas implements Runnable {
     private final Handler handler = new Handler();
 
     public Game() {
+        // Tells the program to listen for key inputs
+        this.addKeyListener(new KeyInput(handler));
+        // Makes the window
         new Window(this);
+        // Adds a player object to the game
         handler.addObject(new Player(100, 100, ID.Player));
     }
 
@@ -67,7 +71,6 @@ public class Game extends Canvas implements Runnable {
             frames++;
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
-                System.out.println("FPS: " + frames);
                 frames = 0;
             }
         }

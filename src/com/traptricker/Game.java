@@ -9,6 +9,9 @@ import java.awt.image.BufferStrategy;
  */
 public class Game extends Canvas implements Runnable {
 
+    public static int height = 800;
+    public static int width = 1000;
+
     private Thread thread;
     private Boolean running = false;
 
@@ -18,9 +21,10 @@ public class Game extends Canvas implements Runnable {
         // Tells the program to listen for key inputs
         this.addKeyListener(new KeyInput(handler));
         // Makes the window
-        new Window(this);
+        new Window(this, height, width);
         // Adds a player object to the game
         handler.addObject(new Player(100, 100, ID.Player));
+        handler.addObject(new SmallEnemy(100, 100, 5, 5, ID.SmallEnemy));
     }
 
     public static void main(String[] args) {
@@ -92,7 +96,7 @@ public class Game extends Canvas implements Runnable {
 
         // Covering the window with a black box
         g.setColor(Color.black);
-        g.fillRect(0, 0, 800, 800);
+        g.fillRect(0, 0, width, height);
 
         handler.render(g);
 

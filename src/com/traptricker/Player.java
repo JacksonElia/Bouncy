@@ -19,17 +19,17 @@ public class Player extends GameObject {
     public void tick() {
         x += xVelocity;
         y += yVelocity;
+
+        if (x <= 0) x = 0;
+        if (x >= Game.width - 70) x = Game.width - 70;
+        if (y <= 0) y = 0;
+        if (y >= Game.height - 96) y = Game.height - 96;
     }
 
     @Override
     public void render(Graphics g) {
-        // Makes a stupid looking player
         g.setColor(Color.white);
-        g.fillRect(x, y, 32, 32);
-        g.fillRect(x + 12, y, 8, 96);
-        g.fillRect(x + 4,y + 88, 8, 32);
-        g.fillRect(x + 20, y + 88, 8, 32);
-        g.fillRect(x, y + 56, 32, 8);
+        g.fillOval(x, y, 48, 48);
     }
 
 }

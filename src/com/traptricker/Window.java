@@ -2,6 +2,7 @@ package com.traptricker;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Window extends Canvas {
 
@@ -18,6 +19,17 @@ public class Window extends Canvas {
         jFrame.setLocationRelativeTo(null); // Makes the window start in the middle
         jFrame.add(game);
         jFrame.setVisible(true);
+
+        // Transparent 16 x 16 pixel cursor image.
+        BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+
+        // Create a new blank cursor.
+        Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
+                cursorImg, new Point(0, 0), "blank cursor");
+
+        // Set the blank cursor to the JFrame.
+        jFrame.getContentPane().setCursor(blankCursor);
+
         game.startThread();
     }
 

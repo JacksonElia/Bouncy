@@ -5,8 +5,10 @@ import java.awt.*;
 
 public class Window extends Canvas {
 
+    public JFrame jFrame;
+
     public Window(Game game, int height, int width) {
-        JFrame jFrame = new JFrame("Bouncy");
+        jFrame = new JFrame("Bouncy");
 
         jFrame.setPreferredSize(new Dimension(width, height));
         jFrame.setMaximumSize(new Dimension(width, height));
@@ -18,4 +20,5 @@ public class Window extends Canvas {
         jFrame.setVisible(true);
         game.startThread();
     }
+
 }

@@ -3,14 +3,11 @@ package com.traptricker;
 import java.awt.*;
 
 /**
- * This is an example of a game object, it inherits
+ * This is the class for the player object, it inherits
  * from the GameObject class.
  */
 public class Player extends GameObject {
 
-    /**
-     * Set initial properties the object
-     */
     public Player(int x, int y, ID id) {
         super(x, y, 0, 0, id);
     }
@@ -20,6 +17,7 @@ public class Player extends GameObject {
         x += xVelocity;
         y += yVelocity;
 
+        // Keeps the player on screen
         if (x <= 0) x = 0;
         if (x >= Game.width - 70) x = Game.width - 70;
         if (y <= 0) y = 0;

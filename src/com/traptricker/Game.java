@@ -2,6 +2,7 @@ package com.traptricker;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.Arrays;
 
 /**
  * The class used to connect the whole java project
@@ -11,6 +12,7 @@ public class Game extends Canvas implements Runnable {
 
     public static int height = 800;
     public static int width = 1000;
+    public Window window;
 
     private Thread thread;
     private Boolean running = false;
@@ -18,10 +20,13 @@ public class Game extends Canvas implements Runnable {
     private final Handler handler = new Handler();
 
     public Game() {
-        // Tells the program to listen for key inputs
+        // Tells the program to listen for key and mouse inputs
         this.addKeyListener(new KeyInput(handler));
+        MouseInput mouseInput = new MouseInput(handler, window);
+        this.addMouseListener(mouseInput);
+        this.addMouseMotionListener(mouseInput);
         // Makes the window
-        new Window(this, height, width);
+        window = new Window(this, height, width);
         // Adds a player object to the game
         handler.addObject(new Player(100, 100, ID.Player));
         handler.addObject(new SmallEnemy(100, 100, 5, 5, ID.SmallEnemy));
@@ -54,12 +59,13 @@ public class Game extends Canvas implements Runnable {
     public void run() {
         // Standard Java game loop
         long lastTime = System.nanoTime();
-        double amountOfTicks = 60.0;
+        double amountOfTicks = 100.0;
         double ns = 1000000000 / amountOfTicks;
         double delta = 0;
         long timer = System.currentTimeMillis();
         int frames = 0;
         while (running) {
+//            System.out.println(Arrays.toString(window.getCursorLocation()));
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
             lastTime = now;

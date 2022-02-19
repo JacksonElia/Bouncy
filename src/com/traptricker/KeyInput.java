@@ -37,7 +37,7 @@ public class KeyInput extends KeyAdapter {
     public void keyReleased(KeyEvent e) {
         super.keyReleased(e);
         int key = e.getKeyCode();
-        // Example for how to use input to move the player
+        // Moves the player with wasd
         for (GameObject object : handler.objects) {
             if (object.getId() == ID.Player) {
                 if (key == KeyEvent.VK_W && object.getYVelocity() == -5) object.setYVelocity(0);

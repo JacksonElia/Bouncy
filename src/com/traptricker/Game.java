@@ -1,8 +1,13 @@
 package com.traptricker;
 
+import com.traptricker.inputs.KeyInput;
+import com.traptricker.inputs.MouseInput;
+import com.traptricker.objects.ID;
+import com.traptricker.objects.Player;
+import com.traptricker.objects.SmallEnemy;
+
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.util.Arrays;
 
 /**
  * The class used to connect the whole java project

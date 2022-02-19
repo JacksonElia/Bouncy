@@ -1,5 +1,7 @@
 package com.traptricker;
 
+import com.traptricker.objects.GameObject;
+
 import java.awt.*;
 import java.util.LinkedList;
 
@@ -10,7 +12,7 @@ import java.util.LinkedList;
 public class Handler {
 
     // Stores all the game objects that we have
-    LinkedList<GameObject> objects = new LinkedList<>();
+    public LinkedList<GameObject> objects = new LinkedList<>();
 
     // Updates all the game objects
     public void tick() {

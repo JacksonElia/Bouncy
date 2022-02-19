@@ -1,4 +1,9 @@
-package com.traptricker;
+package com.traptricker.inputs;
+
+import com.traptricker.Handler;
+import com.traptricker.Window;
+import com.traptricker.objects.GameObject;
+import com.traptricker.objects.ID;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -43,7 +48,8 @@ public class MouseInput implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
+        // Keeps the player moving while dragging
+        mouseMoved(e);
     }
 
     @Override

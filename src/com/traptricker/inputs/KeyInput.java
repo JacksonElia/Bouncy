@@ -1,4 +1,6 @@
-package com.traptricker;
+package com.traptricker.inputs;
+
+import com.traptricker.Handler;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -30,4 +32,5 @@ public class KeyInput extends KeyAdapter {
         super.keyReleased(e);
         int key = e.getKeyCode();
     }
+
 }

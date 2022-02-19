@@ -1,4 +1,4 @@
-package com.traptricker;
+package com.traptricker.objects;
 
 /**
  * This enum holds the IDs for all the game objects,

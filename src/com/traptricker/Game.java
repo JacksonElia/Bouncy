@@ -12,6 +12,7 @@ public class Game extends Canvas implements Runnable {
 
     public static int height = 800;
     public static int width = 1000;
+
     public Window window;
 
     private Thread thread;

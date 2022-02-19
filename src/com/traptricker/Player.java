@@ -13,15 +13,23 @@ public class Player extends GameObject {
     }
 
     @Override
-    public void tick() {
-        x += xVelocity;
-        y += yVelocity;
-
+    public void setX(int x) {
+        super.setX(x);
         // Keeps the player on screen
-        if (x <= 0) x = 0;
-        if (x >= Game.width - 70) x = Game.width - 70;
-        if (y <= 0) y = 0;
-        if (y >= Game.height - 96) y = Game.height - 96;
+        if (x <= 0) this.x = 0;
+        if (x >= Game.width - 70) this.x = Game.width - 70;
+    }
+
+    @Override
+    public void setY(int y) {
+        super.setY(y);
+        // Keeps the player on screen
+        if (y <= 0) this.y = 0;
+        if (y >= Game.height - 96) this.y = Game.height - 96;
+    }
+
+    @Override
+    public void tick() {
     }
 
     @Override

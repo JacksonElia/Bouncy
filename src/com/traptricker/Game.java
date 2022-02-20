@@ -8,6 +8,7 @@ import com.traptricker.objects.SmallEnemy;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 /**
  * The class used to connect the whole java project
@@ -18,8 +19,9 @@ public class Game extends Canvas implements Runnable {
     public static int height = 800;
     public static int width = 1000;
 
-    public Window window;
-
+    private Window window;
+    private HUD hud;
+    private Random random;
     private Thread thread;
     private Boolean running = false;
 
@@ -31,11 +33,19 @@ public class Game extends Canvas implements Runnable {
         MouseInput mouseInput = new MouseInput(handler, window);
         this.addMouseListener(mouseInput);
         this.addMouseMotionListener(mouseInput);
-        // Makes the window
+
         window = new Window(this, height, width);
+        hud = new HUD();
+        this.random = new Random();
+
         // Adds a player object to the game
-        handler.addObject(new Player(100, 100, ID.Player));
-        handler.addObject(new SmallEnemy(100, 100, 5, 5, ID.SmallEnemy));
+        handler.addObject(new Player(height / 2, width / 2, ID.Player, handler));
+
+        // Adds 10 enemies to the game
+        for (int i = 0; i < 20; i++) {
+            handler.addObject(new SmallEnemy(random.nextInt(width), random.nextInt(height),
+                    random.nextInt(10) - 5, random.nextInt(10) - 5, ID.SmallEnemy));
+        }
     }
 
     public static void main(String[] args) {
@@ -63,6 +73,7 @@ public class Game extends Canvas implements Runnable {
      */
     @Override
     public void run() {
+        this.requestFocus();
         // Standard Java game loop
         long lastTime = System.nanoTime();
         double amountOfTicks = 100.0;
@@ -95,6 +106,7 @@ public class Game extends Canvas implements Runnable {
 
     private void tick() {
         handler.tick();
+        hud.tick();
     }
 
     private void render() {
@@ -110,7 +122,9 @@ public class Game extends Canvas implements Runnable {
         g.setColor(Color.black);
         g.fillRect(0, 0, width, height);
 
+        // Where the rendering happens
         handler.render(g);
+        hud.render(g);
 
         g.dispose();
         bs.show();

@@ -1,6 +1,8 @@
 package com.traptricker.objects;
 
 import com.traptricker.Game;
+import com.traptricker.HUD;
+import com.traptricker.Handler;
 
 import java.awt.*;
 
@@ -10,8 +12,13 @@ import java.awt.*;
  */
 public class Player extends GameObject {
 
-    public Player(int x, int y, ID id) {
+    public static int radius = 24;
+
+    private Handler handler;
+
+    public Player(int x, int y, ID id, Handler handler) {
         super(x, y, 0, 0, id);
+        this.handler = handler;
     }
 
     @Override
@@ -32,12 +39,22 @@ public class Player extends GameObject {
 
     @Override
     public void tick() {
+        // Collision
+        for (GameObject object : handler.objects) {
+            if (object.getId() == ID.SmallEnemy) {
+                if (((this.getX() - object.getX()) * (this.getX() - object.getX()) +
+                        (this.getY() - object.getY()) * (this.getY() - object.getY()))
+                        <= ((radius + 8) * (radius + 8))) {
+                    HUD.health -= 1;
+                }
+            }
+        }
     }
 
     @Override
     public void render(Graphics g) {
         g.setColor(Color.white);
-        g.fillOval(x, y, 48, 48);
+        g.fillOval(x, y, radius * 2, radius * 2);
     }
 
 }

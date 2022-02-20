@@ -4,11 +4,10 @@ import com.traptricker.inputs.KeyInput;
 import com.traptricker.inputs.MouseInput;
 import com.traptricker.objects.ID;
 import com.traptricker.objects.Player;
-import com.traptricker.objects.SmallEnemy;
+import com.traptricker.objects.Spawner;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.util.Random;
 
 /**
  * The class used to connect the whole java project
@@ -19,33 +18,29 @@ public class Game extends Canvas implements Runnable {
     public static int height = 800;
     public static int width = 1000;
 
-    private Window window;
+    private Handler handler;
     private HUD hud;
-    private Random random;
-    private Thread thread;
-    private Boolean running = false;
+    private Spawner spawner;
+    private Window window;
 
-    private final Handler handler = new Handler();
+    private Boolean running = false;
+    private Thread thread;
+
 
     public Game() {
+        handler = new Handler();
+        hud = new HUD();
+        spawner = new Spawner(handler, hud);
+        window = new Window(this, height, width);
+
         // Tells the program to listen for key and mouse inputs
         this.addKeyListener(new KeyInput(handler));
         MouseInput mouseInput = new MouseInput(handler, window);
         this.addMouseListener(mouseInput);
         this.addMouseMotionListener(mouseInput);
 
-        window = new Window(this, height, width);
-        hud = new HUD();
-        this.random = new Random();
-
         // Adds a player object to the game
-        handler.addObject(new Player(height / 2, width / 2, ID.Player, handler));
-
-        // Adds 10 enemies to the game
-        for (int i = 0; i < 20; i++) {
-            handler.addObject(new SmallEnemy(random.nextInt(width), random.nextInt(height),
-                    random.nextInt(10) - 5, random.nextInt(10) - 5, ID.SmallEnemy));
-        }
+        handler.addObject(new Player(height / 2, width / 2, ID.Player, handler, hud));
     }
 
     public static void main(String[] args) {
@@ -107,6 +102,7 @@ public class Game extends Canvas implements Runnable {
     private void tick() {
         handler.tick();
         hud.tick();
+        spawner.tick();
     }
 
     private void render() {

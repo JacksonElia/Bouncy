@@ -15,10 +15,12 @@ public class Player extends GameObject {
     public static int radius = 24;
 
     private Handler handler;
+    private HUD hud;
 
-    public Player(int x, int y, ID id, Handler handler) {
+    public Player(int x, int y, ID id, Handler handler, HUD hud) {
         super(x, y, 0, 0, id);
         this.handler = handler;
+        this.hud = hud;
     }
 
     @Override
@@ -45,7 +47,7 @@ public class Player extends GameObject {
                 if (((this.getX() - object.getX()) * (this.getX() - object.getX()) +
                         (this.getY() - object.getY()) * (this.getY() - object.getY()))
                         <= ((radius + 8) * (radius + 8))) {
-                    HUD.health -= 1;
+                    hud.setHealth(hud.getHealth() - 1);
                 }
             }
         }

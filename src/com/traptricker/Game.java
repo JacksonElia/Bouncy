@@ -5,6 +5,8 @@ import com.traptricker.inputs.MouseInput;
 import com.traptricker.objects.ID;
 import com.traptricker.objects.Player;
 import com.traptricker.objects.Spawner;
+import com.traptricker.userinterface.HUD;
+import com.traptricker.userinterface.Window;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -21,7 +23,7 @@ public class Game extends Canvas implements Runnable {
     private Handler handler;
     private HUD hud;
     private Spawner spawner;
-    private Window window;
+    private com.traptricker.userinterface.Window window;
 
     private Boolean running = false;
     private Thread thread;

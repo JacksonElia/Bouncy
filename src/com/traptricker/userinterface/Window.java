@@ -1,4 +1,6 @@
-package com.traptricker;
+package com.traptricker.userinterface;
+
+import com.traptricker.Game;
 
 import javax.swing.*;
 import java.awt.*;

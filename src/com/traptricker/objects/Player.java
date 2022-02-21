@@ -1,7 +1,7 @@
 package com.traptricker.objects;
 
 import com.traptricker.Game;
-import com.traptricker.HUD;
+import com.traptricker.userinterface.HUD;
 import com.traptricker.Handler;
 
 import java.awt.*;

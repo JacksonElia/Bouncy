@@ -1,7 +1,7 @@
 package com.traptricker.inputs;
 
 import com.traptricker.Handler;
-import com.traptricker.Window;
+import com.traptricker.userinterface.Window;
 import com.traptricker.objects.GameObject;
 import com.traptricker.objects.ID;
 

@@ -1,4 +1,4 @@
-package com.traptricker;
+package com.traptricker.userinterface;
 
 import java.awt.*;
 

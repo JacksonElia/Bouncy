@@ -46,10 +46,14 @@ public class Player extends GameObject {
             if (((this.getX() - object.getX()) * (this.getX() - object.getX()) +
                     (this.getY() - object.getY()) * (this.getY() - object.getY()))
                     <= ((radius + 8) * (radius + 8))) {
-                if (object.getId() == ID.SmallEnemy) {
+                if (object.getId() == ID.BasicEnemy) {
                     hud.setHealth(hud.getHealth() - 10);
                     handler.objectsToRemove.add(object);
+                } else if (object.getId() == ID.StreakEnemy) {
+                    hud.setHealth(hud.getHealth() - 30);
+                    handler.objectsToRemove.add(object);
                 }
+
             }
         }
     }

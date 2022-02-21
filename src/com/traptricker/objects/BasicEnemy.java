@@ -4,10 +4,10 @@ import com.traptricker.Game;
 
 import java.awt.*;
 
-public class SmallEnemy extends GameObject {
+public class BasicEnemy extends GameObject {
 
 
-    public SmallEnemy(int x, int y, int xVelocity, int yVelocity, ID id) {
+    public BasicEnemy(int x, int y, int xVelocity, int yVelocity, ID id) {
         super(x, y, xVelocity, yVelocity, id);
     }
 

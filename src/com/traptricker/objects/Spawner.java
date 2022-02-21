@@ -16,8 +16,6 @@ public class Spawner {
     private HUD hud;
     private Random random;
 
-    private int scoreKeep = 0;
-
     public Spawner(Handler handler, HUD hud) {
         this.handler = handler;
         this.hud = hud;
@@ -25,12 +23,52 @@ public class Spawner {
     }
 
     public void tick() {
-        scoreKeep++;
 
-        if (scoreKeep >= 100) {
-            scoreKeep = 0;
-            handler.addObject(new SmallEnemy(random.nextInt(Game.width), random.nextInt(Game.height),
-                    random.nextInt(10) - 5, random.nextInt(10) - 5, ID.SmallEnemy));
-        }
+        if (hud.getScore() % 100 == 0) spawnBasicEnemy();
+
+        if (hud.getScore() % 200 == 0) spawnStreakEnemy();
+
     }
+
+    public void spawnBasicEnemy() {
+        handler.addObject(new BasicEnemy(random.nextInt(Game.width), random.nextInt(Game.height),
+                random.nextInt(10) - 5, random.nextInt(10) - 5, ID.BasicEnemy));
+    }
+
+    public void spawnStreakEnemy() {
+        // Gets a random start_side
+        StreakEnemy.START_SIDE start_side = StreakEnemy.START_SIDE.values()[random.nextInt(StreakEnemy.START_SIDE.values().length)];
+        int x, y, xVelocity, yVelocity = 0;
+        switch (start_side) {
+            case up:
+                x = random.nextInt(Game.width - (Game.width / 6)) - (Game.width / 6);
+                y = -10;
+                xVelocity = random.nextInt(10) - 5;
+                yVelocity = 10;
+                break;
+            case right:
+                x = Game.width + 10;
+                y = random.nextInt(Game.height - (Game.height / 6)) - (Game.height / 6);
+                xVelocity = -10;
+                yVelocity = random.nextInt(10) - 5;
+                break;
+            case down:
+                x = random.nextInt(Game.width - (Game.width / 6)) - (Game.width / 6);
+                y = Game.height + 10;
+                xVelocity = random.nextInt(10) - 5;
+                yVelocity = -10;
+                break;
+            case left:
+                x = -10;
+                y = random.nextInt(Game.height - (Game.height / 6)) - (Game.height / 6);
+                xVelocity = 10;
+                yVelocity = random.nextInt(10) - 5;
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + start_side);
+        }
+        handler.addObject(new StreakEnemy(x, y,
+                xVelocity, yVelocity, ID.StreakEnemy, handler, start_side));
+    }
+
 }

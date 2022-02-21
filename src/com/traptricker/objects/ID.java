@@ -7,6 +7,7 @@ package com.traptricker.objects;
 public enum ID {
 
     Player(),
-    SmallEnemy()
+    BasicEnemy(),
+    StreakEnemy()
 
 }

@@ -14,8 +14,12 @@ public class Handler {
     // Stores all the game objects that we have
     public LinkedList<GameObject> objects = new LinkedList<>();
 
+    public LinkedList<GameObject> objectsToRemove = new LinkedList<>();
+
     // Updates all the game objects
     public void tick() {
+        // Safely removes objects
+        removeObjects();
         // This for loop iterates through all the game objects
         for (GameObject object : objects) {
             object.tick();
@@ -33,8 +37,10 @@ public class Handler {
         this.objects.add(object);
     }
 
-    public void removeObject(GameObject object) {
-        this.objects.remove(object);
+    public void removeObjects() {
+        for (GameObject object : objectsToRemove) {
+            this.objects.remove(object);
+        }
     }
 
 }

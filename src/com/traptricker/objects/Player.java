@@ -43,11 +43,12 @@ public class Player extends GameObject {
     public void tick() {
         // Collision
         for (GameObject object : handler.objects) {
-            if (object.getId() == ID.SmallEnemy) {
-                if (((this.getX() - object.getX()) * (this.getX() - object.getX()) +
-                        (this.getY() - object.getY()) * (this.getY() - object.getY()))
-                        <= ((radius + 8) * (radius + 8))) {
-                    hud.setHealth(hud.getHealth() - 1);
+            if (((this.getX() - object.getX()) * (this.getX() - object.getX()) +
+                    (this.getY() - object.getY()) * (this.getY() - object.getY()))
+                    <= ((radius + 8) * (radius + 8))) {
+                if (object.getId() == ID.SmallEnemy) {
+                    hud.setHealth(hud.getHealth() - 10);
+                    handler.objectsToRemove.add(object);
                 }
             }
         }

@@ -42,7 +42,7 @@ public class Game extends Canvas implements Runnable {
         this.addMouseMotionListener(mouseInput);
 
         // Adds a player object to the game
-        handler.addObject(new Player(height / 2, width / 2, ID.Player, handler, hud));
+        handler.addObject(new Player(height / 2, width / 2, 24, ID.Player, handler, hud));
     }
 
     public static void main(String[] args) {

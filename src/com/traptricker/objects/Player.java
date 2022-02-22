@@ -12,13 +12,11 @@ import java.awt.*;
  */
 public class Player extends GameObject {
 
-    public static int radius = 24;
-
     private Handler handler;
     private HUD hud;
 
-    public Player(int x, int y, ID id, Handler handler, HUD hud) {
-        super(x, y, 0, 0, id);
+    public Player(int x, int y, int radius, ID id, Handler handler, HUD hud) {
+        super(x, y, 0, 0, radius, id);
         this.handler = handler;
         this.hud = hud;
     }
@@ -43,17 +41,19 @@ public class Player extends GameObject {
     public void tick() {
         // Collision
         for (GameObject object : handler.objects) {
-            if (((this.getX() - object.getX()) * (this.getX() - object.getX()) +
-                    (this.getY() - object.getY()) * (this.getY() - object.getY()))
-                    <= ((radius + 8) * (radius + 8))) {
-                if (object.getId() == ID.BasicEnemy) {
-                    hud.setHealth(hud.getHealth() - 10);
+            // Uses circular collision
+            if (((x + radius - object.getX() - object.getRadius()) * (x + radius - object.getX() - object.getRadius()) +
+                    ((y + radius - object.getY() - object.getRadius()) * (y + radius - object.getY() - object.getRadius()))
+                    <= ((radius + object.getRadius()) * (radius + object.getRadius())))) {
+                if (object.getID() == ID.BasicEnemy) {
+                    hud.setHealth(hud.getHealth() - 100);
                     handler.objectsToRemove.add(object);
-                } else if (object.getId() == ID.StreakEnemy) {
-                    hud.setHealth(hud.getHealth() - 30);
+                } else if (object.getID() == ID.StreakEnemy) {
+                    hud.setHealth(hud.getHealth() - 300);
                     handler.objectsToRemove.add(object);
+                } else if (object.getID() == ID.HomingEnemy) {
+                    hud.setHealth(hud.getHealth() - 2);
                 }
-
             }
         }
     }

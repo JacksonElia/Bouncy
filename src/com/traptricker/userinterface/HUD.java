@@ -8,8 +8,8 @@ import java.awt.*;
  */
 public class HUD {
 
-    public int health = 100;
-    public int score = 0;
+    public int health = 1000;
+    public int score = 1;
     public int level = 1;
 
     public void tick() {
@@ -23,7 +23,7 @@ public class HUD {
         g.setColor(Color.darkGray);
         g.fillRect(20, 20, 300, 40);
         g.setColor(Color.red);
-        g.fillRect(24, 24, 292 * health / 100, 32);
+        g.fillRect(24, 24, 292 * health / 1000, 32);
         g.setColor(Color.white);
         g.drawString(String.format("Score: %d", score), 20, 80);
         g.drawString(String.format("Level: %d", level), 20, 95);

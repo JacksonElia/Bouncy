@@ -1,14 +1,10 @@
 package com.traptricker.objects;
 
 /**
- * This enum holds the IDs for all the game objects,
- * e.g. Player, Enemy, Coin etc.
+ * This enum holds the IDs for all the game objects, e.g. Player, Enemy, Coin etc.
  */
 public enum ID {
 
-    Player(),
-    BasicEnemy(),
-    StreakEnemy(),
-    HomingEnemy()
+  Player(), BasicEnemy(), StreakEnemy(), HomingEnemy()
 
 }

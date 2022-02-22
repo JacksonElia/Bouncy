@@ -24,16 +24,16 @@ public class Spawner {
 
     public void tick() {
 
-        if (hud.getScore() % 100 == 0) spawnBasicEnemy();
+        if (hud.getScore() % 200 == 0) spawnBasicEnemy();
 
-        if (hud.getScore() % 200 == 0) spawnStreakEnemy();
+        if (hud.getScore() % 300 == 0) spawnStreakEnemy();
 
-        if (hud.getScore() % 500 == 0) spawnHomingEnemy();
+        if (hud.getScore() % 1000 == 0) spawnHomingEnemy();
 
     }
 
     public void spawnBasicEnemy() {
-        handler.addObject(new BasicEnemy(random.nextInt(Game.width), random.nextInt(Game.height),
+        handler.addObject(new BasicEnemy(random.nextInt(Game.width - 32), random.nextInt(Game.height - 64),
                 random.nextInt(10) - 5, random.nextInt(10) - 5, 8, ID.BasicEnemy));
     }
 

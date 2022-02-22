@@ -13,10 +13,9 @@ public class BasicEnemy extends GameObject {
 
     @Override
     public void tick() {
-        // TODO: Refine this
         // Keeps the enemy on screen
-        if (y <= 0 || y >= Game.height - 64) yVelocity *= -1;
         if (x <= 0 || x >= Game.width - 32) xVelocity *= -1;
+        if (y <= 0 || y >= Game.height - 64) yVelocity *= -1;
 
         x += xVelocity;
         y += yVelocity;

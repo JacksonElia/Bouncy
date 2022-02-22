@@ -18,8 +18,8 @@ public class StreakEnemy extends GameObject {
         left()
     }
 
-    public StreakEnemy(int x, int y, int xVelocity, int yVelocity, ID id, Handler handler, START_SIDE start_side) {
-        super(x, y, xVelocity, yVelocity, id);
+    public StreakEnemy(int x, int y, int xVelocity, int yVelocity, int radius, ID id, Handler handler, START_SIDE start_side) {
+        super(x, y, xVelocity, yVelocity, radius, id);
         this.handler = handler;
         this.start_side = start_side;
     }
@@ -45,6 +45,6 @@ public class StreakEnemy extends GameObject {
     @Override
     public void render(Graphics g) {
         g.setColor(Color.orange);
-        g.fillRect(x, y, 10, 10);
+        g.fillRect(x, y, radius * 2, radius * 2);
     }
 }

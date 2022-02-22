@@ -28,11 +28,13 @@ public class Spawner {
 
         if (hud.getScore() % 200 == 0) spawnStreakEnemy();
 
+        if (hud.getScore() % 500 == 0) spawnHomingEnemy();
+
     }
 
     public void spawnBasicEnemy() {
         handler.addObject(new BasicEnemy(random.nextInt(Game.width), random.nextInt(Game.height),
-                random.nextInt(10) - 5, random.nextInt(10) - 5, ID.BasicEnemy));
+                random.nextInt(10) - 5, random.nextInt(10) - 5, 8, ID.BasicEnemy));
     }
 
     public void spawnStreakEnemy() {
@@ -68,7 +70,16 @@ public class Spawner {
                 throw new IllegalStateException("Unexpected value: " + start_side);
         }
         handler.addObject(new StreakEnemy(x, y,
-                xVelocity, yVelocity, ID.StreakEnemy, handler, start_side));
+                xVelocity, yVelocity, 5, ID.StreakEnemy, handler, start_side));
+    }
+
+    public void spawnHomingEnemy() {
+        Player player = null;
+        for (GameObject object : handler.objects) {
+            if (object.getID() == ID.Player) player = (Player) object;
+        }
+        handler.addObject(new HomingEnemy(random.nextInt(Game.width), random.nextInt(Game.height),
+                1, 1, 12, ID.HomingEnemy, player));
     }
 
 }

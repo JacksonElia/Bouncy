@@ -8,6 +8,7 @@ public enum ID {
 
     Player(),
     BasicEnemy(),
-    StreakEnemy()
+    StreakEnemy(),
+    HomingEnemy()
 
 }

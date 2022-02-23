@@ -13,11 +13,9 @@ public class MouseInput implements MouseListener, MouseMotionListener {
   public boolean mouseOnWindow = false;
 
   private final Handler handler;
-  private final Window window;
 
-  public MouseInput(Handler handler, Window window) {
+  public MouseInput(Handler handler) {
     this.handler = handler;
-    this.window = window;
   }
 
   @Override

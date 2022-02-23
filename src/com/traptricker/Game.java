@@ -6,6 +6,8 @@ import com.traptricker.objects.ID;
 import com.traptricker.objects.Player;
 import com.traptricker.objects.Spawner;
 import com.traptricker.userinterface.HUD;
+import com.traptricker.userinterface.INTERFACE_STATE;
+import com.traptricker.userinterface.TitleScreen;
 import com.traptricker.userinterface.Window;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -20,9 +22,12 @@ public class Game extends Canvas implements Runnable {
   public static int height = 800;
   public static int width = 1000;
 
+  public INTERFACE_STATE interface_state;
+
   private final Handler handler;
   private final HUD hud;
   private final Spawner spawner;
+  private final TitleScreen titleScreen;
 
   private Boolean running = false;
   private Thread thread;
@@ -31,16 +36,22 @@ public class Game extends Canvas implements Runnable {
     handler = new Handler();
     hud = new HUD();
     spawner = new Spawner(handler, hud);
-    Window window = new Window(this, height, width);
+    titleScreen = new TitleScreen();
+
+    new Window(this, height, width);
+
+    interface_state = INTERFACE_STATE.TitleScreen;
 
     // Tells the program to listen for key and mouse inputs
     this.addKeyListener(new KeyInput(handler));
-    MouseInput mouseInput = new MouseInput(handler, window);
+    MouseInput mouseInput = new MouseInput(handler);
     this.addMouseListener(mouseInput);
     this.addMouseMotionListener(mouseInput);
 
-    // Adds a player object to the game
-    handler.addObject(new Player(height / 2, width / 2, 24, ID.Player, handler, hud));
+    if (interface_state == INTERFACE_STATE.Game) {
+      // Adds a player object to the game
+      handler.addObject(new Player(height / 2, width / 2, 24, ID.Player, handler, hud));
+    }
   }
 
   public static void main(String[] args) {
@@ -99,8 +110,12 @@ public class Game extends Canvas implements Runnable {
 
   private void tick() {
     handler.tick();
-    hud.tick();
-    spawner.tick();
+    if (interface_state == INTERFACE_STATE.Game) {
+      hud.tick();
+      spawner.tick();
+    } else if (interface_state == INTERFACE_STATE.TitleScreen) {
+      titleScreen.tick();
+    }
   }
 
   private void render() {
@@ -118,7 +133,11 @@ public class Game extends Canvas implements Runnable {
 
     // Where the rendering happens
     handler.render(g);
-    hud.render(g);
+    if (interface_state == INTERFACE_STATE.Game) {
+      hud.render(g);
+    } else if (interface_state == INTERFACE_STATE.TitleScreen) {
+      titleScreen.render(g);
+    }
 
     g.dispose();
     bs.show();

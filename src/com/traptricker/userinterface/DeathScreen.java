@@ -7,6 +7,15 @@ import java.awt.Graphics;
 
 public class DeathScreen {
 
+  public static int tryAgainButtonX = 2 * Game.width / 3 - 104;
+  public static int tryAgainButtonY = 2 * Game.height / 3 + 16;
+  public static int tryAgainButtonWidth = 168;
+  public static int tryAgainButtonHeight = 52;
+  public static int backToMenuButtonX = 2 * Game.width / 3 - 104;
+  public static int backToMenuButtonY = 2 * Game.height / 3 + 82;
+  public static int backToMenuButtonWidth = 168;
+  public static int backToMenuButtonHeight = 52;
+
   private final HUD hud;
 
   public DeathScreen(HUD hud) {
@@ -43,8 +52,8 @@ public class DeathScreen {
     g.drawString("High Score: %d", Game.width / 3 - 100 + 16,2 * Game.height / 3 + 80);
 
     // Right Box
-    g.fillRect(2 * Game.width / 3 - 120 + 16, 2 * Game.height / 3 + 16, 200 - 32, 52);
-    g.fillRect(2 * Game.width / 3 - 120 + 16, 2 * Game.height / 3 + 16 + 66, 200 - 32, 52);
+    g.fillRect(tryAgainButtonX, tryAgainButtonY, tryAgainButtonWidth, tryAgainButtonHeight);
+    g.fillRect(backToMenuButtonX, backToMenuButtonY, backToMenuButtonWidth, backToMenuButtonHeight);
     g.setColor(Color.black);
     g.drawString("Try Again", 2 * Game.width / 3 - 120 + 16 + 37, 2 * Game.height / 3 + 16 + 33);
     g.drawString("Back to Menu", 2 * Game.width / 3 - 120 + 16 + 17, 2 * Game.height / 3 + 16 + 66 + 33);

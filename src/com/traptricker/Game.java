@@ -155,9 +155,12 @@ public class Game extends Canvas implements Runnable {
     this.interface_state = interface_state;
     if (interface_state == INTERFACE_STATE.Game) {
       // Adds a player object to the game
+      hud.resetValues();
+      handler.removeAllNonPlayerObjects();
       handler.addObject(new Player(height / 2 - 48, width / 2 - 48, 24, ID.Player, handler, hud));
       window.hideCursor();
     } else if (interface_state == INTERFACE_STATE.TitleScreen) {
+      handler.removeAllNonPlayerObjects();
       window.showCursor();
     } else if (interface_state == INTERFACE_STATE.DeathScreen) {
       window.showCursor();

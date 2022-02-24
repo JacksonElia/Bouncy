@@ -50,6 +50,12 @@ public class HUD {
     g.drawString(String.format("Level: %d", level), 20, 95);
   }
 
+  public void resetValues() {
+    health = 1000;
+    score = 1;
+    level = 1;
+  }
+
   public int getHealth() {
     return health;
   }

@@ -4,6 +4,7 @@ import com.traptricker.Game;
 import com.traptricker.Handler;
 import com.traptricker.objects.GameObject;
 import com.traptricker.objects.ID;
+import com.traptricker.userinterface.DeathScreen;
 import com.traptricker.userinterface.INTERFACE_STATE;
 import com.traptricker.userinterface.TitleScreen;
 import java.awt.event.MouseEvent;
@@ -35,14 +36,30 @@ public class MouseInput implements MouseListener, MouseMotionListener {
             && e.getY() <= TitleScreen.playButtonY + TitleScreen.playButtonHeight) {
           game.setInterface_state(INTERFACE_STATE.Game);
         }
-
         // Checks if user clicked the quit button
-        if (e.getX() >= TitleScreen.quitButtonX
+        else if (e.getX() >= TitleScreen.quitButtonX
             && e.getX() <= TitleScreen.quitButtonX + TitleScreen.quitButtonWidth
             && e.getY() >= TitleScreen.quitButtonY
             && e.getY() <= TitleScreen.quitButtonY + TitleScreen.quitButtonHeight) {
           System.exit(1);
         }
+
+      } else if (game.getInterface_state() == INTERFACE_STATE.DeathScreen) {
+        // Checks if user clicked the try again button
+        if (e.getX() >= DeathScreen.tryAgainButtonX
+            && e.getX() <= DeathScreen.tryAgainButtonX + DeathScreen.tryAgainButtonWidth
+            && e.getY() >= DeathScreen.tryAgainButtonY
+            && e.getY() <= DeathScreen.tryAgainButtonY + DeathScreen.tryAgainButtonHeight) {
+          game.setInterface_state(INTERFACE_STATE.Game);
+        }
+        // Checks if user clicked the back to menu button
+        else if (e.getX() >= DeathScreen.backToMenuButtonX
+            && e.getX() <= DeathScreen.backToMenuButtonX + DeathScreen.backToMenuButtonWidth
+            && e.getY() >= DeathScreen.backToMenuButtonY
+            && e.getY() <= DeathScreen.backToMenuButtonY + DeathScreen.backToMenuButtonHeight) {
+          game.setInterface_state(INTERFACE_STATE.TitleScreen);
+        }
+
       }
     }
   }

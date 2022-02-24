@@ -1,6 +1,7 @@
 package com.traptricker;
 
 import com.traptricker.objects.GameObject;
+import com.traptricker.objects.ID;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
@@ -38,6 +39,12 @@ public class Handler {
   public void removeObjects() {
     for (GameObject object : objectsToRemove) {
       this.objects.remove(object);
+    }
+  }
+
+  public void removeAllNonPlayerObjects() {
+    for (GameObject object : objects) {
+      if (object.getID() != ID.Player) objectsToRemove.add(object);
     }
   }
 

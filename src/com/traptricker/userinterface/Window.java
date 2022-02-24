@@ -9,6 +9,9 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 
+/**
+ * This class takes care of the base window.
+ */
 public class Window extends Canvas {
 
   public JFrame jFrame;
@@ -25,6 +28,14 @@ public class Window extends Canvas {
     jFrame.add(game);
     jFrame.setVisible(true);
 
+    game.startThread();
+  }
+
+  public void showCursor() {
+    jFrame.getContentPane().setCursor(Cursor.getDefaultCursor());
+  }
+
+  public void hideCursor() {
     // Transparent 16 x 16 pixel cursor image.
     BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
     // Create a new blank cursor.
@@ -32,8 +43,6 @@ public class Window extends Canvas {
         cursorImg, new Point(0, 0), "blank cursor");
     // Set the blank cursor to the JFrame.
     jFrame.getContentPane().setCursor(blankCursor);
-
-    game.startThread();
   }
 
 }

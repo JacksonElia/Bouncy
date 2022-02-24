@@ -1,6 +1,11 @@
 package com.traptricker.userinterface;
 
+import com.traptricker.Game;
+import com.traptricker.Handler;
+import com.traptricker.objects.GameObject;
+import com.traptricker.objects.ID;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 /**
@@ -12,10 +17,25 @@ public class HUD {
   public int score = 1;
   public int level = 1;
 
+  private final Handler handler;
+  private final Game game;
+
+  public HUD(Handler handler, Game game) {
+    this.handler = handler;
+    this.game = game;
+  }
+
   public void tick() {
     // Increases the score every tick and level every 1000 ticks
     score++;
     level = Math.floorDiv(score, 1000);
+    if (health <= 0) {
+      game.setInterface_state(INTERFACE_STATE.DeathScreen);
+      // Kills the player
+      for (GameObject object : handler.objects) {
+        if (object.getID() == ID.Player) handler.objectsToRemove.add(object);
+      }
+    }
   }
 
   public void render(Graphics g) {
@@ -25,6 +45,7 @@ public class HUD {
     g.setColor(Color.red);
     g.fillRect(24, 24, 292 * health / 1000, 32);
     g.setColor(Color.white);
+    g.setFont(new Font("Sans Serif", Font.PLAIN, 10));
     g.drawString(String.format("Score: %d", score), 20, 80);
     g.drawString(String.format("Level: %d", level), 20, 95);
   }

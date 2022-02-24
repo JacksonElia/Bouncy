@@ -5,6 +5,6 @@ package com.traptricker.userinterface;
  */
 public enum INTERFACE_STATE {
 
-  TitleScreen, Game, Death
+  TitleScreen, Game, DeathScreen
 
 }

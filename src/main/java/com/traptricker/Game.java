@@ -160,7 +160,7 @@ public class Game extends Canvas implements Runnable {
       // Adds a player object to the game
       hud.resetValues();
       handler.removeAllNonPlayerObjects();
-      handler.addObject(new Player(height / 2 - 24, width / 2 - 24, 24, ID.Player, handler, hud));
+      handler.addObject(new Player(height / 2 + 64, width / 2 - 128, 24, ID.Player, handler, hud));
       window.hideCursor();
     } else if (interface_state == INTERFACE_STATE.TitleScreen) {
       handler.removeAllNonPlayerObjects();

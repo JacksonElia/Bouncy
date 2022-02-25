@@ -48,6 +48,7 @@ public class DeathScreen {
     // Left Box
     g.setColor(Color.white);
     g.setFont(new Font("Sans Serif", Font.BOLD, 20));
+    // TODO: Get data storage and stats setup
     g.drawString(String.format("Score: %d", hud.getScore()), Game.width / 3 - 100 + 16,2 * Game.height / 3 + 32);
     g.drawString("High Score: %d", Game.width / 3 - 100 + 16,2 * Game.height / 3 + 80);
 

@@ -2,11 +2,13 @@ package com.traptricker.userinterface;
 
 import com.traptricker.Game;
 import com.traptricker.Handler;
+import com.traptricker.datastorage.CSVManager;
 import com.traptricker.objects.GameObject;
 import com.traptricker.objects.ID;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.io.IOException;
 
 /**
  * This class handles all the in game User Interface or, Heads Up Display.
@@ -31,6 +33,19 @@ public class HUD {
     level = Math.floorDiv(score, 1000);
     if (health <= 0) {
       game.setInterface_state(INTERFACE_STATE.DeathScreen);
+      String[] nextLine;
+      // Stores the high score and level
+      try {
+        nextLine = CSVManager.readHighScore();
+        int highScore = Integer.parseInt(nextLine[0]);
+        int highLevel = Integer.parseInt(nextLine[1]);
+        if (highScore < score) highScore = score;
+        if (highLevel < level) highLevel = level;
+        CSVManager.writeHighScore(highScore, highLevel);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
       // Kills the player
       for (GameObject object : handler.objects) {
         if (object.getID() == ID.Player) handler.objectsToRemove.add(object);

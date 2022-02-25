@@ -1,5 +1,6 @@
 package com.traptricker;
 
+import com.traptricker.datastorage.CSVManager;
 import com.traptricker.inputs.KeyInput;
 import com.traptricker.inputs.MouseInput;
 import com.traptricker.objects.ID;
@@ -14,6 +15,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * The class used to connect the whole java project into a game.

@@ -1,9 +1,11 @@
 package com.traptricker.userinterface;
 
 import com.traptricker.Game;
+import com.traptricker.datastorage.CSVManager;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.io.IOException;
 
 public class DeathScreen {
 
@@ -17,6 +19,9 @@ public class DeathScreen {
   public static int backToMenuButtonHeight = 52;
 
   private final HUD hud;
+
+  private int highScore;
+  private int highLevel;
 
   public DeathScreen(HUD hud) {
     this.hud = hud;
@@ -48,16 +53,27 @@ public class DeathScreen {
     // Left Box
     g.setColor(Color.white);
     g.setFont(new Font("Sans Serif", Font.BOLD, 20));
-    // TODO: Get data storage and stats setup
-    g.drawString(String.format("Score: %d", hud.getScore()), Game.width / 3 - 100 + 16,2 * Game.height / 3 + 32);
-    g.drawString("High Score: %d", Game.width / 3 - 100 + 16,2 * Game.height / 3 + 80);
+    // Deals with high scores
+    String[] nextLine = {"1", "1"};
+    try {
+      nextLine = CSVManager.readHighScore();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    g.drawString(String.format("Score: %d", hud.getScore()), Game.width / 3 - 84,
+        2 * Game.height / 3 + 32);
+    g.drawString(String.format("High Score: %s", nextLine[0]), Game.width / 3 - 84,
+        2 * Game.height / 3 + 80);
+    g.drawString(String.format("High Level: %s", nextLine[1]), Game.width / 3 - 84,
+        2 * Game.height / 3 + 128);
 
     // Right Box
     g.fillRect(tryAgainButtonX, tryAgainButtonY, tryAgainButtonWidth, tryAgainButtonHeight);
     g.fillRect(backToMenuButtonX, backToMenuButtonY, backToMenuButtonWidth, backToMenuButtonHeight);
     g.setColor(Color.black);
     g.drawString("Try Again", 2 * Game.width / 3 - 120 + 16 + 37, 2 * Game.height / 3 + 16 + 33);
-    g.drawString("Back to Menu", 2 * Game.width / 3 - 120 + 16 + 17, 2 * Game.height / 3 + 16 + 66 + 33);
+    g.drawString("Back to Menu", 2 * Game.width / 3 - 120 + 16 + 17,
+        2 * Game.height / 3 + 16 + 66 + 33);
   }
 
 }

@@ -28,35 +28,37 @@ public class MouseInput implements MouseListener, MouseMotionListener {
   public void mouseClicked(MouseEvent e) {
     int button = e.getButton();
     if (button == MouseEvent.BUTTON1) {
+      int mouseX = e.getX();
+      int mouseY = e.getY();
       if (game.getInterface_state() == INTERFACE_STATE.TitleScreen) {
         // Checks if user clicked the play button
-        if (e.getX() >= TitleScreen.playButtonX
-            && e.getX() <= TitleScreen.playButtonX + TitleScreen.playButtonWidth
-            && e.getY() >= TitleScreen.playButtonY
-            && e.getY() <= TitleScreen.playButtonY + TitleScreen.playButtonHeight) {
+        if (mouseX >= TitleScreen.playButtonX
+            && mouseX <= TitleScreen.playButtonX + TitleScreen.playButtonWidth
+            && mouseY >= TitleScreen.playButtonY
+            && mouseY <= TitleScreen.playButtonY + TitleScreen.playButtonHeight) {
           game.setInterface_state(INTERFACE_STATE.Game);
         }
         // Checks if user clicked the quit button
-        else if (e.getX() >= TitleScreen.quitButtonX
-            && e.getX() <= TitleScreen.quitButtonX + TitleScreen.quitButtonWidth
-            && e.getY() >= TitleScreen.quitButtonY
-            && e.getY() <= TitleScreen.quitButtonY + TitleScreen.quitButtonHeight) {
+        else if (mouseX >= TitleScreen.quitButtonX
+            && mouseX <= TitleScreen.quitButtonX + TitleScreen.quitButtonWidth
+            && mouseY >= TitleScreen.quitButtonY
+            && mouseY <= TitleScreen.quitButtonY + TitleScreen.quitButtonHeight) {
           System.exit(1);
         }
 
       } else if (game.getInterface_state() == INTERFACE_STATE.DeathScreen) {
         // Checks if user clicked the try again button
-        if (e.getX() >= DeathScreen.tryAgainButtonX
-            && e.getX() <= DeathScreen.tryAgainButtonX + DeathScreen.tryAgainButtonWidth
-            && e.getY() >= DeathScreen.tryAgainButtonY
-            && e.getY() <= DeathScreen.tryAgainButtonY + DeathScreen.tryAgainButtonHeight) {
+        if (mouseX >= DeathScreen.tryAgainButtonX
+            && mouseX <= DeathScreen.tryAgainButtonX + DeathScreen.tryAgainButtonWidth
+            && mouseY >= DeathScreen.tryAgainButtonY
+            && mouseY <= DeathScreen.tryAgainButtonY + DeathScreen.tryAgainButtonHeight) {
           game.setInterface_state(INTERFACE_STATE.Game);
         }
         // Checks if user clicked the back to menu button
-        else if (e.getX() >= DeathScreen.backToMenuButtonX
-            && e.getX() <= DeathScreen.backToMenuButtonX + DeathScreen.backToMenuButtonWidth
-            && e.getY() >= DeathScreen.backToMenuButtonY
-            && e.getY() <= DeathScreen.backToMenuButtonY + DeathScreen.backToMenuButtonHeight) {
+        else if (mouseX >= DeathScreen.backToMenuButtonX
+            && mouseX <= DeathScreen.backToMenuButtonX + DeathScreen.backToMenuButtonWidth
+            && mouseY >= DeathScreen.backToMenuButtonY
+            && mouseY <= DeathScreen.backToMenuButtonY + DeathScreen.backToMenuButtonHeight) {
           game.setInterface_state(INTERFACE_STATE.TitleScreen);
         }
 

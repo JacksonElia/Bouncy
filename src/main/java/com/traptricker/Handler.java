@@ -10,7 +10,7 @@ import java.util.LinkedList;
  */
 public class Handler {
 
-  // Stores all the game objects that we have
+  // Stores all the game objects
   public LinkedList<GameObject> objects = new LinkedList<>();
 
   public LinkedList<GameObject> objectsToRemove = new LinkedList<>();
@@ -44,7 +44,9 @@ public class Handler {
 
   public void removeAllNonPlayerObjects() {
     for (GameObject object : objects) {
-      if (object.getID() != ID.Player) objectsToRemove.add(object);
+      if (object.getID() != ID.Player) {
+        objectsToRemove.add(object);
+      }
     }
   }
 

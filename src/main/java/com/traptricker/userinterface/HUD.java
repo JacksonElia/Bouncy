@@ -30,7 +30,7 @@ public class HUD {
   public void tick() {
     // Increases the score every tick and level every 1000 ticks
     score++;
-    level = Math.floorDiv(score, 1000);
+    level = Math.floorDiv(score, 1000) + 1;
     if (health <= 0) {
       game.setInterface_state(INTERFACE_STATE.DeathScreen);
       String[] nextLine;

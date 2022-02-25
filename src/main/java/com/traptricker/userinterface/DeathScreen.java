@@ -20,9 +20,6 @@ public class DeathScreen {
 
   private final HUD hud;
 
-  private int highScore;
-  private int highLevel;
-
   public DeathScreen(HUD hud) {
     this.hud = hud;
   }
@@ -62,8 +59,10 @@ public class DeathScreen {
     }
     g.drawString(String.format("Score: %d", hud.getScore()), Game.width / 3 - 84,
         2 * Game.height / 3 + 32);
+    g.drawString(String.format("Level: %d", hud.getLevel()), Game.width / 3 - 84,
+        2 * Game.height / 3 + 64);
     g.drawString(String.format("High Score: %s", nextLine[0]), Game.width / 3 - 84,
-        2 * Game.height / 3 + 80);
+        2 * Game.height / 3 + 96);
     g.drawString(String.format("High Level: %s", nextLine[1]), Game.width / 3 - 84,
         2 * Game.height / 3 + 128);
 

@@ -53,17 +53,26 @@ public class Player extends GameObject {
           - object.getRadius()) + ((y + radius - object.getY() - object.getRadius()) * (y + radius
           - object.getY() - object.getRadius())) <= ((radius + object.getRadius()) * (radius
           + object.getRadius())))) {
-        if (object.getID() == ID.BasicEnemy) {
-          hud.setHealth(hud.getHealth() - 100);
-          handler.objectsToRemove.add(object);
-        } else if (object.getID() == ID.StreakEnemy) {
-          hud.setHealth(hud.getHealth() - 300);
-          handler.objectsToRemove.add(object);
-        } else if (object.getID() == ID.HealingEnemy) {
+        switch (object.getID()) {
+          case BasicEnemy:
+            hud.setHealth(hud.getHealth() - 100);
+            handler.objectsToRemove.add(object);
+            break;
+          case StreakEnemy:
+            hud.setHealth(hud.getHealth() - 300);
+            handler.objectsToRemove.add(object);
+            break;
+          case HealingEnemy:
             hud.setHealth(hud.getHealth() + 150);
             handler.objectsToRemove.add(object);
-        } else if (object.getID() == ID.HomingEnemy) {
-          hud.setHealth(hud.getHealth() - 2);
+            break;
+          case HomingEnemy:
+            hud.setHealth(hud.getHealth() - 2);
+            break;
+          case InstantDeathEnemy:
+            hud.setHealth(hud.getHealth() - HUD.healthMax);
+            break;
+          default:
         }
       }
     }

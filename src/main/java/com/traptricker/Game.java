@@ -24,6 +24,7 @@ public class Game extends Canvas implements Runnable {
   public static int width = 1000;
 
   public INTERFACE_STATE interface_state;
+  public int tick = 0;
 
   private final Handler handler;
   private final HUD hud;
@@ -38,7 +39,7 @@ public class Game extends Canvas implements Runnable {
   public Game() {
     handler = new Handler();
     hud = new HUD(handler, this);
-    spawner = new Spawner(handler, hud);
+    spawner = new Spawner(this, handler, hud);
     window = new Window(this, height, width);
     titleScreen = new TitleScreen();
     deathScreen = new DeathScreen(hud);
@@ -87,8 +88,10 @@ public class Game extends Canvas implements Runnable {
       long now = System.nanoTime();
       delta += (now - lastTime) / ns;
       lastTime = now;
-      // The game is being updated amountOfTicks (60) times per second
+      // The game is being updated amountOfTicks (100) times per second
       while (delta >= 1) {
+        tick %= amountOfTicks;
+        tick++;
         tick();
         delta--;
       }
@@ -146,6 +149,10 @@ public class Game extends Canvas implements Runnable {
 
   public INTERFACE_STATE getInterface_state() {
     return interface_state;
+  }
+
+  public int getTick() {
+    return tick;
   }
 
   public void setInterface_state(INTERFACE_STATE interface_state) {

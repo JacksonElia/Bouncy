@@ -3,6 +3,9 @@ package com.traptricker.objects;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * This enemy always moves towards the player.
+ */
 public class HomingEnemy extends GameObject {
 
   private final Player player;
@@ -24,7 +27,7 @@ public class HomingEnemy extends GameObject {
 
   @Override
   public void render(Graphics g) {
-    g.setColor(Color.green);
+    g.setColor(Color.red);
     g.fillRect(x, y, radius * 2, radius * 2);
   }
 }

@@ -15,6 +15,8 @@ import java.io.IOException;
  */
 public class HUD {
 
+  public static int healthMax = 1000;
+
   public int health = 1000;
   public int score = 1;
   public int level = 1;
@@ -58,7 +60,7 @@ public class HUD {
     g.setColor(Color.darkGray);
     g.fillRect(20, 20, 300, 40);
     g.setColor(Color.red);
-    g.fillRect(24, 24, 292 * health / 1000, 32);
+    g.fillRect(24, 24, 292 * health / healthMax, 32);
     g.setColor(Color.white);
     g.setFont(new Font("Sans Serif", Font.PLAIN, 10));
     g.drawString(String.format("Score: %d", score), 20, 80);
@@ -76,7 +78,8 @@ public class HUD {
   }
 
   public void setHealth(int health) {
-    this.health = health;
+    // Makes sure the health can't go over the max
+    this.health = Math.min(health, healthMax);
   }
 
   public int getScore() {

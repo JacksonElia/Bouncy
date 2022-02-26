@@ -59,6 +59,9 @@ public class Player extends GameObject {
         } else if (object.getID() == ID.StreakEnemy) {
           hud.setHealth(hud.getHealth() - 300);
           handler.objectsToRemove.add(object);
+        } else if (object.getID() == ID.HealingEnemy) {
+            hud.setHealth(hud.getHealth() + 150);
+            handler.objectsToRemove.add(object);
         } else if (object.getID() == ID.HomingEnemy) {
           hud.setHealth(hud.getHealth() - 2);
         }

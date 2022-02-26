@@ -21,22 +21,27 @@ public class Spawner {
   }
 
   public void tick() {
-
-    if (hud.getScore() % 200 == 0) {
-      spawnBasicEnemy();
-    }
-
-    if (hud.getScore() % 300 == 0) {
-      spawnStreakEnemy();
-    }
-
-    if (hud.getScore() % 1000 == 0) {
-      spawnHomingEnemy();
+    // Handles the levels
+    switch (hud.level) {
+      case 1:
+        levelOne();
+        break;
+      case 2:
+        levelTwo();
+        break;
+      case 3:
+        levelThree();
+        break;
+      case 4:
+        levelFour();
+        break;
+      default:
+        levelEndless();
     }
 
   }
 
-  public void spawnBasicEnemy() {
+  private void spawnBasicEnemy() {
     // Stops the enemy from spawning too close to the player
     int x = random.nextInt(Game.width - 32);
     int y = random.nextInt(Game.width - 64);
@@ -48,7 +53,7 @@ public class Spawner {
         playerY = object.getY();
       }
     }
-    while ((x - playerX) * (x - playerX) + (y - playerY) * (y - playerY) < 4000) {
+    while ((x - playerX) * (x - playerX) + (y - playerY) * (y - playerY) < 9000) {
       x = random.nextInt(Game.width - 32);
       y = random.nextInt(Game.height - 64);
     }
@@ -63,7 +68,7 @@ public class Spawner {
     handler.addObject(new BasicEnemy(x, y, xVelocity, yVelocity, 8, ID.BasicEnemy));
   }
 
-  public void spawnStreakEnemy() {
+  private void spawnStreakEnemy() {
     // Gets a random start_side
     StreakEnemy.START_SIDE start_side = StreakEnemy.START_SIDE.values()[random.nextInt(
         StreakEnemy.START_SIDE.values().length)];
@@ -100,7 +105,44 @@ public class Spawner {
         new StreakEnemy(x, y, xVelocity, yVelocity, 5, ID.StreakEnemy, handler, start_side));
   }
 
-  public void spawnHomingEnemy() {
+  private void spawnHealingEnemy() {
+    // Gets a random start_side
+    HealingEnemy.START_SIDE start_side = HealingEnemy.START_SIDE.values()[random.nextInt(
+        HealingEnemy.START_SIDE.values().length)];
+    int x, y, xVelocity, yVelocity;
+    switch (start_side) {
+      case up:
+        x = random.nextInt(Game.width - (Game.width / 6)) - (Game.width / 6);
+        y = -10;
+        xVelocity = random.nextInt(10) - 5;
+        yVelocity = 7;
+        break;
+      case right:
+        x = Game.width + 10;
+        y = random.nextInt(Game.height - (Game.height / 6)) - (Game.height / 6);
+        xVelocity = -7;
+        yVelocity = random.nextInt(10) - 5;
+        break;
+      case down:
+        x = random.nextInt(Game.width - (Game.width / 6)) - (Game.width / 6);
+        y = Game.height + 10;
+        xVelocity = random.nextInt(10) - 5;
+        yVelocity = -7;
+        break;
+      case left:
+        x = -10;
+        y = random.nextInt(Game.height - (Game.height / 6)) - (Game.height / 6);
+        xVelocity = 7;
+        yVelocity = random.nextInt(10) - 5;
+        break;
+      default:
+        throw new IllegalStateException("Unexpected value: " + start_side);
+    }
+    handler.addObject(
+        new HealingEnemy(x, y, xVelocity, yVelocity, 5, ID.HealingEnemy, handler, start_side));
+  }
+
+  private void spawnHomingEnemy() {
     Player player = null;
     // Stops the enemy from spawning too close to the player
     int x = random.nextInt(Game.width - 32);
@@ -115,15 +157,76 @@ public class Spawner {
       }
     }
 
-    while ((x - playerX) * (x - playerX) + (y - playerY) * (y - playerY) < 4000) {
+    while ((x - playerX) * (x - playerX) + (y - playerY) * (y - playerY) < 9000) {
       x = random.nextInt(Game.width - 32);
       y = random.nextInt(Game.height - 64);
     }
     handler.addObject(new HomingEnemy(x, y, 1, 1, 12, ID.HomingEnemy, player));
   }
 
-  public void levelOne() {
-
+  private void levelOne() {
+    if (hud.getScore() % 200 == 0) {
+      spawnBasicEnemy();
+    }
   }
 
+  private void levelTwo() {
+    if (hud.getScore() % 300 == 0) {
+      spawnBasicEnemy();
+    }
+
+    if (hud.getScore() % 200 == 0) {
+      spawnStreakEnemy();
+    }
+  }
+
+  private void levelThree() {
+    if (hud.getScore() % 200 == 0) {
+      spawnBasicEnemy();
+    }
+
+    if (hud.getScore() % 300 == 0) {
+      spawnStreakEnemy();
+    }
+
+    if (hud.getScore() % 1000 == 0) {
+      spawnHomingEnemy();
+    }
+  }
+
+  private void levelFour() {
+    if (hud.getScore() % 200 == 0) {
+      spawnBasicEnemy();
+    }
+
+    if (hud.getScore() % 300 == 0) {
+      spawnStreakEnemy();
+    }
+
+    if (hud.getScore() % 300 == 0) {
+      spawnHealingEnemy();
+    }
+
+    if (hud.getScore() % 1000 == 0) {
+      spawnHomingEnemy();
+    }
+  }
+
+  private void levelEndless() {
+    if (hud.getScore() % 200 == 0) {
+      spawnBasicEnemy();
+    }
+
+    if (hud.getScore() % 300 == 0) {
+      spawnStreakEnemy();
+    }
+
+    if (hud.getScore() % 300 == 0) {
+      spawnHealingEnemy();
+    }
+
+    if (hud.getScore() % 1000 == 0) {
+      spawnHomingEnemy();
+    }
+  }
 }

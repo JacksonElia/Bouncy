@@ -2,6 +2,7 @@ package com.traptricker;
 
 import com.traptricker.inputs.KeyInput;
 import com.traptricker.inputs.MouseInput;
+import com.traptricker.objects.GameObject;
 import com.traptricker.objects.ID;
 import com.traptricker.objects.Player;
 import com.traptricker.objects.Spawner;
@@ -13,6 +14,7 @@ import com.traptricker.userinterface.Window;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferStrategy;
 
 /**
@@ -20,16 +22,14 @@ import java.awt.image.BufferStrategy;
  */
 public class Game extends Canvas implements Runnable {
 
-  public INTERFACE_STATE interface_state;
-  public int tick = 0;
-
   private final Handler handler;
   private final HUD hud;
   private final Spawner spawner;
   private final Window window;
   private final TitleScreen titleScreen;
   private final DeathScreen deathScreen;
-
+  public INTERFACE_STATE interface_state;
+  public int tick = 0;
   private Boolean running = false;
   private Thread thread;
 
@@ -37,15 +37,18 @@ public class Game extends Canvas implements Runnable {
     handler = new Handler();
     hud = new HUD(handler, this);
     spawner = new Spawner(this, handler, hud);
-    // TODO: make it get monitor max size
-    window = new Window(this, 1920, 1080);
+    window = new Window(this,
+        GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode()
+            .getWidth(),
+        GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode()
+            .getHeight());
     titleScreen = new TitleScreen(this);
     deathScreen = new DeathScreen(this, hud);
 
     interface_state = INTERFACE_STATE.TitleScreen;
 
     // Tells the program to listen for key and mouse inputs
-    this.addKeyListener(new KeyInput(handler));
+    this.addKeyListener(new KeyInput(this, window));
     MouseInput mouseInput = new MouseInput(handler, this);
     this.addMouseListener(mouseInput);
     this.addMouseMotionListener(mouseInput);
@@ -149,16 +152,19 @@ public class Game extends Canvas implements Runnable {
     return interface_state;
   }
 
-  public int getTick() {
-    return tick;
-  }
-
   public void setInterface_state(INTERFACE_STATE interface_state) {
     this.interface_state = interface_state;
     if (interface_state == INTERFACE_STATE.Game) {
-      // Adds a player object to the game
+      // Resets the game to the start
       hud.resetValues();
       handler.removeAllNonPlayerObjects();
+      // Kills the current player object if there is one
+      for (GameObject object : handler.objects) {
+        if (object.getID() == ID.Player) {
+          handler.objectsToRemove.add(object);
+        }
+      }
+      // Adds a player object to the game
       handler.addObject(
           new Player(this, getWidth() / 2 + 24, getHeight() / 2 + 24, 24, ID.Player, handler, hud));
       window.hideCursor();
@@ -168,6 +174,10 @@ public class Game extends Canvas implements Runnable {
     } else if (interface_state == INTERFACE_STATE.DeathScreen) {
       window.showCursor();
     }
+  }
+
+  public int getTick() {
+    return tick;
   }
 
 }

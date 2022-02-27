@@ -97,8 +97,8 @@ public class MouseInput implements MouseListener, MouseMotionListener {
     // Moves the player to the mouse's position
     for (GameObject object : handler.objects) {
       if (object.getID() == ID.Player) {
-        object.setX(e.getX() - 24);
-        object.setY(e.getY() - 24);
+        object.setX(e.getX() - object.getRadius());
+        object.setY(e.getY() - object.getRadius());
       }
     }
   }

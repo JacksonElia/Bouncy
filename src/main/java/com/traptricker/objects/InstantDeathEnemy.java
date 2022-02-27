@@ -12,15 +12,14 @@ public class InstantDeathEnemy extends GameObject {
   private Color color = Color.magenta;
   private double actualX;
   private double actualY;
-  private double rise;
-  private double run;
+  private final double rise;
+  private final double run;
 
-  private final Game game;
   private final Player player;
 
-  public InstantDeathEnemy(int x, int y, int xVelocity, int yVelocity, int radius,
-      ID id, Game game, Player player) {
-    super(x, y, xVelocity, yVelocity, radius, id);
+  public InstantDeathEnemy(Game game, int x, int y, int xVelocity, int yVelocity, int radius,
+      ID id, Player player) {
+    super(game, x, y, xVelocity, yVelocity, radius, id);
     this.game = game;
     this.player = player;
     int xDifference = player.getX() + player.getRadius() - radius - x;

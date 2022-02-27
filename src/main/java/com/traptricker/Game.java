@@ -20,9 +20,6 @@ import java.awt.image.BufferStrategy;
  */
 public class Game extends Canvas implements Runnable {
 
-  public static int height = 800;
-  public static int width = 1000;
-
   public INTERFACE_STATE interface_state;
   public int tick = 0;
 
@@ -40,9 +37,10 @@ public class Game extends Canvas implements Runnable {
     handler = new Handler();
     hud = new HUD(handler, this);
     spawner = new Spawner(this, handler, hud);
-    window = new Window(this, height, width);
-    titleScreen = new TitleScreen();
-    deathScreen = new DeathScreen(hud);
+    // TODO: make it get monitor max size
+    window = new Window(this, 1920, 1080);
+    titleScreen = new TitleScreen(this);
+    deathScreen = new DeathScreen(this, hud);
 
     interface_state = INTERFACE_STATE.TitleScreen;
 
@@ -131,7 +129,7 @@ public class Game extends Canvas implements Runnable {
 
     // Covering the window with a black box
     g.setColor(Color.black);
-    g.fillRect(0, 0, width, height);
+    g.fillRect(0, 0, getWidth(), getHeight());
 
     // Where the rendering happens
     handler.render(g);
@@ -161,7 +159,8 @@ public class Game extends Canvas implements Runnable {
       // Adds a player object to the game
       hud.resetValues();
       handler.removeAllNonPlayerObjects();
-      handler.addObject(new Player(height / 2 + 64, width / 2 - 128, 24, ID.Player, handler, hud));
+      handler.addObject(
+          new Player(this, getWidth() / 2 + 24, getHeight() / 2 + 24, 24, ID.Player, handler, hud));
       window.hideCursor();
     } else if (interface_state == INTERFACE_STATE.TitleScreen) {
       handler.removeAllNonPlayerObjects();

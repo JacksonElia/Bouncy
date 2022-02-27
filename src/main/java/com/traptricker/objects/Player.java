@@ -14,8 +14,8 @@ public class Player extends GameObject {
   private final Handler handler;
   private final HUD hud;
 
-  public Player(int x, int y, int radius, ID id, Handler handler, HUD hud) {
-    super(x, y, 0, 0, radius, id);
+  public Player(Game game, int x, int y, int radius, ID id, Handler handler, HUD hud) {
+    super(game, x, y, 0, 0, radius, id);
     this.handler = handler;
     this.hud = hud;
   }
@@ -27,8 +27,8 @@ public class Player extends GameObject {
     if (x <= 0) {
       this.x = 0;
     }
-    if (x >= Game.width - 70) {
-      this.x = Game.width - 70;
+    if (x >= game.getWidth() - 2 * radius) {
+      this.x = game.getWidth() - 2 * radius;
     }
   }
 
@@ -39,8 +39,8 @@ public class Player extends GameObject {
     if (y <= 0) {
       this.y = 0;
     }
-    if (y >= Game.height - 96) {
-      this.y = Game.height - 96;
+    if (y >= game.getHeight() - 2 * radius) {
+      this.y = game.getHeight() - 2 * radius;
     }
   }
 

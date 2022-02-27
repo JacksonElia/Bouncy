@@ -1,5 +1,6 @@
 package com.traptricker.objects;
 
+import com.traptricker.Game;
 import java.awt.Graphics;
 
 /**
@@ -8,10 +9,12 @@ import java.awt.Graphics;
  */
 public abstract class GameObject {
 
+  protected Game game;
   protected int x, y, xVelocity, yVelocity, radius;
   protected ID id;
 
-  public GameObject(int x, int y, int xVelocity, int yVelocity, int radius, ID id) {
+  public GameObject(Game game, int x, int y, int xVelocity, int yVelocity, int radius, ID id) {
+    this.game = game;
     this.x = x;
     this.y = y;
     this.xVelocity = xVelocity;

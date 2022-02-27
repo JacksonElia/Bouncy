@@ -14,9 +14,10 @@ public class StreakEnemy extends GameObject {
 
   private final Handler handler;
 
-  public StreakEnemy(int x, int y, int xVelocity, int yVelocity, int radius, ID id, Handler handler,
+  public StreakEnemy(Game game, int x, int y, int xVelocity, int yVelocity, int radius, ID id,
+      Handler handler,
       START_SIDE start_side) {
-    super(x, y, xVelocity, yVelocity, radius, id);
+    super(game, x, y, xVelocity, yVelocity, radius, id);
     this.handler = handler;
     this.start_side = start_side;
   }
@@ -29,21 +30,21 @@ public class StreakEnemy extends GameObject {
     // Kills the enemy after it goes off-screen
     switch (start_side) {
       case up:
-          if (x < -10 || x > Game.width || y > Game.height) {
-              handler.objectsToRemove.add(this);
-          }
+        if (x < -10 || x > game.getWidth() || y > game.getHeight()) {
+          handler.objectsToRemove.add(this);
+        }
       case right:
-          if (x < -10 || y < -10 || y > Game.height) {
-              handler.objectsToRemove.add(this);
-          }
+        if (x < -10 || y < -10 || y > game.getHeight()) {
+          handler.objectsToRemove.add(this);
+        }
       case down:
-          if (x < -10 || x > Game.width || y < -10) {
-              handler.objectsToRemove.add(this);
-          }
+        if (x < -10 || x > game.getWidth() || y < -10) {
+          handler.objectsToRemove.add(this);
+        }
       case left:
-          if (x > Game.width || y < -10 || y > Game.height) {
-              handler.objectsToRemove.add(this);
-          }
+        if (x > game.getWidth() || y < -10 || y > game.getHeight()) {
+          handler.objectsToRemove.add(this);
+        }
     }
   }
 

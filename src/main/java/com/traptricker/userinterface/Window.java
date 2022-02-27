@@ -16,18 +16,17 @@ public class Window extends Canvas {
 
   public JFrame jFrame;
 
-  public Window(Game game, int height, int width) {
+  public Window(Game game, int width, int height) {
     jFrame = new JFrame("Bouncy");
 
     jFrame.setPreferredSize(new Dimension(width, height));
     jFrame.setMaximumSize(new Dimension(width, height));
     jFrame.setMinimumSize(new Dimension(width, height));
     jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    jFrame.setResizable(false);
+    jFrame.setResizable(true);
     jFrame.setLocationRelativeTo(null); // Makes the window start in the middle
     jFrame.add(game);
     jFrame.setVisible(true);
-
     game.startThread();
   }
 
@@ -43,6 +42,12 @@ public class Window extends Canvas {
         cursorImg, new Point(0, 0), "blank cursor");
     // Set the blank cursor to the JFrame.
     jFrame.getContentPane().setCursor(blankCursor);
+  }
+
+  public void fullScreen() {
+    jFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    jFrame.setUndecorated(true);
+    jFrame.setVisible(true);
   }
 
 }

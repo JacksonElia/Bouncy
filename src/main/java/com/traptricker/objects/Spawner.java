@@ -47,9 +47,10 @@ public class Spawner {
   }
 
   private void spawnBasicEnemy() {
+    int radius = 8;
     // Stops the enemy from spawning too close to the player
-    int x = random.nextInt(Game.width - 32);
-    int y = random.nextInt(Game.width - 64);
+    int x = random.nextInt(game.getWidth() - 2 * radius);
+    int y = random.nextInt(game.getHeight() - 2 * radius);
     int playerX = 0;
     int playerY = 0;
     for (GameObject object : handler.objects) {
@@ -59,8 +60,8 @@ public class Spawner {
       }
     }
     while ((x - playerX) * (x - playerX) + (y - playerY) * (y - playerY) < 90000) {
-      x = random.nextInt(Game.width - 32);
-      y = random.nextInt(Game.height - 64);
+      x = random.nextInt(game.getWidth() - 2 * radius);
+      y = random.nextInt(game.getHeight() - 2 * radius);
     }
 
     // Stops the enemy from spawning with no velocity
@@ -71,36 +72,37 @@ public class Spawner {
       yVelocity = random.nextInt(10) - 5;
     }
 
-    handler.addObject(new BasicEnemy(x, y, xVelocity, yVelocity, 8, ID.BasicEnemy));
+    handler.addObject(new BasicEnemy(game, x, y, xVelocity, yVelocity, radius, ID.BasicEnemy));
   }
 
   private void spawnStreakEnemy() {
+    int radius = 5;
     // Gets a random start_side
     StreakEnemy.START_SIDE start_side = StreakEnemy.START_SIDE.values()[random.nextInt(
         StreakEnemy.START_SIDE.values().length)];
     int x, y, xVelocity, yVelocity;
     switch (start_side) {
       case up:
-        x = random.nextInt(Game.width - (Game.width / 6)) - (Game.width / 6);
+        x = random.nextInt(game.getWidth() - (game.getWidth() / 6)) - (game.getWidth() / 6);
         y = -10;
         xVelocity = random.nextInt(10) - 5;
         yVelocity = 10;
         break;
       case right:
-        x = Game.width + 10;
-        y = random.nextInt(Game.height - (Game.height / 6)) - (Game.height / 6);
+        x = game.getWidth() + 10;
+        y = random.nextInt(game.getHeight() - (game.getHeight() / 6)) - (game.getHeight() / 6);
         xVelocity = -10;
         yVelocity = random.nextInt(10) - 5;
         break;
       case down:
-        x = random.nextInt(Game.width - (Game.width / 6)) - (Game.width / 6);
-        y = Game.height + 10;
+        x = random.nextInt(game.getWidth() - (game.getWidth() / 6)) - (game.getWidth() / 6);
+        y = game.getHeight() + 10;
         xVelocity = random.nextInt(10) - 5;
         yVelocity = -10;
         break;
       case left:
         x = -10;
-        y = random.nextInt(Game.height - (Game.height / 6)) - (Game.height / 6);
+        y = random.nextInt(game.getHeight() - (game.getHeight() / 6)) - (game.getHeight() / 6);
         xVelocity = 10;
         yVelocity = random.nextInt(10) - 5;
         break;
@@ -109,36 +111,38 @@ public class Spawner {
     }
 
     handler.addObject(
-        new StreakEnemy(x, y, xVelocity, yVelocity, 5, ID.StreakEnemy, handler, start_side));
+        new StreakEnemy(game, x, y, xVelocity, yVelocity, radius, ID.StreakEnemy, handler,
+            start_side));
   }
 
   private void spawnHealingEnemy() {
+    int radius = 5;
     // Gets a random start_side
     HealingEnemy.START_SIDE start_side = HealingEnemy.START_SIDE.values()[random.nextInt(
         HealingEnemy.START_SIDE.values().length)];
     int x, y, xVelocity, yVelocity;
     switch (start_side) {
       case up:
-        x = random.nextInt(Game.width - (Game.width / 6)) - (Game.width / 6);
+        x = random.nextInt(game.getWidth() - (game.getWidth() / 6)) - (game.getWidth() / 6);
         y = -10;
         xVelocity = random.nextInt(10) - 5;
         yVelocity = 7;
         break;
       case right:
-        x = Game.width + 10;
-        y = random.nextInt(Game.height - (Game.height / 6)) - (Game.height / 6);
+        x = game.getWidth() + 10;
+        y = random.nextInt(game.getHeight() - (game.getHeight() / 6)) - (game.getHeight() / 6);
         xVelocity = -7;
         yVelocity = random.nextInt(10) - 5;
         break;
       case down:
-        x = random.nextInt(Game.width - (Game.width / 6)) - (Game.width / 6);
-        y = Game.height + 10;
+        x = random.nextInt(game.getWidth() - (game.getWidth() / 6)) - (game.getWidth() / 6);
+        y = game.getHeight() + 10;
         xVelocity = random.nextInt(10) - 5;
         yVelocity = -7;
         break;
       case left:
         x = -10;
-        y = random.nextInt(Game.height - (Game.height / 6)) - (Game.height / 6);
+        y = random.nextInt(game.getHeight() - (game.getHeight() / 6)) - (game.getHeight() / 6);
         xVelocity = 7;
         yVelocity = random.nextInt(10) - 5;
         break;
@@ -147,55 +151,59 @@ public class Spawner {
     }
 
     handler.addObject(
-        new HealingEnemy(x, y, xVelocity, yVelocity, 5, ID.HealingEnemy, handler, start_side));
+        new HealingEnemy(game, x, y, xVelocity, yVelocity, radius, ID.HealingEnemy, handler,
+            start_side));
   }
 
   private void spawnHomingEnemy() {
+    int radius = 12;
     Player player = null;
     // Stops the enemy from spawning too close to the player
-    int x = random.nextInt(Game.width - 32);
-    int y = random.nextInt(Game.width - 64);
-    int playerX = 0;
-    int playerY = 0;
+    int x = random.nextInt(game.getWidth() - 32);
+    int y = random.nextInt(game.getWidth() - 64);
     for (GameObject object : handler.objects) {
       if (object.getID() == ID.Player) {
         player = (Player) object;
-        playerX = player.getY();
-        playerY = player.getY();
       }
     }
 
+    assert player != null;
+
+    int playerX = player.getX();
+    int playerY = player.getY();
+
     while ((x - playerX) * (x - playerX) + (y - playerY) * (y - playerY) < 90000) {
-      x = random.nextInt(Game.width - 32);
-      y = random.nextInt(Game.height - 64);
+      x = random.nextInt(game.getWidth() - 2 * radius);
+      y = random.nextInt(game.getHeight() - 2 * radius);
     }
 
-    assert player != null;
-    handler.addObject(new HomingEnemy(x, y, 1, 1, 12, ID.HomingEnemy, player));
+    handler.addObject(new HomingEnemy(game, x, y, 1, 1, 12, ID.HomingEnemy, player));
   }
 
   private void spawnInstantDeathEnemy() {
+    int radius = 16;
     Player player = null;
     // Stops the enemy from spawning too close to the player
-    int x = random.nextInt(Game.width - 32);
-    int y = random.nextInt(Game.width - 64);
-    int playerX = 0;
-    int playerY = 0;
+    int x = random.nextInt(game.getWidth() - 32);
+    int y = random.nextInt(game.getWidth() - 64);
     for (GameObject object : handler.objects) {
       if (object.getID() == ID.Player) {
         player = (Player) object;
-        playerX = object.getX();
-        playerY = object.getY();
       }
-    }
-    while ((x - playerX) * (x - playerX) + (y - playerY) * (y - playerY) < 90000) {
-      x = random.nextInt(Game.width - 32);
-      y = random.nextInt(Game.height - 64);
     }
 
     assert player != null;
+
+    int playerX = player.getX();
+    int playerY = player.getY();
+
+    while ((x - playerX) * (x - playerX) + (y - playerY) * (y - playerY) < 90000) {
+      x = random.nextInt(game.getWidth() - 2 * radius);
+      y = random.nextInt(game.getHeight() - 2 * radius);
+    }
+
     handler.addObject(
-        new InstantDeathEnemy(x, y, 2, 2, 16, ID.InstantDeathEnemy, game, player));
+        new InstantDeathEnemy(game, x, y, 2, 2, 16, ID.InstantDeathEnemy, player));
   }
 
   private void levelOne() {

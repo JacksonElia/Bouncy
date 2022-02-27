@@ -6,18 +6,17 @@ import java.awt.Graphics;
 
 public class BasicEnemy extends GameObject {
 
-
-  public BasicEnemy(int x, int y, int xVelocity, int yVelocity, int radius, ID id) {
-    super(x, y, xVelocity, yVelocity, radius, id);
+  public BasicEnemy(Game game, int x, int y, int xVelocity, int yVelocity, int radius, ID id) {
+    super(game, x, y, xVelocity, yVelocity, radius, id);
   }
 
   @Override
   public void tick() {
     // Keeps the enemy on screen
-    if (x <= 0 || x >= Game.width - 32) {
+    if (x <= 0 || x >= game.getWidth() - radius * 2) {
       xVelocity *= -1;
     }
-    if (y <= 0 || y >= Game.height - 64) {
+    if (y <= 0 || y >= game.getHeight() - radius * 2) {
       yVelocity *= -1;
     }
 

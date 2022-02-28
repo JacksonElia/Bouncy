@@ -42,7 +42,7 @@ public class Game extends Canvas implements Runnable {
             .getWidth(),
         GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode()
             .getHeight());
-    titleScreen = new TitleScreen(this);
+    titleScreen = new TitleScreen(this, spawner);
     deathScreen = new DeathScreen(this, hud);
 
     interface_state = INTERFACE_STATE.TitleScreen;

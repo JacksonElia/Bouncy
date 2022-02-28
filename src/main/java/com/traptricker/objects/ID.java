@@ -5,6 +5,13 @@ package com.traptricker.objects;
  */
 public enum ID {
 
-  Player(), BasicEnemy(), StreakEnemy(), HealingEnemy(), HomingEnemy(), InstantDeathEnemy(), FireworkEnemy()
+  Player(),
+  BasicEnemy(),
+  StreakEnemy(),
+  HealingEnemy(),
+  HomingEnemy(),
+  InstantDeathEnemy(),
+  FireworkEnemy(),
+  TitleScreenEnemy()
 
 }

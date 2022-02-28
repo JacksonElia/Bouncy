@@ -44,7 +44,7 @@ public class DeathScreen {
     g.fillRect(0, game.getHeight() / 3, game.getWidth(), game.getHeight() / 3 - 3 - 50);
     g.setColor(Color.red);
     g.setFont(new Font("Times New Roman", Font.PLAIN, 120));
-    g.drawString("YOU DIED", game.getWidth() / 2 - 320, game.getHeight() / 3 + 145);
+    g.drawString("YOU DIED", game.getWidth() / 2 - 320, game.getHeight() / 3 + 190);
 
     // Bottom Boxes
     g.setColor(Color.white);

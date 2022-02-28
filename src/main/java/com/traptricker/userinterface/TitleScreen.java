@@ -1,6 +1,7 @@
 package com.traptricker.userinterface;
 
 import com.traptricker.Game;
+import com.traptricker.objects.Spawner;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -20,11 +21,15 @@ public class TitleScreen {
   public static int quitButtonHeight = 100;
 
   private final Game game;
+  private final Spawner spawner;
 
-  public TitleScreen(Game game) {
+  public TitleScreen(Game game, Spawner spawner) {
     this.game = game;
-
+    this.spawner = spawner;
     updateValues();
+    for (int i = 0; i < 20; i++) {
+      spawner.spawnTitleScreenEnemy();
+    }
   }
 
   public void tick() {

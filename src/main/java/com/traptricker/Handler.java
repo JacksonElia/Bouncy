@@ -27,6 +27,8 @@ public class Handler {
 
   // Renders all the game objects
   public void render(Graphics g) {
+    // Safely removes objects
+    removeObjects();
     for (GameObject object : objects) {
       object.render(g);
     }

@@ -3,6 +3,7 @@ package com.traptricker.objects;
 import com.traptricker.Game;
 import com.traptricker.Handler;
 import com.traptricker.userinterface.HUD;
+import java.awt.Color;
 import java.util.Random;
 
 /**
@@ -43,6 +44,29 @@ public class Spawner {
       default:
         levelEndless();
     }
+  }
+
+
+  public void spawnTitleScreenEnemy() {
+    int radius = random.nextInt(12) + 2;
+    int x = random.nextInt(game.getWidth() - 2 * radius);
+    int y = random.nextInt(game.getHeight() - 2 * radius);
+
+    // Stops the enemy from spawning with no velocity
+    int xVelocity = 0;
+    int yVelocity = 0;
+    while (xVelocity + yVelocity == 0) {
+      xVelocity = random.nextInt(10) - 5;
+      yVelocity = random.nextInt(10) - 5;
+    }
+
+    float r = random.nextFloat();
+    float g = random.nextFloat();
+    float b = random.nextFloat();
+
+    handler.addObject(
+        new TitleScreenEnemy(game, x, y, xVelocity, yVelocity, radius, ID.TitleScreenEnemy,
+            new Color(r, g, b)));
   }
 
   private void spawnBasicEnemy() {
@@ -352,4 +376,5 @@ public class Spawner {
       spawnInstantDeathEnemy();
     }
   }
+
 }

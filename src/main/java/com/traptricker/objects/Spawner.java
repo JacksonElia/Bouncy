@@ -70,7 +70,7 @@ public class Spawner {
   }
 
   private void spawnBasicEnemy() {
-    int radius = 8;
+    int radius = 10;
     // Stops the enemy from spawning too close to the player
     int x = random.nextInt(game.getWidth() - 2 * radius);
     int y = random.nextInt(game.getHeight() - 2 * radius);
@@ -99,7 +99,7 @@ public class Spawner {
   }
 
   private void spawnStreakEnemy() {
-    int radius = 5;
+    int radius = 6;
     // Gets a random start_side
     StreakEnemy.START_SIDE start_side = StreakEnemy.START_SIDE.values()[random.nextInt(
         StreakEnemy.START_SIDE.values().length)];
@@ -140,7 +140,7 @@ public class Spawner {
   }
 
   private void spawnHealingEnemy() {
-    int radius = 5;
+    int radius = 6;
     // Gets a random start_side
     HealingEnemy.START_SIDE start_side = HealingEnemy.START_SIDE.values()[random.nextInt(
         HealingEnemy.START_SIDE.values().length)];

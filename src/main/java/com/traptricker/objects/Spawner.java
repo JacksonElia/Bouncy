@@ -43,7 +43,6 @@ public class Spawner {
       default:
         levelEndless();
     }
-
   }
 
   private void spawnBasicEnemy() {
@@ -81,28 +80,29 @@ public class Spawner {
     StreakEnemy.START_SIDE start_side = StreakEnemy.START_SIDE.values()[random.nextInt(
         StreakEnemy.START_SIDE.values().length)];
     int x, y, xVelocity, yVelocity;
+    // Assigns a semi-random velocity and position based on start_side
     switch (start_side) {
       case up:
-        x = random.nextInt(game.getWidth() - (game.getWidth() / 6)) - (game.getWidth() / 6);
-        y = -10;
+        x = random.nextInt(game.getWidth() - (game.getWidth() / 6)) + (game.getWidth() / 12);
+        y = -(2 * radius);
         xVelocity = random.nextInt(10) - 5;
         yVelocity = 10;
         break;
       case right:
-        x = game.getWidth() + 10;
-        y = random.nextInt(game.getHeight() - (game.getHeight() / 6)) - (game.getHeight() / 6);
+        x = game.getWidth() + 2 * radius;
+        y = random.nextInt(game.getHeight() - (game.getHeight() / 6)) + (game.getHeight() / 12);
         xVelocity = -10;
         yVelocity = random.nextInt(10) - 5;
         break;
       case down:
-        x = random.nextInt(game.getWidth() - (game.getWidth() / 6)) - (game.getWidth() / 6);
-        y = game.getHeight() + 10;
+        x = random.nextInt(game.getWidth() - (game.getWidth() / 6)) + (game.getWidth() / 12);
+        y = game.getHeight() + 2 * radius;
         xVelocity = random.nextInt(10) - 5;
         yVelocity = -10;
         break;
       case left:
-        x = -10;
-        y = random.nextInt(game.getHeight() - (game.getHeight() / 6)) - (game.getHeight() / 6);
+        x = -(2 * radius);
+        y = random.nextInt(game.getHeight() - (game.getHeight() / 6)) + (game.getHeight() / 12);
         xVelocity = 10;
         yVelocity = random.nextInt(10) - 5;
         break;
@@ -121,28 +121,29 @@ public class Spawner {
     HealingEnemy.START_SIDE start_side = HealingEnemy.START_SIDE.values()[random.nextInt(
         HealingEnemy.START_SIDE.values().length)];
     int x, y, xVelocity, yVelocity;
+    // Assigns a semi-random velocity and position based on start_side
     switch (start_side) {
       case up:
-        x = random.nextInt(game.getWidth() - (game.getWidth() / 6)) - (game.getWidth() / 6);
-        y = -10;
+        x = random.nextInt(game.getWidth() - (game.getWidth() / 6)) + (game.getWidth() / 12);
+        y = -(2 * radius);
         xVelocity = random.nextInt(10) - 5;
         yVelocity = 7;
         break;
       case right:
-        x = game.getWidth() + 10;
-        y = random.nextInt(game.getHeight() - (game.getHeight() / 6)) - (game.getHeight() / 6);
+        x = game.getWidth() + 2 * radius;
+        y = random.nextInt(game.getHeight() - (game.getHeight() / 6)) + (game.getHeight() / 12);
         xVelocity = -7;
         yVelocity = random.nextInt(10) - 5;
         break;
       case down:
-        x = random.nextInt(game.getWidth() - (game.getWidth() / 6)) - (game.getWidth() / 6);
-        y = game.getHeight() + 10;
+        x = random.nextInt(game.getWidth() - (game.getWidth() / 6)) + (game.getWidth() / 12);
+        y = game.getHeight() + 2 * radius;
         xVelocity = random.nextInt(10) - 5;
         yVelocity = -7;
         break;
       case left:
-        x = -10;
-        y = random.nextInt(game.getHeight() - (game.getHeight() / 6)) - (game.getHeight() / 6);
+        x = -(2 * radius);
+        y = random.nextInt(game.getHeight() - (game.getHeight() / 6)) + (game.getHeight() / 12);
         xVelocity = 7;
         yVelocity = random.nextInt(10) - 5;
         break;
@@ -159,8 +160,8 @@ public class Spawner {
     int radius = 12;
     Player player = null;
     // Stops the enemy from spawning too close to the player
-    int x = random.nextInt(game.getWidth() - 32);
-    int y = random.nextInt(game.getWidth() - 64);
+    int x = random.nextInt(game.getWidth() - 2 * radius);
+    int y = random.nextInt(game.getHeight() - 2 * radius);
     for (GameObject object : handler.objects) {
       if (object.getID() == ID.Player) {
         player = (Player) object;
@@ -184,8 +185,8 @@ public class Spawner {
     int radius = 16;
     Player player = null;
     // Stops the enemy from spawning too close to the player
-    int x = random.nextInt(game.getWidth() - 32);
-    int y = random.nextInt(game.getWidth() - 64);
+    int x = random.nextInt(game.getWidth() - 2 * radius);
+    int y = random.nextInt(game.getHeight() - 2 * radius);
     for (GameObject object : handler.objects) {
       if (object.getID() == ID.Player) {
         player = (Player) object;
@@ -203,7 +204,51 @@ public class Spawner {
     }
 
     handler.addObject(
-        new InstantDeathEnemy(game, x, y, 2, 2, 16, ID.InstantDeathEnemy, player));
+        new InstantDeathEnemy(game, x, y, 2, 2, radius, ID.InstantDeathEnemy, player, handler));
+  }
+
+  private void spawnFireworkEnemy() {
+    // radius is the explosion radius of the firework
+    int radius = 8 * 14;
+    // Gets a random start_corner
+    FireworkEnemy.START_CORNER start_corner = FireworkEnemy.START_CORNER.values()[random.nextInt(
+        FireworkEnemy.START_CORNER.values().length)];
+    int x;
+    int y = random.nextInt(game.getHeight() / 3);
+    int xVelocity = random.nextInt(3) + 3;
+    int yVelocity = 10 * (random.nextInt(8) + 4);
+    // Assigns a semi-random velocity and position based on start_corner
+    switch (start_corner) {
+      case topLeft:
+        x = -(2 * radius / 8);
+        break;
+      case topRight:
+        x = game.getWidth() + 2 * radius / 8;
+        xVelocity *= -1;
+        break;
+      case bottomLeft:
+        x = -(2 * radius / 8);
+        yVelocity *= -1;
+        break;
+      case bottomRight:
+        x = game.getWidth() + 2 * radius / 8;
+        xVelocity *= -1;
+        yVelocity *= -1;
+        break;
+      default:
+        throw new IllegalStateException("Unexpected value: " + start_corner);
+    }
+
+    Player player = null;
+    for (GameObject object : handler.objects) {
+      if (object.getID() == ID.Player) {
+        player = (Player) object;
+      }
+    }
+
+    assert player != null;
+    handler.addObject(new FireworkEnemy(game, x, y, xVelocity, yVelocity, radius, ID.FireworkEnemy,
+        player, handler, start_corner, radius / 8));
   }
 
   private void levelOne() {
@@ -231,6 +276,10 @@ public class Spawner {
       spawnStreakEnemy();
     }
 
+    if (hud.getScore() % 500 == 0) {
+      spawnFireworkEnemy();
+    }
+
     if (hud.getScore() % 1000 == 0) {
       spawnHomingEnemy();
     }
@@ -247,6 +296,10 @@ public class Spawner {
 
     if (hud.getScore() % 300 == 0) {
       spawnHealingEnemy();
+    }
+
+    if (hud.getScore() % 500 == 0) {
+      spawnFireworkEnemy();
     }
 
     if (hud.getScore() % 999 == 0) {
@@ -267,6 +320,10 @@ public class Spawner {
       spawnHealingEnemy();
     }
 
+    if (hud.getScore() % 500 == 0) {
+      spawnFireworkEnemy();
+    }
+
     if (hud.getScore() % 999 == 0) {
       spawnHomingEnemy();
       spawnInstantDeathEnemy();
@@ -284,6 +341,10 @@ public class Spawner {
 
     if (hud.getScore() % 300 == 0) {
       spawnHealingEnemy();
+    }
+
+    if (hud.getScore() % 500 == 0) {
+      spawnFireworkEnemy();
     }
 
     if (hud.getScore() % 999 == 0) {

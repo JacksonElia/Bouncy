@@ -20,8 +20,8 @@ public class HomingEnemy extends GameObject {
   @Override
   public void tick() {
     // Has + player radius - radius to get the homing enemy to target the center of the player
-    int xDifference = player.getX() + player.getRadius() - radius - x;
-    int yDifference = player.getY() + player.getRadius() - radius - y;
+    int xDifference = player.getX() + player.getRadius() - x - radius;
+    int yDifference = player.getY() + player.getRadius() - y - radius;
     double distance = Math.sqrt(xDifference * xDifference + yDifference * yDifference);
     x += xVelocity * Math.round(xDifference / distance);
     y += yVelocity * Math.round(yDifference / distance);

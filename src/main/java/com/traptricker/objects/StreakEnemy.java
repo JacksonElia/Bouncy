@@ -10,13 +10,11 @@ import java.awt.Graphics;
  */
 public class StreakEnemy extends GameObject {
 
+  private final Handler handler;
   public START_SIDE start_side;
 
-  private final Handler handler;
-
   public StreakEnemy(Game game, int x, int y, int xVelocity, int yVelocity, int radius, ID id,
-      Handler handler,
-      START_SIDE start_side) {
+      Handler handler, START_SIDE start_side) {
     super(game, x, y, xVelocity, yVelocity, radius, id);
     this.handler = handler;
     this.start_side = start_side;
@@ -33,18 +31,22 @@ public class StreakEnemy extends GameObject {
         if (x < -10 || x > game.getWidth() || y > game.getHeight()) {
           handler.objectsToRemove.add(this);
         }
+        break;
       case right:
         if (x < -10 || y < -10 || y > game.getHeight()) {
           handler.objectsToRemove.add(this);
         }
+        break;
       case down:
         if (x < -10 || x > game.getWidth() || y < -10) {
           handler.objectsToRemove.add(this);
         }
+        break;
       case left:
         if (x > game.getWidth() || y < -10 || y > game.getHeight()) {
           handler.objectsToRemove.add(this);
         }
+        break;
     }
   }
 

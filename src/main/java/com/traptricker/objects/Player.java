@@ -75,6 +75,17 @@ public class Player extends GameObject {
           default:
         }
       }
+      // FireworkEnemies have two radii, so collision is different,
+      if (object.getID() == ID.FireworkEnemy) {
+        int initialRadius = ((FireworkEnemy) object).getInitialRadius();
+        if ((x + radius - object.getX() - initialRadius) * (x + radius - object.getX()
+            - initialRadius)
+            + (y + radius - object.getY() - initialRadius) * (y + radius - object.getY()
+            - initialRadius) < (
+            (radius + object.getRadius()) * (radius + object.getRadius()))) {
+          hud.setHealth(hud.getHealth() - 5);
+        }
+      }
     }
   }
 

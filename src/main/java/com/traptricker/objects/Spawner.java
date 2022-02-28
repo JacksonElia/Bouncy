@@ -233,14 +233,14 @@ public class Spawner {
 
   private void spawnFireworkEnemy() {
     // radius is the explosion radius of the firework
-    int radius = 8 * 14;
+    int radius = 8 * 20;
     // Gets a random start_corner
     FireworkEnemy.START_CORNER start_corner = FireworkEnemy.START_CORNER.values()[random.nextInt(
         FireworkEnemy.START_CORNER.values().length)];
     int x;
     int y = random.nextInt(game.getHeight() / 3);
-    int xVelocity = random.nextInt(3) + 3;
-    int yVelocity = 10 * (random.nextInt(8) + 4);
+    int xVelocity = random.nextInt(6) + 4;
+    int yVelocity = 10 * (random.nextInt(10) + 6);
     // Assigns a semi-random velocity and position based on start_corner
     switch (start_corner) {
       case topLeft:
@@ -276,27 +276,27 @@ public class Spawner {
   }
 
   private void levelOne() {
-    if (hud.getScore() % 200 == 0) {
+    if (hud.getScore() % 100 == 0) {
       spawnBasicEnemy();
     }
   }
 
   private void levelTwo() {
-    if (hud.getScore() % 400 == 0) {
+    if (hud.getScore() % 200 == 0) {
       spawnBasicEnemy();
     }
 
-    if (hud.getScore() % 200 == 0) {
+    if (hud.getScore() % 150 == 0) {
       spawnStreakEnemy();
     }
   }
 
   private void levelThree() {
-    if (hud.getScore() % 400 == 0) {
+    if (hud.getScore() % 200 == 0) {
       spawnBasicEnemy();
     }
 
-    if (hud.getScore() % 300 == 0) {
+    if (hud.getScore() % 100 == 0) {
       spawnStreakEnemy();
     }
 
@@ -310,7 +310,7 @@ public class Spawner {
   }
 
   private void levelFour() {
-    if (hud.getScore() % 500 == 0) {
+    if (hud.getScore() % 400 == 0) {
       spawnBasicEnemy();
     }
 
@@ -322,7 +322,7 @@ public class Spawner {
       spawnHealingEnemy();
     }
 
-    if (hud.getScore() % 500 == 0) {
+    if (hud.getScore() % 400 == 0) {
       spawnFireworkEnemy();
     }
 
@@ -344,7 +344,7 @@ public class Spawner {
       spawnHealingEnemy();
     }
 
-    if (hud.getScore() % 500 == 0) {
+    if (hud.getScore() % 300 == 0) {
       spawnFireworkEnemy();
     }
 
@@ -367,7 +367,7 @@ public class Spawner {
       spawnHealingEnemy();
     }
 
-    if (hud.getScore() % 500 == 0) {
+    if (hud.getScore() % 300 == 0) {
       spawnFireworkEnemy();
     }
 

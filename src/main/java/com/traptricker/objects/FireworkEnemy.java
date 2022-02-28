@@ -76,9 +76,11 @@ public class FireworkEnemy extends GameObject {
       g.setColor(color);
       g.fillRect(x, y, initialRadius * 2, initialRadius * 2);
     } else {
-      g.setColor(color);
-      g.fillOval(x - initialRadius * 7, y - initialRadius * 7, initialRadius * 16,
-          initialRadius * 16);
+      if (tickCounterAfterExploding < 20) {
+        g.setColor(color);
+        g.fillOval(x - initialRadius * 7, y - initialRadius * 7, radius * 2,
+            radius * 2);
+      }
     }
   }
 

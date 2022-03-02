@@ -5,13 +5,21 @@ package com.traptricker.objects;
  */
 public enum ID {
 
+  // Player
   Player(),
+
+  // UI
+  TitleScreenEnemy(),
+
+  // Enemies
   BasicEnemy(),
   StreakEnemy(),
   HealingEnemy(),
   HomingEnemy(),
   InstantDeathEnemy(),
   FireworkEnemy(),
-  TitleScreenEnemy()
+
+  // Powerups
+  ShrinkPowerup()
 
 }

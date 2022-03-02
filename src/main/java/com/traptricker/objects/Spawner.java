@@ -25,27 +25,35 @@ public class Spawner {
 
   public void tick() {
     // Handles the levels
-    switch (hud.level) {
-      case 1:
-        levelOne();
-        break;
-      case 2:
-        levelTwo();
-        break;
-      case 3:
-        levelThree();
-        break;
-      case 4:
-        levelFour();
-        break;
-      case 5:
-        levelFive();
-        break;
-      default:
-        levelEndless();
+//    switch (hud.level) {
+//      case 1:
+//        levelOne();
+//        break;
+//      case 2:
+//        levelTwo();
+//        break;
+//      case 3:
+//        levelThree();
+//        break;
+//      case 4:
+//        levelFour();
+//        break;
+//      case 5:
+//        levelFive();
+//        break;
+//      default:
+//        levelEndless();
+//    }
+
+    if (hud.getScore() % 200 == 0) {
+      spawnShrinkPowerup();
     }
+
   }
 
+  /*
+  UI Objects
+   */
 
   public void spawnTitleScreenEnemy() {
     int radius = random.nextInt(12) + 2;
@@ -68,6 +76,10 @@ public class Spawner {
         new TitleScreenEnemy(game, x, y, xVelocity, yVelocity, radius, ID.TitleScreenEnemy,
             new Color(r, g, b)));
   }
+
+  /*
+  Enemies
+   */
 
   private void spawnBasicEnemy() {
     int radius = 10;
@@ -274,6 +286,50 @@ public class Spawner {
     handler.addObject(new FireworkEnemy(game, x, y, xVelocity, yVelocity, radius, ID.FireworkEnemy,
         player, handler, start_corner, radius / 8));
   }
+
+  /*
+  Powerups
+   */
+
+  private void spawnShrinkPowerup() {
+    int radius = 20;
+    // Gets a random start_corner
+    ShrinkPowerup.START_SIDE start_side = ShrinkPowerup.START_SIDE.values()[random.nextInt(
+        ShrinkPowerup.START_SIDE.values().length)];
+    int x;
+    int cValue =
+        random.nextInt(game.getHeight() - (game.getHeight() / 6)) + (game.getHeight() / 12);
+    int equationXVelocity = random.nextInt(5) + 3;
+    // Gets a random number in between 1.004 and 1.009
+    double equationYVelocity = 1 + ((double) random.nextInt(5) + 4) / 1000;
+    // Assigns a set velocity and position based on start_side
+    switch (start_side) {
+      case up:
+        x = 0;
+        break;
+      case right:
+        x = game.getWidth() + 2 * radius;
+        equationXVelocity *= -1;
+        break;
+      case down:
+        x = game.getWidth();
+        equationXVelocity *= -1;
+        break;
+      case left:
+        x = -(2 * radius);
+        break;
+      default:
+        throw new IllegalStateException("Unexpected value: " + start_side);
+    }
+
+    handler.addObject(
+        new ShrinkPowerup(game, x, cValue, equationXVelocity, equationYVelocity, radius,
+            ID.ShrinkPowerup, handler, start_side));
+  }
+
+  /*
+  Levels
+   */
 
   private void levelOne() {
     if (hud.getScore() % 100 == 0) {

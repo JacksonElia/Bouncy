@@ -20,6 +20,7 @@ public class HUD {
   public int health = 1000;
   public int score = 1;
   public int level = 1;
+  public int powerupTimeLeft = 0;
 
   private final Handler handler;
   private final Game game;
@@ -62,15 +63,19 @@ public class HUD {
     g.setColor(Color.red);
     g.fillRect(24, 24, 292 * health / healthMax, 32);
     g.setColor(Color.white);
-    g.setFont(new Font("Sans Serif", Font.PLAIN, 10));
+    g.setFont(new Font("Sans Serif", Font.PLAIN, 20));
     g.drawString(String.format("Score: %d", score), 20, 80);
-    g.drawString(String.format("Level: %d", level), 20, 95);
+    g.drawString(String.format("Level: %d", level), 20, 100);
+    if (powerupTimeLeft > 0) {
+      g.drawString(String.format("Powerup left: %d", powerupTimeLeft), game.getWidth() - 172, 36);
+    }
   }
 
   public void resetValues() {
     health = 1000;
     score = 1;
     level = 1;
+    powerupTimeLeft = 0;
   }
 
   public int getHealth() {
@@ -96,6 +101,14 @@ public class HUD {
 
   public void setLevel(int level) {
     this.level = level;
+  }
+
+  public int getPowerupTimeLeft() {
+    return powerupTimeLeft;
+  }
+
+  public void setPowerupTimeLeft(int powerupTimeLeft) {
+    this.powerupTimeLeft = powerupTimeLeft;
   }
 
 }

@@ -10,17 +10,21 @@ public class ShrinkPowerup extends GameObject {
   private final Handler handler;
   private final START_SIDE start_side;
   private final int cValue;
-  private int relativeX = 0;
   private final double equationYVelocity;
+  private final int shrinkRadius;
+  private int relativeX = 0;
+  private final int shrinkTime;
 
   public ShrinkPowerup(Game game, int x, int y, int xVelocity, double yVelocity,
-      int radius, ID id, Handler handler, START_SIDE start_side) {
+      int radius, int shrinkRadius, int shrinkTime, ID id, Handler handler, START_SIDE start_side) {
     super(game, x, y, xVelocity, (int) yVelocity, radius, id);
     this.handler = handler;
     this.start_side = start_side;
     equationYVelocity = yVelocity;
     this.cValue = y;
     this.y = -(2 * radius);
+    this.shrinkRadius = shrinkRadius;
+    this.shrinkTime = shrinkTime;
   }
 
   @Override
@@ -61,7 +65,19 @@ public class ShrinkPowerup extends GameObject {
   // Returns the y value of the object
   private int pathEquation(int x) {
     // Equation: a^x
-    return (int) Math.pow(equationYVelocity, x) + cValue;
+    int returnInt = (int) Math.pow(equationYVelocity, x) + cValue;
+    if (returnInt > game.getHeight()) {
+      returnInt = game.getHeight() + 4 * radius;
+    }
+    return returnInt;
+  }
+
+  public int getShrinkRadius() {
+    return shrinkRadius;
+  }
+
+  public int getShrinkTime() {
+    return shrinkTime;
   }
 
   public enum START_SIDE {

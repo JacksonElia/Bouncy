@@ -323,7 +323,8 @@ public class Spawner {
     }
 
     handler.addObject(
-        new ShrinkPowerup(game, x, cValue, equationXVelocity, equationYVelocity, radius,
+        new ShrinkPowerup(game, x, cValue, equationXVelocity, equationYVelocity, radius, radius / 2,
+            10,
             ID.ShrinkPowerup, handler, start_side));
   }
 

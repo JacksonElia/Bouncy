@@ -13,11 +13,15 @@ public class Player extends GameObject {
 
   private final Handler handler;
   private final HUD hud;
+  private final int initialRadius;
+
+  public GameObject currentPowerup;
 
   public Player(Game game, int x, int y, int radius, ID id, Handler handler, HUD hud) {
     super(game, x, y, 0, 0, radius, id);
     this.handler = handler;
     this.hud = hud;
+    initialRadius = radius;
   }
 
   @Override
@@ -46,14 +50,32 @@ public class Player extends GameObject {
 
   @Override
   public void tick() {
+    // Powerup effects
+    if (hud.getPowerupTimeLeft() == 0) {
+      currentPowerup = null;
+    }
+    if (currentPowerup != null) {
+      if (currentPowerup.getID() == ID.ShrinkPowerup) {
+        radius = ((ShrinkPowerup) currentPowerup).getShrinkRadius();
+      }
+    } else {
+      // Default, no-powerup settings
+      radius = initialRadius;
+    }
+
     // Collision
     for (GameObject object : handler.objects) {
       // Uses circular collision
-      if (((x + radius - object.getX() - object.getRadius()) * (x + radius - object.getX()
-          - object.getRadius()) + ((y + radius - object.getY() - object.getRadius()) * (y + radius
-          - object.getY() - object.getRadius())) <= ((radius + object.getRadius()) * (radius
-          + object.getRadius())))) {
+      if (object.getID() != ID.Player && (
+          (x + radius - object.getX() - object.getRadius()) * (x + radius - object.getX()
+              - object.getRadius()) + ((y + radius - object.getY() - object.getRadius()) * (
+              y + radius
+                  - object.getY() - object.getRadius())) <= ((radius + object.getRadius()) * (radius
+              + object.getRadius())))) {
         switch (object.getID()) {
+          /*
+          Enemies
+           */
           case BasicEnemy:
             hud.setHealth(hud.getHealth() - 100);
             handler.objectsToRemove.add(object);
@@ -72,6 +94,13 @@ public class Player extends GameObject {
           case InstantDeathEnemy:
             hud.setHealth(hud.getHealth() - HUD.healthMax);
             break;
+          /*
+          Powerups
+          */
+          case ShrinkPowerup:
+            currentPowerup = object;
+            handler.objectsToRemove.add(object);
+            hud.setPowerupTimeLeft(((ShrinkPowerup) object).getShrinkTime());
           default:
         }
       }
@@ -93,6 +122,14 @@ public class Player extends GameObject {
   public void render(Graphics g) {
     g.setColor(Color.white);
     g.fillOval(x, y, radius * 2, radius * 2);
+  }
+
+  public GameObject getCurrentPowerup() {
+    return currentPowerup;
+  }
+
+  public void setCurrentPowerup(GameObject currentPowerup) {
+    this.currentPowerup = currentPowerup;
   }
 
 }

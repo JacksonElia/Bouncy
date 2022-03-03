@@ -34,6 +34,10 @@ public class HUD {
     // Increases the score every tick and level every 1000 ticks
     score++;
     level = Math.floorDiv(score, 1000) + 1;
+    // Has powerup time left count down
+    if (game.getTick() == 1) {
+      powerupTimeLeft--;
+    }
     if (health <= 0) {
       game.setInterface_state(INTERFACE_STATE.DeathScreen);
       String[] nextLine;
@@ -42,8 +46,12 @@ public class HUD {
         nextLine = CSVManager.readHighScore();
         int highScore = Integer.parseInt(nextLine[0]);
         int highLevel = Integer.parseInt(nextLine[1]);
-        if (highScore < score) highScore = score;
-        if (highLevel < level) highLevel = level;
+        if (highScore < score) {
+          highScore = score;
+        }
+        if (highLevel < level) {
+          highLevel = level;
+        }
         CSVManager.writeHighScore(highScore, highLevel);
       } catch (IOException e) {
         e.printStackTrace();

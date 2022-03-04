@@ -4,7 +4,9 @@ import com.traptricker.Game;
 import com.traptricker.datastorage.CSVManager;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -23,12 +25,21 @@ public class DeathScreen {
 
   private final Game game;
   private final HUD hud;
+  private Font gameFont;
 
   public DeathScreen(Game game, HUD hud) {
     this.game = game;
     this.hud = hud;
 
     updateValues();
+
+    // Adds the custom font
+    try {
+      gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/aAkhirTahun.ttf"))
+          .deriveFont(20f);
+    } catch (IOException | FontFormatException e) {
+      e.printStackTrace();
+    }
   }
 
   public void tick() {
@@ -54,9 +65,10 @@ public class DeathScreen {
     g.fillRect(game.getWidth() / 3 - 100 + 4, 2 * game.getHeight() / 3 + 4, 200 - 8, 150 - 8);
     g.fillRect(2 * game.getWidth() / 3 - 120 + 4, 2 * game.getHeight() / 3 + 4, 200 - 8, 150 - 8);
 
+    g.setFont(gameFont.deriveFont(17f));
+
     // Left Box
     g.setColor(Color.white);
-    g.setFont(new Font("Sans Serif", Font.BOLD, 20));
     // Deals with high scores
     String[] nextLine = {"1", "1"};
     try {

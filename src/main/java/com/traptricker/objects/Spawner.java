@@ -49,7 +49,7 @@ public class Spawner {
 //      spawnShrinkPowerup();
 //    }
 
-    if (hud.getScore() == 200) {
+    if (hud.getScore() % 200 == 0) {
       spawnShieldPowerup();
     }
 
@@ -341,7 +341,7 @@ public class Spawner {
     int y = random.nextInt(game.getHeight() / 3);
     int xVelocity = random.nextInt(5) + 3;
     // yVelocity is really going to be equal to 1 / yVelocity
-    int yVelocity = 1000 * (random.nextInt(11) + 1);
+    int yVelocity = 1000 * (random.nextInt(4) + 2);
     // Assigns a semi-random velocity and position based on start_corner
     switch (start_corner) {
       case topLeft:

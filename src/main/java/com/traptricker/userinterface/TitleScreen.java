@@ -4,7 +4,10 @@ import com.traptricker.Game;
 import com.traptricker.objects.Spawner;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * This class renders and updates the screen seen when the player loads up the game.
@@ -22,6 +25,7 @@ public class TitleScreen {
 
   private final Game game;
   private final Spawner spawner;
+  private Font gameFont;
 
   public TitleScreen(Game game, Spawner spawner) {
     this.game = game;
@@ -29,6 +33,14 @@ public class TitleScreen {
     updateValues();
     for (int i = 0; i < 20; i++) {
       spawner.spawnTitleScreenEnemy();
+    }
+
+    // Adds the custom font
+    try {
+      gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/aAkhirTahun.ttf"))
+          .deriveFont(20f);
+    } catch (IOException | FontFormatException e) {
+      e.printStackTrace();
     }
   }
 
@@ -38,17 +50,17 @@ public class TitleScreen {
 
   public void render(Graphics g) {
     g.setColor(Color.white);
-    g.setFont(new Font("Sans Serif", Font.BOLD, 90));
-    g.drawString("Bouncy", game.getWidth() / 2 - 162, game.getHeight() / 6);
+    g.setFont(gameFont.deriveFont(100f));
+    g.drawString("Bouncy", game.getWidth() / 2 - 200, game.getHeight() / 6);
     g.fillRect(playButtonX, playButtonY, playButtonWidth, playButtonHeight);
     g.fillRect(quitButtonX, quitButtonY, quitButtonWidth, quitButtonHeight);
-    g.setFont(new Font("Sans Serif", Font.BOLD, 40));
-    g.drawString("Made by Traptricker", game.getWidth() / 2 - 190, game.getHeight() - 90);
+    g.setFont(gameFont.deriveFont(30f));
+    g.drawString("Made by Traptricker", game.getWidth() / 2 - 185, game.getHeight() - 90);
 
     g.setColor(Color.black);
-    g.setFont(new Font("Sans Serif", Font.BOLD, 70));
-    g.drawString("Play", game.getWidth() / 2 - 70, game.getHeight() / 4 + 75);
-    g.drawString("Quit", game.getWidth() / 2 - 70, game.getHeight() / 2 + 75);
+    g.setFont(gameFont.deriveFont(60f));
+    g.drawString("Play", game.getWidth() / 2 - 80, game.getHeight() / 4 + 72);
+    g.drawString("Quit", game.getWidth() / 2 - 75, game.getHeight() / 2 + 72);
   }
 
   private void updateValues() {

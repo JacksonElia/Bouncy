@@ -45,8 +45,12 @@ public class Spawner {
 //        levelEndless();
 //    }
 
-    if (hud.getScore() % 200 == 0) {
-      spawnShrinkPowerup();
+//    if (hud.getScore() % 500 == 0) {
+//      spawnShrinkPowerup();
+//    }
+
+    if (hud.getScore() == 200) {
+      spawnShieldPowerup();
     }
 
   }
@@ -299,9 +303,9 @@ public class Spawner {
     int x;
     int cValue =
         random.nextInt(game.getHeight() - (game.getHeight() / 6)) + (game.getHeight() / 12);
-    int equationXVelocity = random.nextInt(5) + 3;
+    int xVelocity = random.nextInt(5) + 3;
     // Gets a random number in between 1.004 and 1.009
-    double equationYVelocity = 1 + ((double) random.nextInt(5) + 4) / 1000;
+    double yVelocity = 1 + ((double) random.nextInt(5) + 4) / 1000;
     // Assigns a set velocity and position based on start_side
     switch (start_side) {
       case up:
@@ -309,11 +313,11 @@ public class Spawner {
         break;
       case right:
         x = game.getWidth() + 2 * radius;
-        equationXVelocity *= -1;
+        xVelocity *= -1;
         break;
       case down:
         x = game.getWidth();
-        equationXVelocity *= -1;
+        xVelocity *= -1;
         break;
       case left:
         x = -(2 * radius);
@@ -323,9 +327,40 @@ public class Spawner {
     }
 
     handler.addObject(
-        new ShrinkPowerup(game, x, cValue, equationXVelocity, equationYVelocity, radius, radius / 2,
+        new ShrinkPowerup(game, x, cValue, xVelocity, yVelocity, radius, radius / 2,
             10,
             ID.ShrinkPowerup, handler, start_side));
+  }
+
+  private void spawnShieldPowerup() {
+    int radius = 20;
+    // Gets a random start_corner
+    ShieldPowerup.START_CORNER start_corner = ShieldPowerup.START_CORNER.values()[random.nextInt(
+        ShieldPowerup.START_CORNER.values().length)];
+    int x;
+    int y = random.nextInt(game.getHeight() / 3);
+    int xVelocity = random.nextInt(5) + 3;
+    // yVelocity is really going to be equal to 1 / yVelocity
+    int yVelocity = 1000 * (random.nextInt(11) + 1);
+    // Assigns a semi-random velocity and position based on start_corner
+    switch (start_corner) {
+      case topLeft:
+      case bottomLeft:
+        x = -(2 * radius);
+        break;
+      case topRight:
+      case bottomRight:
+        x = game.getWidth() + 2 * radius;
+        xVelocity *= -1;
+        break;
+      default:
+        throw new IllegalStateException("Unexpected value: " + start_corner);
+    }
+
+    handler.addObject(
+        new ShieldPowerup(game, x, y, xVelocity, yVelocity, radius, 10, ID.ShieldPowerup, handler,
+            start_corner));
+
   }
 
   /*

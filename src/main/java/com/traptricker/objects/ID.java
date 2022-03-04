@@ -20,6 +20,7 @@ public enum ID {
   FireworkEnemy(),
 
   // Powerups
-  ShrinkPowerup()
+  ShrinkPowerup(),
+  ShieldPowerup()
 
 }

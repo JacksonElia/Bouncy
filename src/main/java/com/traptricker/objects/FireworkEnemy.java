@@ -86,6 +86,7 @@ public class FireworkEnemy extends GameObject {
 
   // Returns the y value of the object
   private int pathEquation(int x) {
+    // Equation: a*sqrt(x)
     return (int) Math.abs((yVelocity * Math.sqrt(x) / xVelocity)) + cValue;
   }
 

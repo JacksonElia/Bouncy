@@ -15,7 +15,9 @@ public class Player extends GameObject {
   private final HUD hud;
   private final int initialRadius;
 
-  public GameObject currentPowerup;
+  public boolean isShrunk = false;
+  public int shrinkRadius;
+  public boolean isShielded = false;
 
   public Player(Game game, int x, int y, int radius, ID id, Handler handler, HUD hud) {
     super(game, x, y, 0, 0, radius, id);
@@ -51,17 +53,12 @@ public class Player extends GameObject {
   @Override
   public void tick() {
     // Powerup effects
-    if (hud.getPowerupTimeLeft() == 0) {
-      currentPowerup = null;
-    }
-    if (currentPowerup != null) {
-      if (currentPowerup.getID() == ID.ShrinkPowerup) {
-        radius = ((ShrinkPowerup) currentPowerup).getShrinkRadius();
-      }
+    if (hud.getShrinkPowerupTimeLeft() > 0) {
+      radius = shrinkRadius;
     } else {
-      // Default, no-powerup settings
       radius = initialRadius;
     }
+    isShielded = hud.getShieldPowerupTimeLeft() > 0;
 
     // Collision
     for (GameObject object : handler.objects) {
@@ -70,37 +67,58 @@ public class Player extends GameObject {
           (x + radius - object.getX() - object.getRadius()) * (x + radius - object.getX()
               - object.getRadius()) + ((y + radius - object.getY() - object.getRadius()) * (
               y + radius
-                  - object.getY() - object.getRadius())) <= ((radius + object.getRadius()) * (radius
-              + object.getRadius())))) {
+                  - object.getY() - object.getRadius())) <= ((radius + object.getRadius()) * (
+              radius
+                  + object.getRadius())))) {
         switch (object.getID()) {
           /*
           Enemies
            */
           case BasicEnemy:
-            hud.setHealth(hud.getHealth() - 100);
             handler.objectsToRemove.add(object);
+            if (isShielded) {
+              isShielded = false;
+              break;
+            }
+            hud.setHealth(hud.getHealth() - 100);
             break;
           case StreakEnemy:
-            hud.setHealth(hud.getHealth() - 300);
             handler.objectsToRemove.add(object);
+            if (isShielded) {
+              isShielded = false;
+              break;
+            }
+            hud.setHealth(hud.getHealth() - 300);
             break;
           case HealingEnemy:
             hud.setHealth(hud.getHealth() + 150);
             handler.objectsToRemove.add(object);
             break;
           case HomingEnemy:
+            if (isShielded) {
+              isShielded = false;
+              break;
+            }
             hud.setHealth(hud.getHealth() - 2);
             break;
           case InstantDeathEnemy:
+            if (isShielded) {
+              isShielded = false;
+              break;
+            }
             hud.setHealth(hud.getHealth() - HUD.healthMax);
             break;
           /*
           Powerups
           */
           case ShrinkPowerup:
-            currentPowerup = object;
             handler.objectsToRemove.add(object);
-            hud.setPowerupTimeLeft(((ShrinkPowerup) object).getShrinkTime());
+            shrinkRadius = ((ShrinkPowerup) object).getShrinkRadius();
+            hud.setShrinkPowerupTimeLeft(((ShrinkPowerup) object).getShrinkTime());
+            break;
+          case ShieldPowerup:
+            handler.objectsToRemove.add(object);
+            hud.setShieldPowerupTimeLeft(((ShieldPowerup) object).getShieldTime());
           default:
         }
       }
@@ -122,14 +140,11 @@ public class Player extends GameObject {
   public void render(Graphics g) {
     g.setColor(Color.white);
     g.fillOval(x, y, radius * 2, radius * 2);
-  }
+    if (isShielded) {
+      g.setColor(new Color(160, 160, 255, 120));
+      g.fillOval(x - radius / 2, y - radius / 2, radius * 3, radius * 3);
+    }
 
-  public GameObject getCurrentPowerup() {
-    return currentPowerup;
-  }
-
-  public void setCurrentPowerup(GameObject currentPowerup) {
-    this.currentPowerup = currentPowerup;
   }
 
 }

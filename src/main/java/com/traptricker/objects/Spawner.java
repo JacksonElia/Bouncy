@@ -45,9 +45,9 @@ public class Spawner {
 //        levelEndless();
 //    }
 
-//    if (hud.getScore() % 500 == 0) {
-//      spawnShrinkPowerup();
-//    }
+    if (hud.getScore() % 500 == 0) {
+      spawnShrinkPowerup();
+    }
 
     if (hud.getScore() % 200 == 0) {
       spawnShieldPowerup();
@@ -358,7 +358,7 @@ public class Spawner {
     }
 
     handler.addObject(
-        new ShieldPowerup(game, x, y, xVelocity, yVelocity, radius, 10, ID.ShieldPowerup, handler,
+        new ShieldPowerup(game, x, y, xVelocity, yVelocity, radius, 25, ID.ShieldPowerup, handler,
             start_corner));
 
   }

@@ -20,7 +20,8 @@ public class HUD {
   public int health = 1000;
   public int score = 1;
   public int level = 1;
-  public int powerupTimeLeft = 0;
+  public int shrinkPowerupTimeLeft = 0;
+  public int shieldPowerupTimeLeft = 0;
 
   private final Handler handler;
   private final Game game;
@@ -36,7 +37,8 @@ public class HUD {
     level = Math.floorDiv(score, 1000) + 1;
     // Has powerup time left count down
     if (game.getTick() == 1) {
-      powerupTimeLeft--;
+      shrinkPowerupTimeLeft--;
+      shieldPowerupTimeLeft--;
     }
     if (health <= 0) {
       game.setInterface_state(INTERFACE_STATE.DeathScreen);
@@ -74,8 +76,13 @@ public class HUD {
     g.setFont(new Font("Sans Serif", Font.PLAIN, 20));
     g.drawString(String.format("Score: %d", score), 20, 80);
     g.drawString(String.format("Level: %d", level), 20, 100);
-    if (powerupTimeLeft > 0) {
-      g.drawString(String.format("Powerup left: %d", powerupTimeLeft), game.getWidth() - 172, 36);
+    if (shrinkPowerupTimeLeft > 0) {
+      g.drawString(String.format("Shrink left: %d", shrinkPowerupTimeLeft), game.getWidth() - 150,
+          36);
+    }
+    if (shieldPowerupTimeLeft > 0) {
+      g.drawString(String.format("Shield left: %d", shieldPowerupTimeLeft), game.getWidth() - 150,
+          72);
     }
   }
 
@@ -83,7 +90,8 @@ public class HUD {
     health = 1000;
     score = 1;
     level = 1;
-    powerupTimeLeft = 0;
+    shrinkPowerupTimeLeft = 0;
+    shieldPowerupTimeLeft = 0;
   }
 
   public int getHealth() {
@@ -111,12 +119,20 @@ public class HUD {
     this.level = level;
   }
 
-  public int getPowerupTimeLeft() {
-    return powerupTimeLeft;
+  public int getShrinkPowerupTimeLeft() {
+    return shrinkPowerupTimeLeft;
   }
 
-  public void setPowerupTimeLeft(int powerupTimeLeft) {
-    this.powerupTimeLeft = powerupTimeLeft;
+  public void setShrinkPowerupTimeLeft(int shrinkPowerupTimeLeft) {
+    this.shrinkPowerupTimeLeft = shrinkPowerupTimeLeft;
+  }
+
+  public int getShieldPowerupTimeLeft() {
+    return shieldPowerupTimeLeft;
+  }
+
+  public void setShieldPowerupTimeLeft(int shieldPowerupTimeLeft) {
+    this.shieldPowerupTimeLeft = shieldPowerupTimeLeft;
   }
 
 }

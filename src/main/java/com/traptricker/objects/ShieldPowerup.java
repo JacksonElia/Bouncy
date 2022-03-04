@@ -6,7 +6,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 /**
- * This powerup will block the next damage the player receives.
+ * This powerup will block the next damage the player receives except instant death.
+ * TODO: Add better mechanics for blocking overtime damage from firework and homing enemies.
  */
 public class ShieldPowerup extends GameObject {
 

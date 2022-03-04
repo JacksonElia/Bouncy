@@ -101,6 +101,7 @@ public class Player extends GameObject {
             hud.setHealth(hud.getHealth() - 2);
             break;
           case InstantDeathEnemy:
+            // Shield won't protect from instant death enemy
             if (isShielded) {
               hud.setShieldPowerupTimeLeft(0);
               break;
@@ -129,6 +130,10 @@ public class Player extends GameObject {
             + (y + radius - object.getY() - initialRadius) * (y + radius - object.getY()
             - initialRadius) < (
             (radius + object.getRadius()) * (radius + object.getRadius()))) {
+          if (isShielded) {
+            hud.setShieldPowerupTimeLeft(0);
+            break;
+          }
           hud.setHealth(hud.getHealth() - 5);
         }
       }

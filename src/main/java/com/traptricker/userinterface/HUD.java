@@ -7,7 +7,9 @@ import com.traptricker.objects.GameObject;
 import com.traptricker.objects.ID;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -25,10 +27,19 @@ public class HUD {
 
   private final Handler handler;
   private final Game game;
+  private Font gameFont;
 
   public HUD(Handler handler, Game game) {
     this.handler = handler;
     this.game = game;
+
+    // Adds the custom font
+    try {
+      gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/aAkhirTahun.ttf"))
+          .deriveFont(20f);
+    } catch (IOException | FontFormatException e) {
+      e.printStackTrace();
+    }
   }
 
   public void tick() {
@@ -73,15 +84,15 @@ public class HUD {
     g.setColor(Color.red);
     g.fillRect(24, 24, 292 * health / healthMax, 32);
     g.setColor(Color.white);
-    g.setFont(new Font("Sans Serif", Font.PLAIN, 20));
+    g.setFont(gameFont.deriveFont(20f));
     g.drawString(String.format("Score: %d", score), 20, 80);
     g.drawString(String.format("Level: %d", level), 20, 100);
     if (shrinkPowerupTimeLeft > 0) {
-      g.drawString(String.format("Shrink left: %d", shrinkPowerupTimeLeft), game.getWidth() - 150,
+      g.drawString(String.format("Shrink left: %d", shrinkPowerupTimeLeft), game.getWidth() - 200,
           36);
     }
     if (shieldPowerupTimeLeft > 0) {
-      g.drawString(String.format("Shield left: %d", shieldPowerupTimeLeft), game.getWidth() - 150,
+      g.drawString(String.format("Shield left: %d", shieldPowerupTimeLeft), game.getWidth() - 200,
           72);
     }
   }

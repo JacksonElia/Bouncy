@@ -171,6 +171,9 @@ public class Game extends Canvas implements Runnable {
     } else if (interface_state == INTERFACE_STATE.TitleScreen) {
       handler.removeAllNonPlayerObjects();
       window.showCursor();
+      for (int i = 0; i < 20; i++) {
+        spawner.spawnTitleScreenEnemy();
+      }
     } else if (interface_state == INTERFACE_STATE.DeathScreen) {
       window.showCursor();
     }

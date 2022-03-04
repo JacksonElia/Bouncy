@@ -6,6 +6,7 @@ import com.traptricker.objects.GameObject;
 import com.traptricker.objects.ID;
 import com.traptricker.objects.Player;
 import com.traptricker.objects.Spawner;
+import com.traptricker.sound.SoundPlayer;
 import com.traptricker.userinterface.DeathScreen;
 import com.traptricker.userinterface.HUD;
 import com.traptricker.userinterface.INTERFACE_STATE;
@@ -16,6 +17,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferStrategy;
+import java.io.File;
+import java.io.IOException;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * The class used to connect the whole java project into a game.
@@ -33,7 +38,8 @@ public class Game extends Canvas implements Runnable {
   private Boolean running = false;
   private Thread thread;
 
-  public Game() {
+  public Game()
+      throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {
     handler = new Handler();
     hud = new HUD(handler, this);
     spawner = new Spawner(this, handler, hud);
@@ -52,9 +58,13 @@ public class Game extends Canvas implements Runnable {
     MouseInput mouseInput = new MouseInput(handler, this);
     this.addMouseListener(mouseInput);
     this.addMouseMotionListener(mouseInput);
+
+    // Makes bounce sound on start up
+    SoundPlayer.playClip(new File("src/main/resources/sfx-boing10.wav"));
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args)
+      throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {
     new Game();
   }
 

@@ -25,34 +25,34 @@ public class Spawner {
 
   public void tick() {
     // Handles the levels
-//    switch (hud.level) {
-//      case 1:
-//        levelOne();
-//        break;
-//      case 2:
-//        levelTwo();
-//        break;
-//      case 3:
-//        levelThree();
-//        break;
-//      case 4:
-//        levelFour();
-//        break;
-//      case 5:
-//        levelFive();
-//        break;
-//      default:
-//        levelEndless();
-//    }
+    switch (hud.level) {
+      case 1:
+        levelOne();
+        break;
+      case 2:
+        levelTwo();
+        break;
+      case 3:
+        levelThree();
+        break;
+      case 4:
+        levelFour();
+        break;
+      case 5:
+        levelFive();
+        break;
+      default:
+        levelEndless();
+    }
 
     if (hud.getScore() % 500 == 0) {
-      spawnShrinkPowerup();
+      int randPowerup = random.nextInt(2);
+      if (randPowerup == 0) {
+        spawnShrinkPowerup();
+      } else {
+        spawnShieldPowerup();
+      }
     }
-
-    if (hud.getScore() % 200 == 0) {
-      spawnShieldPowerup();
-    }
-
   }
 
   /*

@@ -5,6 +5,9 @@ import com.traptricker.Handler;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * This powerup will block the next damage the player receives.
+ */
 public class ShieldPowerup extends GameObject {
 
   private final Handler handler;
@@ -24,8 +27,6 @@ public class ShieldPowerup extends GameObject {
 
   @Override
   public void tick() {
-//    System.out.println(x);
-//    System.out.println(y);
     relativeX += Math.abs(xVelocity);
     x += xVelocity;
     if (start_corner == START_CORNER.topLeft || start_corner == START_CORNER.topRight) {

@@ -5,6 +5,9 @@ import com.traptricker.Handler;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * This powerup will shrink the player so that it is easier to dodge enemies.
+ */
 public class ShrinkPowerup extends GameObject {
 
   private final Handler handler;

@@ -15,7 +15,6 @@ public class Player extends GameObject {
   private final HUD hud;
   private final int initialRadius;
 
-  public boolean isShrunk = false;
   public int shrinkRadius;
   public boolean isShielded = false;
 
@@ -77,7 +76,7 @@ public class Player extends GameObject {
           case BasicEnemy:
             handler.objectsToRemove.add(object);
             if (isShielded) {
-              isShielded = false;
+              hud.setShieldPowerupTimeLeft(0);
               break;
             }
             hud.setHealth(hud.getHealth() - 100);
@@ -85,7 +84,7 @@ public class Player extends GameObject {
           case StreakEnemy:
             handler.objectsToRemove.add(object);
             if (isShielded) {
-              isShielded = false;
+              hud.setShieldPowerupTimeLeft(0);
               break;
             }
             hud.setHealth(hud.getHealth() - 300);
@@ -96,14 +95,14 @@ public class Player extends GameObject {
             break;
           case HomingEnemy:
             if (isShielded) {
-              isShielded = false;
+              hud.setShieldPowerupTimeLeft(0);
               break;
             }
             hud.setHealth(hud.getHealth() - 2);
             break;
           case InstantDeathEnemy:
             if (isShielded) {
-              isShielded = false;
+              hud.setShieldPowerupTimeLeft(0);
               break;
             }
             hud.setHealth(hud.getHealth() - HUD.healthMax);

@@ -1,8 +1,10 @@
 package com.traptricker.objects;
 
 import com.traptricker.Game;
+import com.traptricker.sound.SoundPlayer;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
 
 /**
  * This enemy always moves towards the player.
@@ -10,6 +12,8 @@ import java.awt.Graphics;
 public class HomingEnemy extends GameObject {
 
   private final Player player;
+
+  private final File humSound = new File("src/main/resources/es-electric-hum-1_htVFDSP5.wav");
 
   public HomingEnemy(Game game, int x, int y, int xVelocity, int yVelocity, int radius, ID id,
       Player player) {
@@ -25,6 +29,26 @@ public class HomingEnemy extends GameObject {
     double distance = Math.sqrt(xDifference * xDifference + yDifference * yDifference);
     x += xVelocity * Math.round(xDifference / distance);
     y += yVelocity * Math.round(yDifference / distance);
+
+    // Makes volume of sound gradually decrease with distance
+    // TODO: Smooth out sound
+    if (game.getTick() % 5 == 0) {
+      float soundVolume;
+      if (distance < 200) {
+        soundVolume = -30;
+      } else if (distance < 300) {
+        soundVolume = -40;
+      } else if (distance < 400) {
+        soundVolume = -50;
+      } else if (distance < 500) {
+        soundVolume = -60;
+      } else if (distance < 600) {
+        soundVolume = -70;
+      } else {
+        soundVolume = -80;
+      }
+      SoundPlayer.playSound(humSound, soundVolume);
+    }
   }
 
   @Override

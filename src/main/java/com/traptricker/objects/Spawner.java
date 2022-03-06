@@ -26,27 +26,31 @@ public class Spawner {
   // TODO: Revamp level lengths
   public void tick() {
     // Handles the levels
-    switch (hud.level) {
-      case 1:
-        levelOne();
-        break;
-      case 2:
-        levelTwo();
-        break;
-      case 3:
-        levelThree();
-        break;
-      case 4:
-        levelFour();
-        break;
-      case 5:
-        levelFive(4000);
-        break;
-      case 6:
-        levelSix();
-        break;
-      default:
-        levelEndless();
+//    switch (hud.level) {
+//      case 1:
+//        levelOne();
+//        break;
+//      case 2:
+//        levelTwo();
+//        break;
+//      case 3:
+//        levelThree();
+//        break;
+//      case 4:
+//        levelFour();
+//        break;
+//      case 5:
+//        levelFive(4000);
+//        break;
+//      case 6:
+//        levelSix();
+//        break;
+//      default:
+//        levelEndless();
+//    }
+
+    if (hud.getScore() % 200 == 0) {
+      spawnHomingEnemy();
     }
 
     if (hud.getScore() % 500 == 0) {

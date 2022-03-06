@@ -7,6 +7,7 @@ import com.traptricker.objects.ID;
 import com.traptricker.objects.Player;
 import com.traptricker.objects.Spawner;
 import com.traptricker.sound.SoundPlayer;
+import com.traptricker.userinterface.BackgroundEffects;
 import com.traptricker.userinterface.DeathScreen;
 import com.traptricker.userinterface.HUD;
 import com.traptricker.userinterface.INTERFACE_STATE;
@@ -30,6 +31,7 @@ public class Game extends Canvas implements Runnable {
   private final Window window;
   private final TitleScreen titleScreen;
   private final DeathScreen deathScreen;
+  private final BackgroundEffects backgroundEffects;
   public INTERFACE_STATE interface_state;
   public int tick = 0;
   private Boolean running = false;
@@ -46,6 +48,7 @@ public class Game extends Canvas implements Runnable {
             .getHeight());
     titleScreen = new TitleScreen(this, spawner);
     deathScreen = new DeathScreen(this, hud);
+    backgroundEffects = new BackgroundEffects(this, hud);
 
     interface_state = INTERFACE_STATE.TitleScreen;
 
@@ -118,6 +121,7 @@ public class Game extends Canvas implements Runnable {
     if (interface_state == INTERFACE_STATE.Game) {
       hud.tick();
       spawner.tick();
+      backgroundEffects.tick();
     } else if (interface_state == INTERFACE_STATE.TitleScreen) {
       titleScreen.tick();
     } else if (interface_state == INTERFACE_STATE.DeathScreen) {
@@ -138,6 +142,9 @@ public class Game extends Canvas implements Runnable {
     g.setColor(Color.black);
     g.fillRect(0, 0, getWidth(), getHeight());
 
+    if (interface_state == INTERFACE_STATE.Game) {
+      backgroundEffects.render(g);
+    }
     // Where the rendering happens
     handler.render(g);
     if (interface_state == INTERFACE_STATE.Game) {

@@ -12,6 +12,9 @@ import javax.sound.sampled.LineListener;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+/**
+ * This class is used to play sound effects and music.
+ */
 public class SoundPlayer {
 
   public static synchronized void playSound(File clipFile, Float changeInDecibels) {

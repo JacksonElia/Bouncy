@@ -2,8 +2,10 @@ package com.traptricker.objects;
 
 import com.traptricker.Game;
 import com.traptricker.Handler;
+import com.traptricker.sound.SoundPlayer;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
 
 /**
  * This enemy travels in an arc similar to sqrt(x), and explodes when it nears the player.
@@ -20,6 +22,8 @@ public class FireworkEnemy extends GameObject {
   private Color color = Color.orange;
   private Boolean isExploding = false;
   private int tickCounterAfterExploding = 0;
+
+  private static final File explosionSound = new File("src/main/resources/explosion.wav");
 
   public FireworkEnemy(Game game, int x, int y, int xVelocity, int yVelocity, int radius,
       ID id, Player player, Handler handler, START_CORNER start_corner, int initialRadius) {
@@ -52,8 +56,11 @@ public class FireworkEnemy extends GameObject {
               - x - initialRadius) + (player.getY() + player.getRadius() - y - initialRadius)
           * (player.getY() + player.getRadius() - y - initialRadius))
           < radius * radius) {
-        isExploding = true;
-        color = Color.red;
+        if (!isExploding) {
+          SoundPlayer.playSound(explosionSound, -10f);
+          isExploding = true;
+          color = Color.red;
+        }
       }
       // Kills this object when it goes offscreen
       if ((x < -4 * initialRadius) || (x > game.getWidth() + 4 * initialRadius) || (y

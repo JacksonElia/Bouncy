@@ -13,8 +13,7 @@ public class HomingEnemy extends GameObject {
 
   private final Player player;
 
-  private static final File humSound = new File(
-      "src/main/resources/es-electric-hum-1_htVFDSP5.wav");
+  private static final File humSound = new File("src/main/resources/es-electric-hum-1_htVFDSP5.wav");
 
   public HomingEnemy(Game game, int x, int y, int xVelocity, int yVelocity, int radius, ID id,
       Player player) {

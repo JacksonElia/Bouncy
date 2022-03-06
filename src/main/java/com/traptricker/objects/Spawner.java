@@ -49,10 +49,6 @@ public class Spawner {
         levelEndless();
     }
 
-    if (hud.getScore() == 2) {
-      spawnInstantDeathEnemy();
-    }
-
     if (hud.getScore() % 500 == 0) {
       int randPowerup = random.nextInt(2);
       if (randPowerup == 0) {

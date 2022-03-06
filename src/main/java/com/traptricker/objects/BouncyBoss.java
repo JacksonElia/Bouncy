@@ -2,8 +2,10 @@ package com.traptricker.objects;
 
 import com.traptricker.Game;
 import com.traptricker.Handler;
+import com.traptricker.sound.SoundPlayer;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
 import java.util.Random;
 
 /**
@@ -14,6 +16,8 @@ public class BouncyBoss extends GameObject {
   private final Handler handler;
   private final Random random = new Random();
   private int lifespan;
+
+  private static final File heavyBounceSound = new File("src/main/resources/heavy-ball-bounce.wav");
 
   public BouncyBoss(Game game, int x, int y, int xVelocity, int yVelocity, int radius, int lifespan,
       ID id, Handler handler) {
@@ -34,6 +38,7 @@ public class BouncyBoss extends GameObject {
       } else {
         xVelocity -= random.nextInt(4);
       }
+      SoundPlayer.playSound(heavyBounceSound, 0f);
     }
     if (y <= 0 || y >= game.getHeight() - radius * 2) {
       yVelocity *= -1;
@@ -42,6 +47,7 @@ public class BouncyBoss extends GameObject {
       } else {
         yVelocity -= random.nextInt(3);
       }
+      SoundPlayer.playSound(heavyBounceSound,  0f);
     }
 
     x += xVelocity;

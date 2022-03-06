@@ -15,7 +15,7 @@ public class StreakEnemy extends GameObject {
   private final Handler handler;
   public START_SIDE start_side;
 
-  private final File whizzSound = new File(
+  private static final File whizzSound = new File(
       "src/main/resources/bullet_whizzing_by-Mike_Koenig-2005433595.wav");
 
   public StreakEnemy(Game game, int x, int y, int xVelocity, int yVelocity, int radius, ID id,

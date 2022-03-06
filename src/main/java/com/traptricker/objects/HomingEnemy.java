@@ -13,7 +13,8 @@ public class HomingEnemy extends GameObject {
 
   private final Player player;
 
-  private final File humSound = new File("src/main/resources/es-electric-hum-1_htVFDSP5.wav");
+  private static final File humSound = new File(
+      "src/main/resources/es-electric-hum-1_htVFDSP5.wav");
 
   public HomingEnemy(Game game, int x, int y, int xVelocity, int yVelocity, int radius, ID id,
       Player player) {
@@ -32,16 +33,17 @@ public class HomingEnemy extends GameObject {
 
     // Makes volume of sound gradually decrease with distance
     // TODO: Smooth out sound
+    // TODO: Add a counter to cap how many of these sounds can be played
     if (game.getTick() % 5 == 0) {
       float soundVolume;
       if (distance < 200) {
-        soundVolume = -30;
+        soundVolume = -25;
       } else if (distance < 300) {
-        soundVolume = -40;
+        soundVolume = -35;
       } else if (distance < 400) {
-        soundVolume = -50;
+        soundVolume = -45;
       } else if (distance < 500) {
-        soundVolume = -60;
+        soundVolume = -55;
       } else if (distance < 600) {
         soundVolume = -70;
       } else {

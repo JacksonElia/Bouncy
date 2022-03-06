@@ -8,7 +8,7 @@ import java.io.File;
 
 public class BasicEnemy extends GameObject {
 
-  private final File bounceSound = new File("src/main/resources/ball-bounce.wav");
+  private static final File bounceSound = new File("src/main/resources/ball-bounce.wav");
 
   public BasicEnemy(Game game, int x, int y, int xVelocity, int yVelocity, int radius, ID id) {
     super(game, x, y, xVelocity, yVelocity, radius, id);

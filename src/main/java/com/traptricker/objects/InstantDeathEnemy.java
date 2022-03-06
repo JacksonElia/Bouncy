@@ -2,8 +2,10 @@ package com.traptricker.objects;
 
 import com.traptricker.Game;
 import com.traptricker.Handler;
+import com.traptricker.sound.SoundPlayer;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
 
 /**
  * This enemy moves very slowly and is very visible but will instantly kill the player if touched.
@@ -18,6 +20,8 @@ public class InstantDeathEnemy extends GameObject {
   private double actualX;
   private double actualY;
 
+  private static final File sirenSound = new File("src/main/resources/air-raid-siren_djgTknvd.wav");
+
   public InstantDeathEnemy(Game game, int x, int y, int xVelocity, int yVelocity, int radius,
       ID id, Player player, Handler handler) {
     super(game, x, y, xVelocity, yVelocity, radius, id);
@@ -31,13 +35,15 @@ public class InstantDeathEnemy extends GameObject {
     actualY = y;
     rise = yDifference / distance;
     run = xDifference / distance;
+
+    SoundPlayer.playSound(sirenSound, -20f);
   }
 
   @Override
   public void tick() {
     // Makes the enemy approach the player's original position
-    actualX += run * xVelocity;
-    actualY += rise * yVelocity;
+    actualX += run * (xVelocity + .3);
+    actualY += rise * (yVelocity + .3);
     x = (int) Math.round(actualX);
     y = (int) Math.round(actualY);
 

@@ -23,6 +23,7 @@ public class Spawner {
     this.random = new Random();
   }
 
+  // TODO: Revamp level lengths
   public void tick() {
     // Handles the levels
     switch (hud.level) {
@@ -39,7 +40,10 @@ public class Spawner {
         levelFour();
         break;
       case 5:
-        levelFive();
+        levelFive(4000);
+        break;
+      case 6:
+        levelSix();
         break;
       default:
         levelEndless();
@@ -67,7 +71,7 @@ public class Spawner {
     // Stops the enemy from spawning with no velocity
     int xVelocity = 0;
     int yVelocity = 0;
-    while (xVelocity + yVelocity == 0) {
+    while (Math.abs(xVelocity) + Math.abs(yVelocity) == 0) {
       xVelocity = random.nextInt(10) - 5;
       yVelocity = random.nextInt(10) - 5;
     }
@@ -106,7 +110,7 @@ public class Spawner {
     // Stops the enemy from spawning with no velocity
     int xVelocity = 0;
     int yVelocity = 0;
-    while (xVelocity + yVelocity == 0) {
+    while (Math.abs(xVelocity) + Math.abs(yVelocity) == 0) {
       xVelocity = random.nextInt(10) - 5;
       yVelocity = random.nextInt(10) - 5;
     }
@@ -292,6 +296,31 @@ public class Spawner {
   }
 
   /*
+  Bosses
+   */
+
+  private void spawnBouncyBoss() {
+    int radius = 225;
+    // Stops the enemy from spawning too close to the player
+    int x = random.nextInt(game.getWidth() - 2 * radius);
+    int y = random.nextInt(game.getHeight() - 2 * radius);
+    int playerX = 0;
+    int playerY = 0;
+    for (GameObject object : handler.objects) {
+      if (object.getID() == ID.Player) {
+        playerX = object.getX();
+        playerY = object.getY();
+      }
+    }
+    while ((x - playerX) * (x - playerX) + (y - playerY) * (y - playerY) < 90000) {
+      x = random.nextInt(game.getWidth() - 2 * radius);
+      y = random.nextInt(game.getHeight() - 2 * radius);
+    }
+
+    handler.addObject(new BouncyBoss(game, x, y, 5, 4, radius, 1000, ID.BouncyBoss, handler));
+  }
+
+  /*
   Powerups
    */
 
@@ -423,7 +452,14 @@ public class Spawner {
     }
   }
 
-  private void levelFive() {
+  private void levelFive(int startScore) {
+    if (hud.getScore() == startScore + 5) {
+      handler.removeAllNonPlayerObjects();
+      spawnBouncyBoss();
+    }
+  }
+
+  private void levelSix() {
     if (hud.getScore() % 600 == 0) {
       spawnBasicEnemy();
     }

@@ -16,6 +16,7 @@ public class Player extends GameObject {
   private final int initialRadius;
 
   public int shrinkRadius;
+  public int playerIFrames = 0;
   public boolean isShielded = false;
 
   public Player(Game game, int x, int y, int radius, ID id, Handler handler, HUD hud) {
@@ -51,6 +52,10 @@ public class Player extends GameObject {
 
   @Override
   public void tick() {
+    // Ticks down IFrames
+    if (playerIFrames > 0) {
+      playerIFrames--;
+    }
     // Powerup effects
     if (hud.getShrinkPowerupTimeLeft() > 0) {
       radius = shrinkRadius;
@@ -107,6 +112,15 @@ public class Player extends GameObject {
               break;
             }
             hud.setHealth(hud.getHealth() - HUD.healthMax);
+            break;
+          /*
+          Bosses
+           */
+          case BouncyBoss:
+            if (playerIFrames == 0) {
+              playerIFrames = 75;
+              hud.setHealth(hud.getHealth() - 200);
+            }
             break;
           /*
           Powerups

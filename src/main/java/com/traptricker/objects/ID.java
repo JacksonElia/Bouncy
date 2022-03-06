@@ -19,6 +19,9 @@ public enum ID {
   InstantDeathEnemy(),
   FireworkEnemy(),
 
+  // Bosses
+  BouncyBoss(),
+
   // Powerups
   ShrinkPowerup(),
   ShieldPowerup()

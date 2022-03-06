@@ -18,9 +18,6 @@ import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferStrategy;
 import java.io.File;
-import java.io.IOException;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * The class used to connect the whole java project into a game.
@@ -38,8 +35,7 @@ public class Game extends Canvas implements Runnable {
   private Boolean running = false;
   private Thread thread;
 
-  public Game()
-      throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {
+  public Game() {
     handler = new Handler();
     hud = new HUD(handler, this);
     spawner = new Spawner(this, handler, hud);
@@ -60,11 +56,10 @@ public class Game extends Canvas implements Runnable {
     this.addMouseMotionListener(mouseInput);
 
     // Makes bounce sound on start up
-    SoundPlayer.playClip(new File("src/main/resources/sfx-boing10.wav"));
+    SoundPlayer.playSound(new File("src/main/resources/sfx-boing10.wav"), 0f);
   }
 
-  public static void main(String[] args)
-      throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {
+  public static void main(String[] args) {
     new Game();
   }
 
@@ -126,7 +121,6 @@ public class Game extends Canvas implements Runnable {
     } else if (interface_state == INTERFACE_STATE.TitleScreen) {
       titleScreen.tick();
     } else if (interface_state == INTERFACE_STATE.DeathScreen) {
-      spawner.tick();
       deathScreen.tick();
     }
   }

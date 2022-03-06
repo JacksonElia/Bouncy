@@ -2,8 +2,10 @@ package com.traptricker.objects;
 
 import com.traptricker.Game;
 import com.traptricker.Handler;
+import com.traptricker.sound.SoundPlayer;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
 
 /**
  * This enemy is very small and fast moving, but does a lot of damage.
@@ -13,11 +15,16 @@ public class StreakEnemy extends GameObject {
   private final Handler handler;
   public START_SIDE start_side;
 
+  private final File whizzSound = new File(
+      "src/main/resources/bullet_whizzing_by-Mike_Koenig-2005433595.wav");
+
   public StreakEnemy(Game game, int x, int y, int xVelocity, int yVelocity, int radius, ID id,
       Handler handler, START_SIDE start_side) {
     super(game, x, y, xVelocity, yVelocity, radius, id);
     this.handler = handler;
     this.start_side = start_side;
+
+    SoundPlayer.playSound(whizzSound, -5f);
   }
 
   @Override

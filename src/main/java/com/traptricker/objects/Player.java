@@ -119,6 +119,10 @@ public class Player extends GameObject {
           case BouncyBoss:
             if (playerIFrames == 0) {
               playerIFrames = 75;
+              if (isShielded) {
+                hud.setShieldPowerupTimeLeft(0);
+                break;
+              }
               hud.setHealth(hud.getHealth() - 200);
             }
             break;

@@ -2,8 +2,10 @@ package com.traptricker.objects;
 
 import com.traptricker.Game;
 import com.traptricker.Handler;
+import com.traptricker.sound.SoundPlayer;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
 
 /**
  * This powerup will shrink the player so that it is easier to dodge enemies.
@@ -17,6 +19,8 @@ public class ShrinkPowerup extends GameObject {
   private final int shrinkRadius;
   private int relativeX = 0;
   private final int shrinkTime;
+  private static final File shrinkSound = new File("src/main/resources/shrink-sound.wav");
+  private static final File growSound = new File("src/main/resources/grow-sound.wav");
 
   public ShrinkPowerup(Game game, int x, int y, int xVelocity, double yVelocity,
       int radius, int shrinkRadius, int shrinkTime, ID id, Handler handler, START_SIDE start_side) {
@@ -81,6 +85,14 @@ public class ShrinkPowerup extends GameObject {
 
   public int getShrinkTime() {
     return shrinkTime;
+  }
+
+  public static void playShrinkSound() {
+    SoundPlayer.playSound(shrinkSound, -10f);
+  }
+
+  public static void playGrowSound() {
+    SoundPlayer.playSound(growSound, -10f);
   }
 
   public enum START_SIDE {

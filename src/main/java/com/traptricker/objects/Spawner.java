@@ -501,7 +501,7 @@ public class Spawner {
 
     if (hud.getScore() % 999 == 0) {
       spawnHomingEnemy();
-      spawnInstantDeathEnemy();
+      if (hud.getLevel() % 2 == 0) spawnInstantDeathEnemy();
     }
   }
 

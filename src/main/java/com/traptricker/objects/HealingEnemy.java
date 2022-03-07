@@ -2,8 +2,10 @@ package com.traptricker.objects;
 
 import com.traptricker.Game;
 import com.traptricker.Handler;
+import com.traptricker.sound.SoundPlayer;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
 
 /**
  * This enemy heals the player if they hit it.
@@ -13,6 +15,7 @@ public class HealingEnemy extends GameObject {
   public START_SIDE start_side;
 
   private final Handler handler;
+  private static final File healSound = new File("src/main/resources/health_up.wav");
 
   public HealingEnemy(Game game, int x, int y, int xVelocity, int yVelocity, int radius, ID id,
       Handler handler, START_SIDE start_side) {
@@ -55,6 +58,10 @@ public class HealingEnemy extends GameObject {
   public void render(Graphics g) {
     g.setColor(Color.green);
     g.fillRect(x, y, radius * 2, radius * 2);
+  }
+
+  public static void playHealSound() {
+    SoundPlayer.playSound(healSound, -10f);
   }
 
   public enum START_SIDE {

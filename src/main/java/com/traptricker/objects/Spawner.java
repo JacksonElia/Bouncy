@@ -539,33 +539,12 @@ public class Spawner {
     }
 
     if (hud.getScore() % 999 == 0) {
-      spawnHomingEnemy();
       spawnInstantDeathEnemy();
     }
   }
 
   private void levelEight() {
     if (hud.getScore() % 400 == 0) {
-      spawnBasicEnemy();
-    }
-
-    if (hud.getScore() % 200 == 0) {
-      spawnStreakEnemy();
-      spawnHealingEnemy();
-    }
-
-    if (hud.getScore() % 350 == 0) {
-      spawnShooterEnemy();
-      spawnFireworkEnemy();
-    }
-
-    if (hud.getScore() % 999 == 0) {
-      spawnHomingEnemy();
-    }
-  }
-
-  private void levelEndless() {
-    if (hud.getScore() % 500 == 0) {
       spawnBasicEnemy();
     }
 
@@ -581,6 +560,26 @@ public class Spawner {
 
     if (hud.getScore() % 999 == 0) {
       spawnHomingEnemy();
+    }
+  }
+
+  private void levelEndless() {
+    if (hud.getScore() % 600 == 0) {
+      spawnBasicEnemy();
+    }
+
+    if (hud.getScore() % 300 == 0) {
+      spawnStreakEnemy();
+      spawnHealingEnemy();
+    }
+
+    if (hud.getScore() % 350 == 0) {
+      spawnShooterEnemy();
+      spawnFireworkEnemy();
+    }
+
+    if (hud.getScore() % 999 == 0) {
+//      spawnHomingEnemy();
       if (hud.getLevel() % 2 == 0) spawnInstantDeathEnemy();
     }
   }

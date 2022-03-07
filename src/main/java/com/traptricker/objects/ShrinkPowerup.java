@@ -88,11 +88,11 @@ public class ShrinkPowerup extends GameObject {
   }
 
   public static void playShrinkSound() {
-    SoundPlayer.playSound(shrinkSound, -10f);
+    SoundPlayer.playSound(shrinkSound, -15f);
   }
 
   public static void playGrowSound() {
-    SoundPlayer.playSound(growSound, -10f);
+    SoundPlayer.playSound(growSound, -25f);
   }
 
   public enum START_SIDE {

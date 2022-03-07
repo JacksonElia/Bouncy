@@ -325,9 +325,9 @@ public class Spawner {
       xVelocity *= -1;
     }
     if (random.nextBoolean()) {
-      y = random.nextInt(game.getHeight() / 3 + 50) - 50;
+      y = random.nextInt(game.getHeight() / 3 + 100) - 50;
     } else {
-      y = random.nextInt(2 * game.getHeight() / 3 + 50) - 50;
+      y = random.nextInt(2 * game.getHeight() / 3 + 100) - 50;
     }
 
     Player player = null;

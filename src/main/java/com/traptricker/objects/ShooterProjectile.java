@@ -5,6 +5,9 @@ import com.traptricker.Handler;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * This projectile is shot by the ShooterEnemy, it travels fast but does minimal damage.
+ */
 public class ShooterProjectile extends GameObject {
 
   private final double rise;

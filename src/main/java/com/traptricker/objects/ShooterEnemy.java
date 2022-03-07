@@ -2,14 +2,21 @@ package com.traptricker.objects;
 
 import com.traptricker.Game;
 import com.traptricker.Handler;
+import com.traptricker.sound.SoundPlayer;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
 
+/**
+ * This enemy travels across the screen horizontally and shoots fast projectiles at the player.
+ */
 public class ShooterEnemy extends GameObject {
 
   private final Player player;
   private final Handler handler;
   private final Spawner spawner;
+
+  private static final File shootSound = new File("src/main/resources/Laser-pew-sound-effect.wav");
 
   public ShooterEnemy(Game game, int x, int y, int xVelocity, int yVelocity,
       int radius, ID id, Player player, Handler handler, Spawner spawner) {
@@ -24,6 +31,7 @@ public class ShooterEnemy extends GameObject {
     x += xVelocity;
 
     if (game.getTick() == 1) {
+      SoundPlayer.playSound(shootSound, -10f);
       spawner.addObjectToSpawn(
           new ShooterProjectile(game, x, y, 13, 13, 8, ID.ShooterProjectile, player, handler));
     }

@@ -4,6 +4,7 @@ import com.traptricker.Game;
 import com.traptricker.Handler;
 import com.traptricker.userinterface.HUD;
 import java.awt.Color;
+import java.util.LinkedList;
 import java.util.Random;
 
 /**
@@ -16,6 +17,8 @@ public class Spawner {
   private final HUD hud;
   private final Random random;
 
+  public LinkedList<GameObject> objectsToSpawn = new LinkedList<>();
+
   public Spawner(Game game, Handler handler, HUD hud) {
     this.game = game;
     this.handler = handler;
@@ -26,28 +29,30 @@ public class Spawner {
   // TODO: Revamp level lengths
   public void tick() {
     // Handles the levels
-    switch (hud.level) {
-      case 1:
-        levelOne();
-        break;
-      case 2:
-        levelTwo();
-        break;
-      case 3:
-        levelThree();
-        break;
-      case 4:
-        levelFour();
-        break;
-      case 5:
-        levelFive(4000);
-        break;
-      case 6:
-        levelSix();
-        break;
-      default:
-        levelEndless();
-    }
+//    switch (hud.level) {
+//      case 1:
+//        levelOne();
+//        break;
+//      case 2:
+//        levelTwo();
+//        break;
+//      case 3:
+//        levelThree();
+//        break;
+//      case 4:
+//        levelFour();
+//        break;
+//      case 5:
+//        levelFive(4000);
+//        break;
+//      case 6:
+//        levelSix();
+//        break;
+//      default:
+//        levelEndless();
+//    }
+
+    if (hud.getScore() % 300 == 0) spawnShooterEnemy();
 
     if (hud.getScore() % 500 == 0) {
       int randPowerup = random.nextInt(2);
@@ -57,6 +62,15 @@ public class Spawner {
         spawnShieldPowerup();
       }
     }
+
+    for (GameObject object: objectsToSpawn) {
+      handler.addObject(object);
+    }
+    objectsToSpawn.clear();
+  }
+
+  public void addObjectToSpawn(GameObject object) {
+    objectsToSpawn.add(object);
   }
 
   /*
@@ -295,6 +309,36 @@ public class Spawner {
         player, handler, start_corner, radius / 8));
   }
 
+  private void spawnShooterEnemy() {
+    int radius = 12;
+    int x, y;
+    int xVelocity = 8;
+    int yVelocity = 0;
+    if (random.nextBoolean()) {
+      x = -(radius * 2);
+    } else {
+      x = game.getWidth() + radius * 2;
+      xVelocity *= -1;
+    }
+    if (random.nextBoolean()) {
+      y = random.nextInt(game.getHeight() / 3 + 50) - 50;
+    } else {
+      y = random.nextInt(2 * game.getHeight() / 3 + 50) - 50;
+    }
+
+    Player player = null;
+    for (GameObject object : handler.objects) {
+      if (object.getID() == ID.Player) {
+        player = (Player) object;
+      }
+    }
+
+    assert player != null;
+    handler.addObject(
+        new ShooterEnemy(game, x, y, xVelocity, yVelocity, radius, ID.ShooterEnemy, player,
+            handler, this));
+  }
+
   /*
   Bosses
    */
@@ -501,7 +545,9 @@ public class Spawner {
 
     if (hud.getScore() % 999 == 0) {
       spawnHomingEnemy();
-      if (hud.getLevel() % 2 == 0) spawnInstantDeathEnemy();
+      if (hud.getLevel() % 2 == 0) {
+        spawnInstantDeathEnemy();
+      }
     }
   }
 

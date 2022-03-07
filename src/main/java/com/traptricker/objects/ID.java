@@ -18,9 +18,13 @@ public enum ID {
   HomingEnemy(),
   InstantDeathEnemy(),
   FireworkEnemy(),
+  ShooterEnemy(),
 
   // Bosses
   BouncyBoss(),
+
+  // Projectiles
+  ShooterProjectile(),
 
   // Powerups
   ShrinkPowerup(),

@@ -29,30 +29,34 @@ public class Spawner {
   // TODO: Revamp level lengths
   public void tick() {
     // Handles the levels
-//    switch (hud.level) {
-//      case 1:
-//        levelOne();
-//        break;
-//      case 2:
-//        levelTwo();
-//        break;
-//      case 3:
-//        levelThree();
-//        break;
-//      case 4:
-//        levelFour();
-//        break;
-//      case 5:
-//        levelFive(4000);
-//        break;
-//      case 6:
-//        levelSix();
-//        break;
-//      default:
-//        levelEndless();
-//    }
-
-    if (hud.getScore() % 300 == 0) spawnShooterEnemy();
+    switch (hud.level) {
+      case 1:
+        levelOne();
+        break;
+      case 2:
+        levelTwo();
+        break;
+      case 3:
+        levelThree();
+        break;
+      case 4:
+        levelFour();
+        break;
+      case 5:
+        levelFive(4000);
+        break;
+      case 6:
+        levelSix();
+        break;
+      case 7:
+        levelSeven();
+        break;
+      case 8:
+        levelEight();
+        break;
+      default:
+        levelEndless();
+    }
 
     if (hud.getScore() % 500 == 0) {
       int randPowerup = random.nextInt(2);
@@ -465,11 +469,7 @@ public class Spawner {
       spawnStreakEnemy();
     }
 
-    if (hud.getScore() % 500 == 0) {
-      spawnFireworkEnemy();
-    }
-
-    if (hud.getScore() % 1000 == 0) {
+    if (hud.getScore() % 999 == 0) {
       spawnHomingEnemy();
     }
   }
@@ -487,10 +487,6 @@ public class Spawner {
       spawnHealingEnemy();
     }
 
-    if (hud.getScore() % 400 == 0) {
-      spawnFireworkEnemy();
-    }
-
     if (hud.getScore() % 999 == 0) {
       spawnHomingEnemy();
     }
@@ -504,7 +500,29 @@ public class Spawner {
   }
 
   private void levelSix() {
-    if (hud.getScore() % 600 == 0) {
+    if (hud.getScore() % 100 == 0) {
+      spawnBasicEnemy();
+    }
+
+    if (hud.getScore() % 300 == 0) {
+      spawnStreakEnemy();
+    }
+
+    if (hud.getScore() % 300 == 0) {
+      spawnHealingEnemy();
+    }
+
+    if (hud.getScore() % 300 == 0) {
+      spawnFireworkEnemy();
+    }
+
+    if (hud.getScore() % 999 == 0) {
+      spawnHomingEnemy();
+    }
+  }
+
+  private void levelSeven() {
+    if (hud.getScore() % 350 == 0) {
       spawnBasicEnemy();
     }
 
@@ -526,6 +544,26 @@ public class Spawner {
     }
   }
 
+  private void levelEight() {
+    if (hud.getScore() % 400 == 0) {
+      spawnBasicEnemy();
+    }
+
+    if (hud.getScore() % 200 == 0) {
+      spawnStreakEnemy();
+      spawnHealingEnemy();
+    }
+
+    if (hud.getScore() % 350 == 0) {
+      spawnShooterEnemy();
+      spawnFireworkEnemy();
+    }
+
+    if (hud.getScore() % 999 == 0) {
+      spawnHomingEnemy();
+    }
+  }
+
   private void levelEndless() {
     if (hud.getScore() % 500 == 0) {
       spawnBasicEnemy();
@@ -533,21 +571,17 @@ public class Spawner {
 
     if (hud.getScore() % 300 == 0) {
       spawnStreakEnemy();
-    }
-
-    if (hud.getScore() % 300 == 0) {
       spawnHealingEnemy();
     }
 
-    if (hud.getScore() % 300 == 0) {
+    if (hud.getScore() % 350 == 0) {
+      spawnShooterEnemy();
       spawnFireworkEnemy();
     }
 
     if (hud.getScore() % 999 == 0) {
       spawnHomingEnemy();
-      if (hud.getLevel() % 2 == 0) {
-        spawnInstantDeathEnemy();
-      }
+      if (hud.getLevel() % 2 == 0) spawnInstantDeathEnemy();
     }
   }
 

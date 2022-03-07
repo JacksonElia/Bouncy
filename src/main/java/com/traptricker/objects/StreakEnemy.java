@@ -36,22 +36,22 @@ public class StreakEnemy extends GameObject {
     switch (start_side) {
       case up:
         if (x < -10 || x > game.getWidth() || y > game.getHeight()) {
-          handler.objectsToRemove.add(this);
+          handler.removeObject(this);
         }
         break;
       case right:
         if (x < -10 || y < -10 || y > game.getHeight()) {
-          handler.objectsToRemove.add(this);
+          handler.removeObject(this);
         }
         break;
       case down:
         if (x < -10 || x > game.getWidth() || y < -10) {
-          handler.objectsToRemove.add(this);
+          handler.removeObject(this);
         }
         break;
       case left:
         if (x > game.getWidth() || y < -10 || y > game.getHeight()) {
-          handler.objectsToRemove.add(this);
+          handler.removeObject(this);
         }
         break;
     }

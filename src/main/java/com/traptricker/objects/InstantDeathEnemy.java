@@ -25,7 +25,6 @@ public class InstantDeathEnemy extends GameObject {
   public InstantDeathEnemy(Game game, int x, int y, int xVelocity, int yVelocity, int radius,
       ID id, Player player, Handler handler) {
     super(game, x, y, xVelocity, yVelocity, radius, id);
-    this.game = game;
     this.player = player;
     this.handler = handler;
     int xDifference = player.getX() + player.getRadius() - radius - x;
@@ -57,7 +56,7 @@ public class InstantDeathEnemy extends GameObject {
     // Kills this object when it goes offscreen
     if ((x < -4 * radius) || (x > game.getWidth() + 4 * radius) || (y < -4 * radius) || (y
         > game.getHeight() + 4 * radius)) {
-      handler.objectsToRemove.add(this);
+      handler.removeObject(this);
     }
 
   }

@@ -42,7 +42,7 @@ public class ShieldPowerup extends GameObject {
 
     // Kills this object when it goes offscreen
     if ((x < -10 * radius) || (x > game.getWidth() + 10 * radius)) {
-      handler.objectsToRemove.add(this);
+      handler.removeObject(this);
     }
   }
 

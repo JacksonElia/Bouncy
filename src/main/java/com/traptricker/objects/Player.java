@@ -81,7 +81,7 @@ public class Player extends GameObject {
           Enemies
            */
           case BasicEnemy:
-            handler.objectsToRemove.add(object);
+            handler.removeObject(object);
             if (isShielded) {
               hud.setShieldPowerupTimeLeft(0);
               ShieldPowerup.playShieldBrokenSound();
@@ -90,7 +90,7 @@ public class Player extends GameObject {
             hud.setHealth(hud.getHealth() - 100);
             break;
           case StreakEnemy:
-            handler.objectsToRemove.add(object);
+            handler.removeObject(object);
             if (isShielded) {
               hud.setShieldPowerupTimeLeft(0);
               ShieldPowerup.playShieldBrokenSound();
@@ -100,7 +100,7 @@ public class Player extends GameObject {
             break;
           case HealingEnemy:
             hud.setHealth(hud.getHealth() + 150);
-            handler.objectsToRemove.add(object);
+            handler.removeObject(object);
             HealingEnemy.playHealSound();
             break;
           case HomingEnemy:
@@ -120,6 +120,21 @@ public class Player extends GameObject {
             }
             hud.setHealth(hud.getHealth() - HUD.healthMax);
             break;
+          case ShooterEnemy:
+            // Breaks shooter on collision
+            handler.removeObject(object);
+          /*
+          Projectiles
+           */
+          case ShooterProjectile:
+            handler.removeObject(object);
+            if (isShielded) {
+              hud.setShieldPowerupTimeLeft(0);
+              ShieldPowerup.playShieldBrokenSound();
+              break;
+            }
+            hud.setHealth(hud.getHealth() - 70);
+            break;
           /*
           Bosses
            */
@@ -138,13 +153,13 @@ public class Player extends GameObject {
           Powerups
           */
           case ShrinkPowerup:
-            handler.objectsToRemove.add(object);
+            handler.removeObject(object);
             shrinkRadius = ((ShrinkPowerup) object).getShrinkRadius();
             hud.setShrinkPowerupTimeLeft(((ShrinkPowerup) object).getShrinkTime());
             ShrinkPowerup.playShrinkSound();
             break;
           case ShieldPowerup:
-            handler.objectsToRemove.add(object);
+            handler.removeObject(object);
             hud.setShieldPowerupTimeLeft(((ShieldPowerup) object).getShieldTime());
             ShieldPowerup.playShieldSound();
           default:

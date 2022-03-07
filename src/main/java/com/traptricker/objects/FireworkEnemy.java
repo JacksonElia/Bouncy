@@ -66,13 +66,13 @@ public class FireworkEnemy extends GameObject {
       if ((x < -4 * initialRadius) || (x > game.getWidth() + 4 * initialRadius) || (y
           < -4 * initialRadius) || (y
           > game.getHeight() + 4 * initialRadius)) {
-        handler.objectsToRemove.add(this);
+        handler.removeObject(this);
       }
       // Executed when exploding, checks for when to kill the object
     } else {
       tickCounterAfterExploding++;
       if (tickCounterAfterExploding >= 100) {
-        handler.objectsToRemove.add(this);
+        handler.removeObject(this);
       }
     }
   }

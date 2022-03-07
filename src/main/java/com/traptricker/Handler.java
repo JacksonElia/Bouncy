@@ -18,7 +18,9 @@ public class Handler {
   // Updates all the game objects
   public void tick() {
     // Safely removes objects
-    removeObjects();
+    for (GameObject object : objectsToRemove) {
+      this.objects.remove(object);
+    }
     // This for loop iterates through all the game objects
     for (GameObject object : objects) {
       object.tick();
@@ -27,8 +29,6 @@ public class Handler {
 
   // Renders all the game objects
   public void render(Graphics g) {
-    // Safely removes objects
-    removeObjects();
     for (GameObject object : objects) {
       object.render(g);
     }
@@ -38,10 +38,8 @@ public class Handler {
     this.objects.add(object);
   }
 
-  public void removeObjects() {
-    for (GameObject object : objectsToRemove) {
-      this.objects.remove(object);
-    }
+  public void removeObject(GameObject object) {
+    this.objectsToRemove.add(object);
   }
 
   public void removeAllNonPlayerObjects() {

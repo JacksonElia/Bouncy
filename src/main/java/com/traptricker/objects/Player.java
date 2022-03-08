@@ -66,6 +66,12 @@ public class Player extends GameObject {
 
     isShielded = hud.getShieldPowerupTimeLeft() > 0;
 
+    if (hud.getTimeSlowPowerupTimeLeft() > 0) {
+      game.setTicksPerSecond(20);
+    } else {
+      game.setTicksPerSecond(Game.initialTicksPerSecond);
+    }
+
     // Collision
     for (GameObject object : handler.objects) {
       // Uses circular collision
@@ -162,6 +168,10 @@ public class Player extends GameObject {
             handler.removeObject(object);
             hud.setShieldPowerupTimeLeft(((ShieldPowerup) object).getShieldTime());
             ShieldPowerup.playShieldSound();
+            break;
+          case TimeSlowPowerup:
+            handler.removeObject(object);
+            hud.setTimeSlowPowerupTimeLeft(((TimeSlowPowerup) object).getTimeSlowTime());
           default:
         }
       }

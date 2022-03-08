@@ -28,6 +28,7 @@ public enum ID {
 
   // Powerups
   ShrinkPowerup(),
-  ShieldPowerup()
+  ShieldPowerup(),
+  TimeSlowPowerup()
 
 }

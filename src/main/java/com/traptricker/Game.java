@@ -33,7 +33,11 @@ public class Game extends Canvas implements Runnable {
   private final DeathScreen deathScreen;
   private final BackgroundEffects backgroundEffects;
   public INTERFACE_STATE interface_state;
+  // Used to change the speed of the game
   public int tick = 0;
+  public static double initialTicksPerSecond = 100.0;
+  public double ticksPerSecond = initialTicksPerSecond;
+  public double ns = 1000000000 / ticksPerSecond;
   private Boolean running = false;
   private Thread thread;
 
@@ -89,17 +93,15 @@ public class Game extends Canvas implements Runnable {
     this.requestFocus();
     // Standard Java game loop
     long lastTime = System.nanoTime();
-    double amountOfTicks = 100.0;
-    double ns = 1000000000 / amountOfTicks;
     double delta = 0;
     long timer = System.currentTimeMillis();
     while (running) {
       long now = System.nanoTime();
       delta += (now - lastTime) / ns;
       lastTime = now;
-      // The game is being updated amountOfTicks (100) times per second
+      // The game is being updated ticksPerSecond (100) times per second
       while (delta >= 1) {
-        tick %= amountOfTicks;
+        tick %= ticksPerSecond;
         tick++;
         tick();
         delta--;
@@ -192,6 +194,15 @@ public class Game extends Canvas implements Runnable {
 
   public int getTick() {
     return tick;
+  }
+
+  public double getTicksPerSecond() {
+    return ticksPerSecond;
+  }
+
+  public void setTicksPerSecond(double ticksPerSecond) {
+    this.ticksPerSecond = ticksPerSecond;
+    ns = 1000000000 / ticksPerSecond;
   }
 
 }

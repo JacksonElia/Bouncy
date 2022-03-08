@@ -5,6 +5,7 @@ import com.traptricker.Handler;
 import com.traptricker.datastorage.CSVManager;
 import com.traptricker.objects.GameObject;
 import com.traptricker.objects.ID;
+import com.traptricker.objects.TimeSlowPowerup;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -24,6 +25,7 @@ public class HUD {
   public int level = 1;
   public int shrinkPowerupTimeLeft = 0;
   public int shieldPowerupTimeLeft = 0;
+  public int timeSlowPowerupTimeLeft = 0;
 
   private final Handler handler;
   private final Game game;
@@ -50,6 +52,9 @@ public class HUD {
     if (game.getTick() == 1) {
       shrinkPowerupTimeLeft--;
       shieldPowerupTimeLeft--;
+    }
+    if (game.getTick() % TimeSlowPowerup.timeSlowTicksPerSecond == 0) {
+      timeSlowPowerupTimeLeft--;
     }
     if (health <= 0) {
       game.setInterface_state(INTERFACE_STATE.DeathScreen);
@@ -94,6 +99,10 @@ public class HUD {
     if (shieldPowerupTimeLeft > 0) {
       g.drawString(String.format("Shield left: %d", shieldPowerupTimeLeft), game.getWidth() - 200,
           72);
+    }
+    if (timeSlowPowerupTimeLeft > 0) {
+      g.drawString(String.format("Time Slow left: %d", timeSlowPowerupTimeLeft), game.getWidth() - 220,
+          108);
     }
   }
 
@@ -144,6 +153,14 @@ public class HUD {
 
   public void setShieldPowerupTimeLeft(int shieldPowerupTimeLeft) {
     this.shieldPowerupTimeLeft = shieldPowerupTimeLeft;
+  }
+
+  public int getTimeSlowPowerupTimeLeft() {
+    return timeSlowPowerupTimeLeft;
+  }
+
+  public void setTimeSlowPowerupTimeLeft(int timeSlowPowerupTimeLeft) {
+    this.timeSlowPowerupTimeLeft = timeSlowPowerupTimeLeft;
   }
 
 }

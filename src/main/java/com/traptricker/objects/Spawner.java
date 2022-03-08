@@ -58,6 +58,10 @@ public class Spawner {
         levelEndless();
     }
 
+    if (hud.getScore() % 700 == 0) {
+      spawnTimeSlowPowerup();
+    }
+
     if (hud.getScore() % 500 == 0) {
       int randPowerup = random.nextInt(2);
       if (randPowerup == 0) {
@@ -437,7 +441,35 @@ public class Spawner {
     handler.addObject(
         new ShieldPowerup(game, x, y, xVelocity, yVelocity, radius, 25, ID.ShieldPowerup, handler,
             start_corner));
+  }
 
+  private void spawnTimeSlowPowerup() {
+    int radius = 20;
+    // Gets a random start_corner
+    TimeSlowPowerup.START_CORNER start_corner = TimeSlowPowerup.START_CORNER.values()[random.nextInt(
+        TimeSlowPowerup.START_CORNER.values().length)];
+    int x;
+    int y = random.nextInt(game.getHeight() / 2) + game.getHeight() / 4;
+    int xVelocity = random.nextInt(5) + 3;
+    int yVelocity = random.nextInt(5) + 2;
+    // Assigns a semi-random velocity and position based on start_corner
+    switch (start_corner) {
+      case topLeft:
+      case bottomLeft:
+        x = -(2 * radius);
+        break;
+      case topRight:
+      case bottomRight:
+        x = game.getWidth() + 2 * radius;
+        xVelocity *= -1;
+        break;
+      default:
+        throw new IllegalStateException("Unexpected value: " + start_corner);
+    }
+
+    handler.addObject(
+        new TimeSlowPowerup(game, x, y, xVelocity, yVelocity, radius, 5, ID.TimeSlowPowerup, handler,
+            start_corner));
   }
 
   /*

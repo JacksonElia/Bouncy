@@ -49,7 +49,7 @@ public class HUD {
     score++;
     level = Math.floorDiv(score, 1000) + 1;
     // Has powerup time left count down
-    if (game.getTick() == 1) {
+    if (score % Game.initialTicksPerSecond == 0) {
       shrinkPowerupTimeLeft--;
       shieldPowerupTimeLeft--;
     }

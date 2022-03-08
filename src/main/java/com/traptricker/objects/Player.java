@@ -62,7 +62,13 @@ public class Player extends GameObject {
     } else {
       radius = initialRadius;
     }
-    if (hud.getShrinkPowerupTimeLeft() == 1) ShrinkPowerup.playGrowSound();
+
+    if (hud.getShrinkPowerupTimeLeft() == 1 && game.getTick() == 5) {
+      ShrinkPowerup.playGrowSound();
+    }
+    if (hud.getTimeSlowPowerupTimeLeft() == 1 && game.getTick() == 5) {
+      TimeSlowPowerup.playTimeSpeedSound();
+    }
 
     isShielded = hud.getShieldPowerupTimeLeft() > 0;
 
@@ -172,6 +178,7 @@ public class Player extends GameObject {
           case TimeSlowPowerup:
             handler.removeObject(object);
             hud.setTimeSlowPowerupTimeLeft(((TimeSlowPowerup) object).getTimeSlowTime());
+            TimeSlowPowerup.playTimeSlowSound();
           default:
         }
       }

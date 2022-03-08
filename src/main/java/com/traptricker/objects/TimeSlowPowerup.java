@@ -2,8 +2,10 @@ package com.traptricker.objects;
 
 import com.traptricker.Game;
 import com.traptricker.Handler;
+import com.traptricker.sound.SoundPlayer;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
 
 /**
  * This powerup will "freeze time" by setting the velocity of everything to zero
@@ -17,6 +19,9 @@ public class TimeSlowPowerup extends GameObject {
   private final int cValue;
   private final int timeSlowTime;
   private int relativeX = 0;
+
+  private static final File timeSlowSound = new File("src/main/resources/time-slow.wav");
+  private static final File timeSpeedSound = new File("src/main/resources/time-speed.wav");
 
   public TimeSlowPowerup(Game game, int x, int y, int xVelocity, int yVelocity,
       int radius, int timeSlowTime, ID id, Handler handler, START_CORNER start_corner) {
@@ -57,6 +62,14 @@ public class TimeSlowPowerup extends GameObject {
 
   public int getTimeSlowTime() {
     return timeSlowTime;
+  }
+
+  public static void playTimeSlowSound() {
+    SoundPlayer.playSound(timeSlowSound, -10f);
+  }
+
+  public static void playTimeSpeedSound() {
+    SoundPlayer.playSound(timeSpeedSound, -10f);
   }
 
   public enum START_CORNER {

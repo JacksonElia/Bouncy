@@ -29,33 +29,37 @@ public class Spawner {
   // TODO: Revamp level lengths
   public void tick() {
     // Handles the levels
-    switch (hud.level) {
-      case 1:
-        levelOne();
-        break;
-      case 2:
-        levelTwo();
-        break;
-      case 3:
-        levelThree();
-        break;
-      case 4:
-        levelFour();
-        break;
-      case 5:
-        levelFive(4000);
-        break;
-      case 6:
-        levelSix();
-        break;
-      case 7:
-        levelSeven();
-        break;
-      case 8:
-        levelEight();
-        break;
-      default:
-        levelEndless();
+//    switch (hud.level) {
+//      case 1:
+//        levelOne();
+//        break;
+//      case 2:
+//        levelTwo();
+//        break;
+//      case 3:
+//        levelThree();
+//        break;
+//      case 4:
+//        levelFour();
+//        break;
+//      case 5:
+//        levelFive(4000);
+//        break;
+//      case 6:
+//        levelSix();
+//        break;
+//      case 7:
+//        levelSeven();
+//        break;
+//      case 8:
+//        levelEight();
+//        break;
+//      default:
+//        levelEndless();
+//    }
+
+    if (hud.getScore() == 2) {
+      spawnBulletHellBoss();
     }
 
     if (hud.getScore() % 700 == 0) {
@@ -71,7 +75,7 @@ public class Spawner {
       }
     }
 
-    for (GameObject object: objectsToSpawn) {
+    for (GameObject object : objectsToSpawn) {
       handler.addObject(object);
     }
     objectsToSpawn.clear();
@@ -372,6 +376,23 @@ public class Spawner {
     handler.addObject(new BouncyBoss(game, x, y, 5, 4, radius, 1000, ID.BouncyBoss, handler));
   }
 
+  private void spawnBulletHellBoss() {
+    int radius = 80;
+    int x = game.getWidth() / 2 - radius;
+    int y = game.getHeight() / 2 - radius;
+    Player player = null;
+    for (GameObject object : handler.objects) {
+      if (object.getID() == ID.Player) {
+        player = (Player) object;
+      }
+    }
+
+    assert player != null;
+
+    handler.addObject(
+        new BulletHellBoss(game, x, y, 0, 0, radius, 1000, ID.BulletHellBoss, handler, player, this));
+  }
+
   /*
   Powerups
    */
@@ -468,7 +489,8 @@ public class Spawner {
     }
 
     handler.addObject(
-        new TimeSlowPowerup(game, x, y, xVelocity, yVelocity, radius, 5, ID.TimeSlowPowerup, handler,
+        new TimeSlowPowerup(game, x, y, xVelocity, yVelocity, radius, 5, ID.TimeSlowPowerup,
+            handler,
             start_corner));
   }
 
@@ -612,7 +634,9 @@ public class Spawner {
 
     if (hud.getScore() % 999 == 0) {
 //      spawnHomingEnemy();
-      if (hud.getLevel() % 2 == 0) spawnInstantDeathEnemy();
+      if (hud.getLevel() % 2 == 0) {
+        spawnInstantDeathEnemy();
+      }
     }
   }
 

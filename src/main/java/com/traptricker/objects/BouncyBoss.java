@@ -28,8 +28,6 @@ public class BouncyBoss extends GameObject {
 
   @Override
   public void tick() {
-    // Lifespan decreases every tick, a lifespan of 1000 correlates to 1000 score
-    lifespan--;
     // Keeps the enemy on screen and gradually speeds the boss up
     if (x <= 0 || x >= game.getWidth() - radius * 2) {
       xVelocity *= -1;
@@ -53,8 +51,10 @@ public class BouncyBoss extends GameObject {
     x += xVelocity;
     y += yVelocity;
 
+    // Lifespan decreases every tick, a lifespan of 1000 correlates to 1000 score
+    lifespan--;
     if (lifespan <= 0) {
-      handler.objectsToRemove.add(this);
+      handler.removeObject(this);
     }
 
   }

@@ -7,6 +7,7 @@ import java.awt.Graphics;
  * The class used to create all the objects in the game. It should have the basic variables and
  * methods that every game object has, e.g. x and y position
  */
+// TODO: Make abstract classes that specify what game object
 public abstract class GameObject {
 
   protected Game game;

@@ -167,6 +167,7 @@ public class Game extends Canvas implements Runnable {
 
   public void setInterface_state(INTERFACE_STATE interface_state) {
     this.interface_state = interface_state;
+    // FIXME: this sometimes causes a crash
     if (interface_state == INTERFACE_STATE.Game) {
       // Resets the game to the start
       hud.resetValues();

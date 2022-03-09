@@ -22,9 +22,11 @@ public enum ID {
 
   // Bosses
   BouncyBoss(),
+  BulletHellBoss(),
 
   // Projectiles
   ShooterProjectile(),
+  BulletHellProjectile(),
 
   // Powerups
   ShrinkPowerup(),

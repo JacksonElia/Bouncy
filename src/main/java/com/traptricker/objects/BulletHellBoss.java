@@ -18,6 +18,12 @@ public class BulletHellBoss extends GameObject {
   private int tickKeep = 0;
   private int lifespan;
   private int attackNumber;
+  private int xLocation;
+  private int yLocation;
+  private double rise;
+  private double run;
+  private double actualX;
+  private double actualY;
 
   public BulletHellBoss(Game game, int x, int y, int xVelocity, int yVelocity,
       int radius, int lifespan, ID id, Handler handler, Player player, Spawner spawner) {
@@ -26,10 +32,24 @@ public class BulletHellBoss extends GameObject {
     this.player = player;
     this.spawner = spawner;
     this.lifespan = lifespan;
+    xLocation = x;
+    yLocation = y;
+    actualX = x;
+    actualY = y;
   }
 
   @Override
   public void tick() {
+    // Makes the boss approach the random location
+    if (Math.abs(actualX - xLocation) > 3) {
+      actualX += run * xVelocity;
+      x = (int) actualX;
+    }
+
+    if (Math.abs(actualY - yLocation) > 3) {
+      actualY += rise * yVelocity;
+      y = (int) actualY;
+    }
 
     int initialAttackNumber = attackNumber;
     while (tickKeep == 0 && initialAttackNumber == attackNumber) {
@@ -39,6 +59,13 @@ public class BulletHellBoss extends GameObject {
       tickKeep++;
     } else {
       tickKeep = 0;
+      xLocation = random.nextInt(game.getWidth());
+      yLocation = random.nextInt(game.getHeight());
+      double xDifference = xLocation - radius - x;
+      double yDifference = yLocation - radius - y;
+      double distance = Math.sqrt(xDifference * xDifference + yDifference * yDifference);
+      rise = yDifference / distance;
+      run = xDifference / distance;
     }
     switch (attackNumber) {
       case 0:
@@ -97,7 +124,7 @@ public class BulletHellBoss extends GameObject {
       double rise = yDifference / distance;
       double run = xDifference / distance;
       spawner.addObjectToSpawn(
-          new BulletHellProjectile(game, x + radius, y + radius, 12, 12, 8, rise, run,
+          new BulletHellProjectile(game, x + radius, y + radius, 11, 11, 8, rise, run,
               ID.BulletHellProjectile, player, handler));
     }
   }

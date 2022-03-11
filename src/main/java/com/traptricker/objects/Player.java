@@ -147,6 +147,15 @@ public class Player extends GameObject {
             }
             hud.setHealth(hud.getHealth() - 70);
             break;
+          case BulletHellProjectile:
+            handler.removeObject(object);
+            if (isShielded) {
+              hud.setShieldPowerupTimeLeft(0);
+              ShieldPowerup.playShieldBrokenSound();
+              break;
+            }
+            hud.setHealth(hud.getHealth() - 60);
+            break;
           /*
           Bosses
            */
@@ -159,6 +168,17 @@ public class Player extends GameObject {
                 break;
               }
               hud.setHealth(hud.getHealth() - 200);
+            }
+            break;
+          case BulletHellBoss:
+            if (playerIFrames == 0) {
+              playerIFrames = 75;
+              if (isShielded) {
+                hud.setShieldPowerupTimeLeft(0);
+                ShieldPowerup.playShieldBrokenSound();
+                break;
+              }
+              hud.setHealth(hud.getHealth() - 100);
             }
             break;
           /*

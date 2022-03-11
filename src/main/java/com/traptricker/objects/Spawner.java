@@ -390,7 +390,7 @@ public class Spawner {
     assert player != null;
 
     handler.addObject(
-        new BulletHellBoss(game, x, y, 3, 3, radius, 1000, ID.BulletHellBoss, handler, player, this));
+        new BulletHellBoss(game, x, y, 3, 3, radius, 1000, ID.BulletHellBoss, handler, player, hud, this));
   }
 
   /*

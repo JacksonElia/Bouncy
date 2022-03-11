@@ -26,40 +26,41 @@ public class Spawner {
     this.random = new Random();
   }
 
-  // TODO: Revamp level lengths
   public void tick() {
     // Handles the levels
-//    switch (hud.level) {
-//      case 1:
-//        levelOne();
-//        break;
-//      case 2:
-//        levelTwo();
-//        break;
-//      case 3:
-//        levelThree();
-//        break;
-//      case 4:
-//        levelFour();
-//        break;
-//      case 5:
-//        levelFive(4000);
-//        break;
-//      case 6:
-//        levelSix();
-//        break;
-//      case 7:
-//        levelSeven();
-//        break;
-//      case 8:
-//        levelEight();
-//        break;
-//      default:
-//        levelEndless();
-//    }
-
-    if (hud.getScore() == 2) {
-      spawnBulletHellBoss();
+    switch (hud.level) {
+      case 1:
+        levelOne();
+        break;
+      case 2:
+        levelTwo();
+        break;
+      case 3:
+        levelThree();
+        break;
+      case 4:
+        levelFour();
+        break;
+      case 5:
+        levelFive(4000);
+        break;
+      case 6:
+        levelSix();
+        break;
+      case 7:
+        levelSeven();
+        break;
+      case 8:
+        levelEight();
+        break;
+      case 9:
+        levelNine();
+        break;
+      case 10:
+        levelTen(9000);
+        break;
+      default:
+        levelEndless();
     }
 
     if (hud.getScore() % 700 == 0) {
@@ -572,6 +573,7 @@ public class Spawner {
 
     if (hud.getScore() % 999 == 0) {
       spawnHomingEnemy();
+      spawnInstantDeathEnemy();
     }
   }
 
@@ -590,10 +592,6 @@ public class Spawner {
 
     if (hud.getScore() % 300 == 0) {
       spawnFireworkEnemy();
-    }
-
-    if (hud.getScore() % 999 == 0) {
-      spawnInstantDeathEnemy();
     }
   }
 
@@ -614,6 +612,32 @@ public class Spawner {
 
     if (hud.getScore() % 999 == 0) {
       spawnHomingEnemy();
+    }
+  }
+
+  private void levelNine() {
+    if (hud.getScore() % 300 == 0) {
+      spawnStreakEnemy();
+    }
+
+    if (hud.getScore() % 120 == 0) {
+      spawnHealingEnemy();
+    }
+
+    if (hud.getScore() % 350 == 0) {
+      spawnShooterEnemy();
+      spawnFireworkEnemy();
+    }
+
+    if (hud.getScore() % 999 == 0) {
+      spawnHomingEnemy();
+    }
+  }
+
+  private void levelTen(int startScore) {
+    if (hud.getScore() == startScore + 5) {
+      handler.removeAllNonPlayerObjects();
+      spawnBulletHellBoss();
     }
   }
 

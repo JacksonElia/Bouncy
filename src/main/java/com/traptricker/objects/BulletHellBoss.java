@@ -65,8 +65,8 @@ public class BulletHellBoss extends GameObject {
       tickKeep++;
     } else {
       tickKeep = 0;
-      xLocation = random.nextInt(game.getWidth());
-      yLocation = random.nextInt(game.getHeight());
+      xLocation = random.nextInt(game.getWidth() - 2 * radius) + radius;
+      yLocation = random.nextInt(game.getHeight() - 2 * radius) + radius;
       double xDifference = xLocation - radius - x;
       double yDifference = yLocation - radius - y;
       double distance = Math.sqrt(xDifference * xDifference + yDifference * yDifference);

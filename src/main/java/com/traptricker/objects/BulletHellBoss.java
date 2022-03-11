@@ -31,7 +31,8 @@ public class BulletHellBoss extends GameObject {
   @Override
   public void tick() {
 
-    if (tickKeep == 0) {
+    int initialAttackNumber = attackNumber;
+    while (tickKeep == 0 && initialAttackNumber == attackNumber) {
       attackNumber = random.nextInt(3);
     }
     if (tickKeep < Game.initialTicksPerSecond * 3) {
@@ -39,7 +40,6 @@ public class BulletHellBoss extends GameObject {
     } else {
       tickKeep = 0;
     }
-    attackNumber = 1;
     switch (attackNumber) {
       case 0:
         spiralAttack();
@@ -66,7 +66,7 @@ public class BulletHellBoss extends GameObject {
 
   private void spiralAttack() {
     // Makes a turning spiral of projectiles
-    if (tickKeep % 5 == 0) {
+    if (tickKeep % (Game.initialTicksPerSecond / 20) == 0) {
       double rise = Math.sin((2 * Math.PI * game.getTick()) / game.getTicksPerSecond());
       double run = Math.cos((2 * Math.PI * game.getTick()) / game.getTicksPerSecond());
       spawner.addObjectToSpawn(
@@ -97,7 +97,7 @@ public class BulletHellBoss extends GameObject {
       double rise = yDifference / distance;
       double run = xDifference / distance;
       spawner.addObjectToSpawn(
-          new BulletHellProjectile(game, x + radius, y + radius, 14, 14, 8, rise, run,
+          new BulletHellProjectile(game, x + radius, y + radius, 12, 12, 8, rise, run,
               ID.BulletHellProjectile, player, handler));
     }
   }

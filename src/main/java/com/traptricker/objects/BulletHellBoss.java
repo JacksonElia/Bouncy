@@ -66,9 +66,9 @@ public class BulletHellBoss extends GameObject {
 
   private void spiralAttack() {
     // Makes a turning spiral of projectiles
-    if (tickKeep % (Game.initialTicksPerSecond / 20) == 0) {
-      double rise = Math.sin((2 * Math.PI * game.getTick() + tickKeep) / game.getTicksPerSecond());
-      double run = Math.cos((2 * Math.PI * game.getTick() + tickKeep) / game.getTicksPerSecond());
+    if (tickKeep % 5 == 0) {
+      double rise = Math.sin((2 * Math.PI * game.getTick()) / game.getTicksPerSecond());
+      double run = Math.cos((2 * Math.PI * game.getTick()) / game.getTicksPerSecond());
       spawner.addObjectToSpawn(
           new BulletHellProjectile(game, x + radius, y + radius, 8, 8, 8, rise, run,
               ID.BulletHellProjectile, player, handler));
@@ -78,14 +78,9 @@ public class BulletHellBoss extends GameObject {
   private void burstAttack() {
     // Shoots projectiles out in all directions in bursts
     if (tickKeep % (Game.initialTicksPerSecond / 2) == 0) {
-      for (double i = 0; i < 12; i++) {
-        double offset = 0;
-        System.out.println(game.getTick());
-        if (game.getTick() <= game.getTicksPerSecond() / 2) {
-          offset = Math.PI;
-        }
-        double rise = Math.sin(2 * Math.PI * i / 12 + offset);
-        double run = Math.cos((2 * Math.PI) * i / 12 + offset);
+      for (double i = 0; i < 16; i++) {
+        double rise = Math.sin(2 * Math.PI * i / 12);
+        double run = Math.cos((2 * Math.PI) * i / 12);
         spawner.addObjectToSpawn(
             new BulletHellProjectile(game, x + radius, y + radius, 8, 8, 8, rise, run,
                 ID.BulletHellProjectile, player, handler));

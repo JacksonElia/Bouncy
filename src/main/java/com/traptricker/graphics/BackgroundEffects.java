@@ -1,6 +1,7 @@
-package com.traptricker.userinterface;
+package com.traptricker.graphics;
 
 import com.traptricker.Game;
+import com.traptricker.userinterface.HUD;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;

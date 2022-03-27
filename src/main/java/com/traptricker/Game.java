@@ -1,5 +1,6 @@
 package com.traptricker;
 
+import com.traptricker.graphics.BackgroundEffects;
 import com.traptricker.inputs.KeyInput;
 import com.traptricker.inputs.MouseInput;
 import com.traptricker.objects.GameObject;
@@ -7,7 +8,6 @@ import com.traptricker.objects.ID;
 import com.traptricker.objects.Player;
 import com.traptricker.objects.Spawner;
 import com.traptricker.sound.SoundPlayer;
-import com.traptricker.userinterface.BackgroundEffects;
 import com.traptricker.userinterface.DeathScreen;
 import com.traptricker.userinterface.HUD;
 import com.traptricker.userinterface.INTERFACE_STATE;

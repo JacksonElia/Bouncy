@@ -2,13 +2,17 @@ package com.traptricker.objects;
 
 import com.traptricker.Game;
 import com.traptricker.sound.SoundPlayer;
-import java.awt.Color;
+import com.traptricker.userinterface.Window;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.io.File;
+import javax.swing.ImageIcon;
 
 public class BasicEnemy extends GameObject {
 
+  // Gets the assets used by every BasicEnemy
   private static final File bounceSound = new File("src/main/resources/ball-bounce.wav");
+  private static final Image enemyGif = new ImageIcon("src/main/resources/transparency_test.gif").getImage();
 
   public BasicEnemy(Game game, int x, int y, int xVelocity, int yVelocity, int radius, ID id) {
     super(game, x, y, xVelocity, yVelocity, radius, id);
@@ -32,7 +36,7 @@ public class BasicEnemy extends GameObject {
 
   @Override
   public void render(Graphics g) {
-    g.setColor(Color.cyan);
-    g.fillRect(x, y, radius * 2, radius * 2);
+    // Draws the gif for the enemy
+    g.drawImage(enemyGif, x, y, radius * 2, radius * 2, Window.jFrame);
   }
 }

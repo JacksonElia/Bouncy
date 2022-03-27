@@ -14,7 +14,7 @@ import javax.swing.JFrame;
  */
 public class Window extends Canvas {
 
-  public JFrame jFrame;
+  public static JFrame jFrame;
   public Boolean isFullscreen = false;
 
   private final Game game;
